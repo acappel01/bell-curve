@@ -1,0 +1,129 @@
+@use "../abstracts/index" as *;
+// Results / "By the Numbers" section (`rs-*`) — dark stat grid. Mobile-first:
+// 1 column, 2 from 480px, 4 from 1024px.
+// Results / "By the Numbers" — dark stat grid. Mobile-first, scoped under
+// .rs-section: 1-col stats, 2-col from 480px, 4-col from 1024px.
+.rs-section {
+  display: flex;
+  justify-content: center;
+  // Padding-block only, and no cap on the inner: the frame supplies the
+  // gutter, content_width supplies the column. The dark band now reaches the
+  // viewport edge like the theme's other bands, which it did not before.
+  padding-block: clamp(48px, 8vw, 96px);
+  background: var(--dark-3);
+
+  .rs-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(40px, 6vw, 64px);
+    width: 100%;
+  }
+
+  .rs-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .rs-eyebrow {
+    margin: 0;
+    color: var(--sx-accent, var(--color-gold));
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .rs-heading {
+    margin: 0;
+    max-width: 770px;
+    color: var(--sx-text, #fff);
+    font-family: "Spectral", serif;
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 300;
+    line-height: 1.1;
+  }
+
+  .rs-heading em {
+    color: var(--sx-accent, var(--color-gold));
+    font-style: italic;
+  }
+
+  .rs-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(24px, 3vw, 40px);
+    width: 100%;
+  }
+
+  .rs-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: clamp(24px, 3vw, 40px) 24px;
+    text-align: center;
+    background: rgb(255 255 255 / 4%);
+    border: 1px solid rgb(255 255 255 / 8%);
+    border-radius: 20px;
+  }
+
+  .rs-icon {
+    margin-bottom: 8px;
+    color: var(--sx-accent, var(--color-gold));
+  }
+
+  .rs-value {
+    margin: 0;
+    color: var(--sx-accent, var(--color-gold));
+    font-family: "Spectral", serif;
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 300;
+    line-height: 1.1;
+  }
+
+  .rs-label {
+    margin: 0;
+    color: var(--sx-text, #fff);
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .rs-sublabel {
+    margin: 0;
+    color: var(--sx-text, #fff);
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 150%;
+    opacity: 0.6;
+  }
+
+  .rs-footnote {
+    margin: 0;
+    color: var(--sx-text, #fff);
+    font-family: monospace;
+    font-size: 11px;
+    opacity: 0.45;
+  }
+
+  @include up(phone-lg) {
+    .rs-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @include up(tablet) {
+    .rs-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}

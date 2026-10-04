@@ -1,0 +1,731 @@
+@use "../abstracts/index" as *;
+
+.slider-default {
+  position: relative;
+  .swiper-slide {
+    height: auto;
+    > * {
+      height: 100%;
+    }
+  }
+  .box-content {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    width: 100%;
+  }
+  // These three read the content_align knob through the INHERITED --sx-items
+  // rather than being named in a list in _layout-frame.scss. A grid places its
+  // own children, so text-align alone leaves the heading block and the button
+  // stuck to the start edge — but a custom property crosses the boundary, so
+  // the frame file never has to learn this section's internal markup. Copy
+  // this pattern for any other section with a nested grid.
+  //
+  // The `normal` fallback is the CSS initial value for both properties, so
+  // with no knob set these declarations compute to exactly what was there
+  // before.
+  .box-title-slider {
+    display: grid;
+    gap: 10px;
+    justify-items: var(--sx-items, normal);
+    justify-content: var(--sx-items, normal);
+  }
+  .box-btn-slider {
+    justify-items: var(--sx-items, normal);
+    justify-content: var(--sx-items, normal);
+  }
+  .content-slider {
+    display: grid;
+    gap: 34px;
+    justify-items: var(--sx-items, normal);
+    justify-content: var(--sx-items, normal);
+    &.style-2 {
+      border-radius: 16px;
+      background-color: var(--white);
+      padding: 30px 15px;
+      overflow: hidden;
+    }
+  }
+  .slider-wrap {
+    .image {
+      height: 100%;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    &.bg-type-1 {
+      background: linear-gradient(256.55deg, #ffd1bb 0%, #fffedb 100%);
+    }
+    &.bg-type-2 {
+      background: linear-gradient(
+        256.55deg,
+        #f4e7fb 0%,
+        #ffe9e9 25%,
+        #ffedec 50%,
+        #ffe9fd 100%
+      );
+    }
+    &.bg-type-3 {
+      background: linear-gradient(256.55deg, #dcfaff 0%, #dbe3ff 100%);
+    }
+    &.bg-type-4 {
+      background: #d4edff;
+    }
+    &.bg-type-5 {
+      background: #eef0ff;
+    }
+    &.bg-type-6 {
+      background: #fff0f6;
+    }
+    &.bg-type-7 {
+      background: linear-gradient(-90deg, #ffe8e6 0%, #fff7d6 100%);
+    }
+    &.bg-type-8 {
+      background: linear-gradient(-90deg, #e6f4ff 0%, #ffecd6 100%);
+    }
+    &.bg-type-9 {
+      background: linear-gradient(-90deg, #f5e6ff 0%, #f1ffec 100%);
+    }
+  }
+}
+.tf-slideshow {
+  position: relative;
+  overflow: hidden;
+  // margin-top: 12px;
+  .wrap-pagination {
+    position: absolute;
+    bottom: 41px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+  }
+}
+.slider-style-2 {
+  .slider-wrap {
+    display: flex;
+  }
+  .image {
+    width: 50%;
+    margin-left: auto;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .box-content-left {
+    background: #ba9272;
+    position: absolute;
+    left: 0;
+    right: 50%;
+    top: 0;
+    bottom: 0;
+    display: flex;
+  }
+  .box-btn-slider {
+    display: flex;
+    justify-content: center;
+  }
+  .box-title-slider {
+    display: grid;
+    gap: 15px;
+  }
+  .content-slider {
+    display: grid;
+    gap: 36px;
+  }
+  .wrap-pagination {
+    bottom: 30px;
+  }
+}
+.slider-style-3 {
+  .slider-wrap {
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .wrap-pagination {
+    margin-top: 30px;
+  }
+}
+.slider-effect-fade {
+  .swiper-slide {
+    .fade-item {
+      transform: translateY(100px);
+      opacity: 0;
+      visibility: hidden;
+      @include transition3;
+      &.fade-box {
+        transition-delay: 0.4s;
+      }
+      &.fade-item-1 {
+        transition-delay: 0.5s;
+      }
+      &.fade-item-2 {
+        transition-delay: 0.6s;
+      }
+      &.fade-item-3 {
+        transition-delay: 0.7s;
+      }
+      &.fade-item-4 {
+        transition-delay: 0.8s;
+      }
+    }
+    &.swiper-slide-active {
+      .fade-item {
+        transform: translateY(0);
+
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+}
+.slider-fashion-1 {
+  .image {
+    img {
+      width: unset;
+    }
+  }
+  .slider-wrap {
+    &.bg-type-2 {
+      .image {
+        display: flex;
+        justify-content: flex-end;
+        img {
+          height: unset;
+          // margin-right: 180px;
+        }
+      }
+    }
+  }
+}
+
+@keyframes spin-border {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.slider-fashion-2 {
+  .fs-cls {
+    background-color: var(--surface);
+  }
+}
+.slider-electronic {
+  .slider-wrap {
+    height: 731px;
+    &.type-image-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+  }
+  .box-title-slider {
+    gap: 16px;
+  }
+  .content-slider {
+    gap: 32px;
+  }
+}
+.slider-fashion-3 {
+  .box-title-slider {
+    gap: 17px;
+  }
+  .content-slider {
+    gap: 40px;
+  }
+  .type {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: -0.02em;
+  }
+  .wrap-pagination {
+    bottom: 33px;
+  }
+}
+.slider-skincare {
+  .box-title-slider {
+    gap: 10px;
+  }
+  .content-slider {
+    gap: 40px;
+  }
+  .wrap-pagination {
+    bottom: 31px;
+  }
+}
+.slider-bicycle {
+  .box-title-slider {
+    gap: 16px;
+  }
+  .box-content {
+    top: unset;
+    transform: unset;
+    bottom: 40px;
+  }
+}
+.slider-phonecase {
+  // Vertical only. The horizontal inset and the radius moved to the STAGE
+  // below when the slideshow became a band: `.site-main .sx-section` is
+  // (0,2,0) and sets margin-inline, so a shorthand `margin` here lost — the
+  // hero silently went 40px wider each side and squared its corners. The
+  // band must bleed for a background colour to reach the viewport edge, so
+  // the visual card is the stage inside it, not the section. Band > visual
+  // card, the same shape final-cta and image-callout-banner use.
+  margin: 5px 0 0;
+
+  // BOTH inset steps live HERE, and that placement is the whole point.
+  // `.slider-phonecase .tf-slideshow__stage` is (0,2,0) — the same
+  // specificity as `.sx-media--full .sx-media`, which bleeds the stage with
+  // `margin-inline: calc(50% - 50vw)`. Equal specificity means SOURCE ORDER
+  // decides, and `_layout-frame.scss` is forwarded last, so a rule here
+  // loses to the knob and `media_width: full` works.
+  //
+  // The wide step used to sit in `_responsive.scss`, which loads AFTER the
+  // frame — so it won that tie and a full-bleed hero came out 100vw wide but
+  // still offset by 40px, clipping its right edge at 1440 and up while
+  // working correctly below. A knob that lies at some widths and not others
+  // is worse than the inert knob this replaced.
+  .tf-slideshow__stage {
+    margin-inline: 15px;
+    border-radius: 16px;
+
+    @include up(desktop-xl) {
+      margin-inline: 40px;
+    }
+  }
+  .wrap-pagination {
+    bottom: 25px;
+  }
+  .tf-btn {
+    .icon {
+      font-size: 12px;
+    }
+  }
+  .content-slider {
+    gap: 40px;
+  }
+}
+.slider-pet {
+  .wrap-pagination {
+    bottom: 25px;
+  }
+}
+.slider-electric-access {
+  .swiper {
+    border-radius: 16px;
+  }
+  .wrap-pagination {
+    bottom: 29px;
+  }
+  .box-title-slider {
+    gap: 16px;
+  }
+  .content-slider {
+    gap: 32px;
+  }
+}
+.slider-baby {
+  .wrap-pagination {
+    bottom: 29px;
+  }
+  .content-slider {
+    gap: 40px;
+  }
+  .box-title-slider {
+    gap: 24px;
+  }
+  .box-content {
+    top: 44%;
+  }
+  .clouds {
+    position: absolute;
+    bottom: -2px;
+    width: 100%;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    z-index: 1;
+    img {
+      width: 100%;
+      height: auto;
+      animation: floating 5s infinite ease-in-out alternate;
+      right: 0;
+    }
+  }
+}
+@keyframes floating {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(20px);
+  }
+}
+
+.slider-pod {
+  .box-title-slider {
+    gap: 24px;
+  }
+  .content-slider {
+    gap: 42px;
+    max-width: 300px;
+    margin: auto;
+  }
+}
+.slider-btn-thumbs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 42px;
+  .btn-thumbs {
+    opacity: 0.2;
+    cursor: pointer;
+    @include transition3;
+    &:hover,
+    &.active {
+      opacity: 1;
+    }
+  }
+}
+.slider-thumb-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.tes-jewelry-wrap {
+  max-width: 994px;
+  margin: 0 auto;
+}
+
+.slider-effect-zoom {
+  position: relative;
+  img {
+    -webkit-transition: all 15s linear;
+    -khtml-transition: all 15s linear;
+    -moz-transition: all 15s linear;
+    -ms-transition: all 15s linear;
+    -o-transition: all 15s linear;
+    transition: all 15s linear;
+    object-fit: cover;
+  }
+  .swiper-slide-active {
+    img {
+      transform: scale(1.25);
+    }
+  }
+}
+
+.slider-default {
+  .parallax-wrap {
+    padding: 100px 0px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    .box-content {
+      position: unset;
+      transform: none;
+    }
+  }
+}
+.banner-group-img {
+  display: block;
+  position: relative;
+  .banner-img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+  }
+  .box-content {
+    position: absolute;
+    left: 15px;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--white);
+    max-width: 638px;
+    margin: auto;
+    padding: 30px 15px;
+    z-index: 5;
+    .subheading {
+      margin-bottom: 12px;
+      display: block;
+    }
+    .heading {
+      margin-bottom: 20px;
+    }
+    .tf-btn {
+      margin-top: 32px;
+    }
+  }
+}
+
+.slider-jewelry {
+  padding-left: 30px;
+  padding-right: 30px;
+  .heading {
+    font-weight: 400;
+    font-size: 80px;
+    line-height: 110.00000000000001%;
+    text-transform: capitalize;
+  }
+}
+// Hero highlight card. Scoped under .tf-slideshow — these were flat
+// theme selectors (.testimonialCard, …) that leaked generic names
+// globally; only the hero slideshow renders them.
+.tf-slideshow {
+  // The stage: the slideshow's visual card inside the band. Clips the slides
+  // to its radius, and is the positioning context the highlight layer
+  // measures against — so the card lands relative to the IMAGE rather than
+  // to the bled band, which is where it sat before this section became one.
+  //
+  // Wears .sx-media, so `media_width: full` can bleed it edge to edge — the
+  // operator control that replaces a hardcoded per-section decision.
+  .tf-slideshow__stage {
+    position: relative;
+    overflow: hidden;
+  }
+
+  // A hero with NO slide image has nothing to give the stage height, because
+  // `.box-content` is absolutely positioned — the section rendered at zero
+  // height, reporting has_content: true and showing nothing. Scoped to the
+  // no-media case on purpose: a floor applied to every hero would letterbox
+  // the normal one at mobile widths, where a 1840x888 image is only ~188px
+  // tall. HeroSection.jsx sets the modifier.
+  // The floor has to reach the SLIDE, not just the stage. `.box-content` is
+  // absolute against `.swiper-slide`, and `.swiper` clips with
+  // `overflow: hidden` — so a min-height on the stage alone left a tall empty
+  // band with the headline clipped out of a zero-height swiper. Measured, not
+  // assumed: stage 560px, swiper 0px, content 106px and invisible.
+  &--no-media {
+    .tf-slideshow__stage,
+    .swiper,
+    .swiper-slide {
+      min-height: clamp(320px, 42vw, 560px);
+    }
+  }
+
+  // The card LAYER. It is not doing any insetting — the stage is already
+  // inside the band's padding, so `inset: 0` is simply "the whole image".
+  // Its three jobs are the phone gate, the stacking order, and keeping a
+  // full-size transparent overlay from swallowing clicks on the slide
+  // beneath it.
+  .hero-highlights {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+
+    // Hidden on phones, matching the `d-none d-sm-block` the card carried
+    // before — Bootstrap's sm, which is why the scale is Bootstrap's.
+    display: none;
+
+    @include up(sm) {
+      display: block;
+    }
+  }
+
+  // The SLOT owns the position; the card is just a card. That split is what
+  // makes child positioning (roadmap stage 3, primitive 2) one rule here
+  // rather than a change to every block that wants to sit somewhere.
+  //
+  // The slot is positioned by `highlight_position` on the hero blueprint (9
+  // tokens), NOT by a shared `sx-*` knob: positioning a child means something
+  // only where the parent owns a slot, and the hero is the only section that
+  // does. HeroSection.jsx holds the allow-list and falls back to middle-right.
+  //
+  // WHY THE ANCHORS MEASURE THE IMAGE AND NEVER THE COPY. The card originally
+  // sat at `top: 70%` of the slide's TEXT box, which is itself centred in the
+  // image — i.e. `stage.height/2 + 0.2 × textbox.height`. That MOVED THE CARD
+  // WHENEVER A HEADLINE WRAPPED, and no CSS here can read another element's
+  // height. Every token below is a fraction of the stage instead, so the
+  // 3×3 grid is copy-independent by construction. Do not reintroduce an
+  // anchor that depends on the headline.
+  //
+  // `middle` was 59% until 2026-08-25 — that formula re-expressed against the
+  // image alone (the 0.2 × text term is 8.1–10.2% of image height across the
+  // scale, so 50% + 9% tracked the old placement within 6px). It was retired
+  // because a token named `middle` has to be one: at 59% the card's top landed
+  // at 395 of a 669px stage at 1440 and it read as `bottom`, and at 992 and on
+  // /test-page the card hung 25px and 100px BELOW the stage. The arithmetic is
+  // recorded here rather than in a rule because it is the history of a value,
+  // not a value anything still uses. docs/next-session.md item 13.
+  //
+  // BOTH AXES COMPOSE THROUGH CUSTOM PROPERTIES. `center` and `middle` each
+  // need a -50% shift, and two `transform` declarations on one element do not
+  // merge — the later wins and silently drops the other axis. Each axis sets
+  // its own property and the base rule composes them once, so `middle-center`
+  // needs no special case and a future anchor cannot break the pair.
+  .hero-highlights__slot {
+    position: absolute;
+    width: min(351px, calc(100% - 24px));
+    pointer-events: auto;
+
+    --slot-shift-x: 0;
+    --slot-shift-y: 0;
+    transform: translate(var(--slot-shift-x), var(--slot-shift-y));
+  }
+
+  // The horizontal anchors. `center` needs the shift as well as `left: 50%`,
+  // because the slot has a fixed-ish width and would otherwise hang off to
+  // the right by half of it.
+  .hero-highlights__slot--top-left,
+  .hero-highlights__slot--middle-left,
+  .hero-highlights__slot--bottom-left {
+    left: clamp(12px, 3%, 32px);
+  }
+
+  .hero-highlights__slot--top-right,
+  .hero-highlights__slot--middle-right,
+  .hero-highlights__slot--bottom-right {
+    right: clamp(12px, 3%, 32px);
+  }
+
+  .hero-highlights__slot--top-center,
+  .hero-highlights__slot--middle-center,
+  .hero-highlights__slot--bottom-center {
+    left: 50%;
+    --slot-shift-x: -50%;
+  }
+
+  // The vertical anchors.
+  .hero-highlights__slot--top-left,
+  .hero-highlights__slot--top-center,
+  .hero-highlights__slot--top-right {
+    top: clamp(12px, 4%, 40px);
+  }
+
+  // A true centre: half the stage, less half the card. The card's own height
+  // is unknown here and varies with its copy, so the second half is a
+  // transform rather than arithmetic — which is why the base rule composes
+  // the two axes instead of setting `transform` per anchor.
+  .hero-highlights__slot--middle-left,
+  .hero-highlights__slot--middle-center,
+  .hero-highlights__slot--middle-right {
+    top: 50%;
+    --slot-shift-y: -50%;
+  }
+
+  .hero-highlights__slot--bottom-left,
+  .hero-highlights__slot--bottom-center,
+  .hero-highlights__slot--bottom-right {
+    bottom: clamp(12px, 4%, 40px);
+  }
+
+  // The mini slider's dots. `.sw-dots` is the theme's absolute pagination
+  // styling, which belongs to a full-width slider; here the dots sit in flow
+  // under the card, so the position is reset and only the dot appearance is
+  // borrowed.
+  .hero-highlights__dots {
+    position: static;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 14px;
+  }
+
+  .testimonialCard {
+    display: flex;
+    width: 100%;
+    gap: 12px;
+    padding: clamp(20px, 3vw, 32px);
+    background: rgb(28 28 26 / 100%);
+    border-radius: 24px;
+  }
+
+  .testimonialThumb {
+    flex-shrink: 0;
+    width: 94px;
+    height: 140px;
+    overflow: hidden;
+    border-radius: 20px;
+  }
+
+  .testimonialThumbImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .testimonialBody {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+    min-width: 0;
+    padding-bottom: 12px;
+    border-bottom: 0.5px solid rgb(255 255 255 / 12%);
+  }
+
+  .testimonialHeading {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .testimonialLabel {
+    margin: 0;
+    // --sxb-text ONLY, deliberately NOT chained to the section knob. This card
+    // keeps its own dark panel, so letting a SECTION-level colour reach it
+    // would repaint the copy while the panel stayed dark -- manufacturing
+    // exactly the unreadable pairing this work exists to remove. Only the
+    // child's own knob, set by an operator looking at this card, may move it.
+    color: var(--sxb-accent, var(--sxb-text, var(--color-gold)));
+    font-family: "Spectral", serif;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 32px;
+  }
+
+  .testimonialAudience {
+    margin: 0;
+    color: var(--sxb-text, #fff);
+    font-family: "Inter", sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 150%;
+    text-transform: uppercase;
+  }
+
+  .testimonialQuote {
+    margin: 0;
+    color: var(--sxb-text, #fff);
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 150%;
+  }
+
+  .testimonialProgress {
+    position: relative;
+    width: 170px;
+    max-width: 100%;
+    height: 2px;
+    // The track is a BAR, so it takes colour through `background` — the same
+    // trap as a glyph. Left at flat white it stayed white while the card's
+    // copy followed the child knob, which /test-page showed directly: a white
+    // rail across a bronze card. 80% is preserved via color-mix so the track
+    // stays a muted version of the copy colour rather than matching it.
+    background: color-mix(in srgb, var(--sxb-text, #fff) 80%, transparent);
+  }
+
+  .testimonialProgressFill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 74%;
+    height: 100%;
+    // Child knob only, like every other colour on this card: the panel stays
+    // dark whatever the section does, so a section-level accent reaching in
+    // here would be the unreadable-pairing shape again.
+    background: var(--sxb-accent, var(--color-gold));
+  }
+}

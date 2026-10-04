@@ -1,0 +1,729 @@
+@use "sass:map";
+@use "../abstracts/index" as *;
+// Global section frame. ONE place owns the page's horizontal gutter:
+// .site-main applies --page-gutter, every section spans 100% of the frame,
+// and the knobs below move a section's CONTENT without disturbing its band.
+//
+// THE CONTRACT a section renders to:
+//
+//   <section class="sx-section">   full-bleed band — background, vertical rhythm
+//     <div class="sx-content">     the content column — width, inset, alignment
+//
+// A section wearing those two classes needs NO entry in any list here: it
+// full-bleeds, its column obeys the operator's knobs, and a new section type
+// works with zero SCSS. That is the point — an operator can add and place a
+// section without a developer opening this file.
+//
+// MIGRATION DONE. All 24 registered section types wear the two classes, and
+// EVERY LEGACY LIST IS GONE — the last two went with the sub-blocks rework,
+// which restructured the hero slideshow onto the contract (one .sx-content
+// per slide) instead of renaming around its absolute content columns. There
+// is now no list in this file naming a section, which was the goal: a new
+// section type needs zero SCSS here.
+//
+// A section must wear the classes OR be listed, NEVER BOTH. With no lists
+// left the surviving hazard is a doubled INSET/WIDTH — a $content-containers
+// element nested inside another one gets the knob applied twice.
+//
+// Two escapes remain, and neither is a section:
+//
+//   - `.page-header` is the theme's own chrome, not a CMS section.
+//   - `.site-main .container { padding-inline: 0 }` serves the APPLICATION
+//     routes (product and stack detail, /products, /stacks, /checkout). They
+//     are not CMS pages and carry no knob wrapper, so the knob rules never
+//     reached them — that rule is theme neutralisation, not a knob list.
+//
+// A SECTION WITH A NESTED GRID does not get an entry either. It reads the
+// inherited `--sx-items` in its own partial, as the hero slideshow's
+// `.content-slider` does in _slider.scss. A custom property crosses the
+// boundary, so this file never learns a section's internal markup.
+//
+// TYPED SUB-BLOCKS use a PARALLEL vocabulary (`sxb-*`, in _sub-blocks.scss)
+// reading the same token maps. They have to: every rule here is
+// descendant-scoped, so a child wearing `.sx-content` would take its parent's
+// inset a second time and a child band would bleed out of the parent column.
+//
+// TWO SHAPES, both correct:
+//
+//   band > .sx-content                     the common case
+//   band > .sx-content > a visual card     when the content column is ALSO a
+//                                          card (a background photo, a radius
+//                                          and its own padding). Hanging
+//                                          .sx-content on the card would make
+//                                          content_inset overwrite the card's
+//                                          design padding instead of moving
+//                                          the card. So: final-cta,
+//                                          comparison-table, package-slider,
+//                                          hero (banner), image-callout-banner.
+//
+// stats-marquee is the contract's one documented exception: it wears
+// .sx-section and NO .sx-content, because the element that clips its
+// overflowing track has to be the band itself.
+
+:root {
+  --page-gutter: 16px;
+}
+
+@include up(md) {
+  :root {
+    --page-gutter: clamp(24px, 4.5vw, 64px);
+  }
+}
+
+.site-main {
+  padding-inline: var(--page-gutter);
+  // Full-bleed media is sized in vw, which counts a classic scrollbar; without
+  // this a desktop browser that shows one gains a few pixels of horizontal
+  // scroll on every page. `clip` rather than `hidden` deliberately — hidden
+  // makes this a scroll container and kills `position: sticky` inside sections
+  // (`.ben-pitch` in _benefits.scss, `.tf-zoom-main` in the product gallery);
+  // clip does not. The earlier note here named `.faq-cats__panels`, which is
+  // not and never was sticky — grep before trusting the example.
+  overflow-x: clip;
+
+  // The contract. Bleeds past the frame gutter so backgrounds reach the
+  // viewport edge, then re-pads by the same gutter so content still aligns
+  // to the one global rhythm.
+  .sx-section {
+    margin-inline: calc(-1 * var(--page-gutter));
+    padding-inline: var(--page-gutter);
+  }
+
+  // THE SAME PAIR ON THE PAINTING WRAPPER, and it is not redundant with the
+  // rule above — it fixes a band that stopped one gutter short on both sides.
+  //
+  // The style knobs deliberately paint on the WRAPPER rather than on
+  // `> .sx-section`, because `sx-pad-top`/`sx-pad-bottom` pad the wrapper and painting the
+  // inner element put that padding outside the colour (see the long note above
+  // `.sx-bg`). But the wrapper is an ordinary child of `.site-main` and sits
+  // inside its `padding-inline`, while only `.sx-section` had a bleed rule —
+  // so `background-color` painted a box inset by `--page-gutter` a side while
+  // the section's own imagery bled past it. Measured on /test-page before the
+  // fix: 1312px of colour in a 1440 viewport, 358px in a 390 viewport, both
+  // exactly viewport minus two gutters. The admin's helper text has always
+  // promised this "fills the section band edge to edge".
+  //
+  // `.sx-section` INSIDE this is unchanged, which is the point: the wrapper
+  // bleeds by a gutter and re-pads by a gutter, so its content box is the same
+  // width it was, and the section's own bleed still lands exactly on the
+  // viewport edge rather than a gutter past it. No section moves; only the
+  // paint reaches further.
+  //
+  // Scoped to the classes that PAINT, not to every knob wrapper — a wrapper
+  // carrying only `sx-pad-top--md` has no background to stretch, and the frame's
+  // rule is that every effect stays under its own knob class. `style_border`
+  // and `style_radius` paint this same box and JOIN THIS SELECTOR LIST when
+  // they land; that is why the bug had to be fixed before them.
+  //
+  // Stacking is untouched: margin and padding create no stacking context, so
+  // the negative-z constraint documented above `.sx-bg` reads exactly as it
+  // did — this does not widen it.
+  //
+  // `.sx-border` and `.sx-radius--*` ARE THE JOINERS the note above predicted.
+  // A border or a rounded corner drawn on a box that stopped a gutter short
+  // would be the same bug the colour had, except drawn in a line the operator
+  // can see — and unlike the background, it would be obvious on day one.
+  .sx-bg,
+  .sx-bgimg,
+  .sx-border {
+    margin-inline: calc(-1 * var(--page-gutter));
+    padding-inline: var(--page-gutter);
+  }
+
+  // ...AND RADIUS TAKES IT BACK OFF AGAIN.
+  //
+  // item 10 predicted radius would join the list above with the border. It
+  // should not, and this file already said so before either knob existed —
+  // `.sx-media--full` squares its own corners with the note "a rounded frame
+  // that reaches the viewport edge shows its corners as a curve cut out of the
+  // image; the radius belongs to a contained card, not a bleed". A rounded band
+  // running to the screen edge is that same cut-out, at page scale.
+  //
+  // So a radius MEANS "make this section a card": it cancels the wrapper's
+  // bleed, and the band comes to rest inside the page gutter with its corners
+  // visible. A border with no radius still bleeds, which is the other real
+  // design — a full-width band with a rule along its edges.
+  //
+  // The inner `.sx-section` has to be un-bled too, or it escapes the card it is
+  // supposed to be inside and lands back at the viewport edge. (0,3,0) against
+  // that rule's (0,2,0), so it wins on specificity rather than on order.
+  //
+  // `none` is excluded deliberately: an explicit "square corners" must keep the
+  // bleed, or picking it would silently box a band that was full-width before.
+  #{selectors("sx-radius", radius-tokens())} {
+    margin-inline: 0;
+    padding-inline: 0;
+
+    > .sx-section {
+      margin-inline: 0;
+      padding-inline: 0;
+    }
+  }
+
+  // The theme's own page header is NOT a CMS section and has no layout knobs,
+  // so it keeps its escape here. Legacy lists 1 and 2 are gone: every CMS
+  // section now wears .sx-section above, and deletes its own max-width rather
+  // than having one lifted.
+  .page-header {
+    margin-inline: calc(-1 * var(--page-gutter));
+  }
+
+  // The theme's bootstrap-ish .container carries its own 15/24px side padding,
+  // which would double the frame gutter. ONE place owns the gutter, so drop it.
+  //
+  // The CAP is deliberately left alone. NO CMS section uses .container as its
+  // content column any more — the hero slideshow was the last, and the
+  // sub-blocks rework moved it to .sx-content. Everything still wearing
+  // .container inside .site-main is an APPLICATION route — product and stack
+  // detail, the catalog listings, checkout — where .container is the theme's
+  // page container and there is no layout knob to restore a cap. Neutralising
+  // the padding here let those pages run the full width of the viewport; the
+  // theme's 1488px cap is what still shapes them, so leave it.
+  .container {
+    padding-inline: 0;
+  }
+
+}
+
+// ── Admin "Layout & spacing" knobs ────────────────────────────────────
+// Applied by SectionRenderer as sx-* classes on a wrapper around a section.
+//
+// Every effect is scoped UNDER its knob class, so a section with no knobs
+// set keeps its original CSS untouched — important because these containers
+// own real design values that must not be clobbered by a default.
+//
+// ONE ENTRY, AND IT SHOULD STAY THAT WAY. Every CMS section puts its content
+// in .sx-content, the hero slideshow included as of the sub-blocks rework —
+// one instance per slide, plus the pagination row. `.container` used to be
+// listed for that slideshow and is gone with it; the APPLICATION routes still
+// wear `.container`, but they are not CMS pages, carry no knob wrapper, and
+// so were never reached by these rules. Their neutralisation is the separate
+// `.site-main .container` rule above.
+//
+// Add nothing here: a new section wears .sx-content and needs no entry.
+$content-containers: ".sx-content";
+
+// Vertical padding — applies to the wrapper itself.
+//
+// TOP AND BOTTOM ARE SEPARATE, replacing the retired `extra_padding`, which
+// drove both edges from one token. Two longhands rather than the `padding-block`
+// shorthand, deliberately: with the shorthand, a section that set only a top
+// padding would write `padding-block: 80px 0` and the implicit zero would
+// clobber whatever bottom padding the section's own partial had. Separate
+// declarations under separate markers mean an unset edge is genuinely untouched.
+//
+// VAR-BASED FROM THE START, not a direct declaration, because the setter has to
+// be redefinable inside a media query for the responsive tiers below. There is
+// no conversion step here — this knob is new, so it is simply written in the
+// form the tiers require.
+//
+// The `, 0` fallback matters: a section may carry the marker with no BASE value
+// at all (tablet-only padding, no phone padding), in which case the custom
+// property is undefined below md and an unfallbacked var() would be invalid at
+// computed-value time.
+@each $token, $value in $knob-pad {
+  .sx-pad-top--#{$token} {
+    --sx-pad-top: #{$value};
+  }
+
+  .sx-pad-bottom--#{$token} {
+    --sx-pad-bottom: #{$value};
+  }
+}
+
+@each $tier in $knob-tiers {
+  @include up($tier) {
+    @each $token, $value in $knob-pad {
+      .sx-pad-top-#{$tier}--#{$token} {
+        --sx-pad-top: #{$value};
+      }
+
+      .sx-pad-bottom-#{$tier}--#{$token} {
+        --sx-pad-bottom: #{$value};
+      }
+    }
+  }
+}
+
+.sx-pad-top {
+  padding-block-start: var(--sx-pad-top, 0);
+}
+
+.sx-pad-bottom {
+  padding-block-end: var(--sx-pad-bottom, 0);
+}
+
+// Horizontal inset — pulls content in from the section's edges. Declared as
+// a custom property on the wrapper, consumed by the content containers, so
+// the section's own background keeps spanning the full frame.
+//
+// TWO PROPERTIES PER TOKEN, because `flush` has to be able to cancel the page
+// gutter that sits under every inset. Every measured token parks the bleed at
+// `auto`, which is also what the width cap wants for centring, so the single
+// consumer below can set `margin-inline` unconditionally without fighting it.
+@each $token, $value in $knob-inset {
+  .sx-inset--#{$token} {
+    --sx-inset: #{$value};
+    --sx-inset-bleed: auto;
+  }
+}
+
+// `flush` is a categorical override, not a measurement — the same shape as
+// `content_width: full`, and absent from $knob-inset for the same reason.
+//
+// The other tokens ADD padding on top of the page gutter. This one REMOVES the
+// gutter: `.sx-section` re-pads `--page-gutter` after its own bleed, so content
+// sits 16px off each edge at 390px with the inset unset, and no amount of the
+// measured scale can reach zero. Cancelling that re-pad is the only way an
+// operator can say "run to the screen edge".
+//
+// Pair it with a tier to get it on phones only — `content_inset: flush` plus
+// `content_inset_md: md` is the common case, and the reason the tiers and this
+// token landed together rather than in two commits.
+//
+// IT MUST SIT ABOVE THE TIER LOOP, and this is not cosmetic ordering. A media
+// query adds NO specificity, so `.sx-inset--flush` and `.sx-inset-md--md` are
+// both (0,1,0) and source order alone decides between them. Emitted after the
+// tiers, base flush wins at every width and the override it exists to be paired
+// with is silently dead. Caught in the compiled output, not in review: the SCSS
+// reads fine either way.
+.sx-inset--flush {
+  --sx-inset: 0;
+  --sx-inset-bleed: calc(-1 * var(--page-gutter));
+}
+
+@each $tier in $knob-tiers {
+  @include up($tier) {
+    @each $token, $value in $knob-inset {
+      .sx-inset-#{$tier}--#{$token} {
+        --sx-inset: #{$value};
+        --sx-inset-bleed: auto;
+      }
+    }
+
+    .sx-inset-#{$tier}--flush {
+      --sx-inset: 0;
+      --sx-inset-bleed: calc(-1 * var(--page-gutter));
+    }
+  }
+}
+
+// Content width cap — centred within the section.
+//
+// THIS IS THE TOKEN => PIXEL MAP, and it lives here on purpose. The admin
+// stores a semantic token (`wide`), never a measurement: prx-backend serves
+// more than one frontend, so a width of the Atlas theme may not appear in
+// its code. Retune the whole scale here and every page follows, with no
+// content edit and no admin change.
+//
+// The values are the widths this theme's partials used to hardcode.
+@each $token, $value in $knob-width {
+  .sx-width--#{$token} {
+    --sx-width: #{$value};
+  }
+}
+
+#{selectors("sx-width", map.keys($knob-width))} {
+  #{$content-containers} {
+    max-width: var(--sx-width);
+    margin-inline: auto;
+  }
+}
+
+// `full` is an explicit choice, not an absent one: it overrides a cap the
+// section's own CSS would otherwise apply.
+.sx-width--full {
+  #{$content-containers} {
+    max-width: none;
+  }
+}
+
+// ONE consumer, scoped to the tier-independent MARKER rather than to the list
+// of base classes. A section that sets only a tablet override carries no base
+// class at all, so a `selectors()` guard would compile cleanly and do nothing.
+//
+// ORDER IS LOAD-BEARING: this sits AFTER the content_width block, whose
+// `.sx-width--* .sx-content { margin-inline: auto }` is the same (0,2,0)
+// specificity. Source order therefore decides, and it has to decide in favour
+// of the inset — otherwise `flush` would set the bleed and the width rule would
+// immediately overwrite it with `auto` on any section that also has a width cap.
+// Moving this rule above the width block silently breaks flush at that
+// combination only, which is exactly the kind of failure probe.mjs exists for.
+.sx-inset {
+  #{$content-containers} {
+    padding-inline: var(--sx-inset, 0);
+    margin-inline: var(--sx-inset-bleed, auto);
+  }
+}
+
+// ── The section frame: border and radius ──────────────────────────────
+//
+// Both paint the WRAPPER's border box — the same box `.sx-bg` fills — which is
+// why the wrapper's bleed had to be fixed first (c43e9a7). Before that fix the
+// wrapper stopped a page gutter short of the viewport on each side, so a border
+// would have framed a box narrower than the band it was supposed to outline,
+// and the operator would have been looking straight at the bug in a colour they
+// chose on purpose. They JOIN that bleed selector list rather than getting their
+// own; see the note beside it.
+//
+// The WIDTH sets a property; the COLOUR draws the border. That asymmetry is
+// deliberate and is what the admin's helper text promises — a width with no
+// colour paints nothing, rather than guessing at a colour the operator never
+// picked. The `1px` fallback covers the reverse case, a colour with no width.
+@each $token, $value in $knob-border {
+  .sx-bw--#{$token} {
+    --sx-border-width: #{$value};
+  }
+}
+
+.sx-border {
+  border: var(--sx-border-width, 1px) solid var(--sx-border-color);
+}
+
+// Radius is a direct declaration rather than a property setter: it carries no
+// responsive tier, so there is nothing that needs to redefine it inside a media
+// query, and a setter plus a marker would be two rules doing one rule's work.
+//
+// Reads best on a section that is NOT running full-bleed — a rounded frame at
+// the viewport edge shows its corners as a curve cut out of the page, which is
+// the same reason `.sx-media--full` squares its own media below.
+@each $token, $value in $knob-radius {
+  .sx-radius--#{$token} {
+    border-radius: #{$value};
+  }
+}
+
+// Media containment. Sections opt in by marking their image/video wrapper
+// `.sx-media`; until one does, the knob is inert rather than guessing which
+// element is the media. `contained` is the natural state and needs no rule —
+// the media already sits inside the content column.
+//
+// Full bleed has to escape the CONTENT COLUMN, not just the page gutter:
+// .sx-media sits inside .sx-content, which content_width caps and centres, so
+// backing out by --page-gutter alone would stop at the column edge on a wide
+// screen. Centring a 100vw box on the element's own midpoint escapes any
+// ancestor cap. 100vw counts the scrollbar, which would overflow the page by
+// its width on desktop — .site-main's `overflow-x: clip` absorbs that.
+//
+// ORDER: this sits after the content_width block so that if one element is
+// ever both the content column and the media, an explicit "full bleed" beats
+// the width cap — equal specificity, so source order decides. No section is
+// shaped that way any more (image-callout-banner's frame was, until sweep
+// step 4 gave it a .sx-content of its own), so the order is now defensive
+// rather than load-bearing. Keep it: the cost is nothing and the failure it
+// prevents is silent.
+.sx-media--full {
+  .sx-media {
+    width: 100vw;
+    max-width: 100vw;
+    margin-inline: calc(50% - 50vw);
+    // A rounded frame that reaches the viewport edge shows its corners as a
+    // curve cut out of the image — the radius belongs to a contained card, not
+    // a bleed. Stage 1's border/radius control can override this later.
+    border-radius: 0;
+  }
+}
+
+// Content alignment. Grid/flex content containers need their items moved
+// too — text-align alone leaves buttons and cards stuck to the start edge.
+@each $token, $pair in $knob-align {
+  .sx-align--#{$token} {
+    --sx-align: #{map.get($pair, align)};
+    --sx-items: #{map.get($pair, items)};
+  }
+}
+
+@each $tier in $knob-tiers {
+  @include up($tier) {
+    @each $token, $pair in $knob-align {
+      .sx-align-#{$tier}--#{$token} {
+        --sx-align: #{map.get($pair, align)};
+        --sx-items: #{map.get($pair, items)};
+      }
+    }
+  }
+}
+
+// Scoped to the tier-independent MARKER, not to the base class list: a section
+// whose operator set only a tablet alignment carries no base class, and a
+// `selectors()` guard would then match nothing while the override sat there
+// looking correct in the payload.
+//
+// Both fallbacks are the CSS initial value, so a marker without a base value is
+// a genuine no-op below the first tier rather than a reset. `inherit` for
+// text-align because it is an inherited property; `normal` for justify-* because
+// they are not, and an unfallbacked var() there would compute to the initial
+// value anyway — spelling it out is what makes that intentional rather than
+// incidental.
+.sx-align {
+  #{$content-containers} {
+    text-align: var(--sx-align, inherit);
+  }
+
+  // A grid or flex content column places its own children, so the alignment
+  // has to reach them too.
+  //
+  // ONLY .sx-content is named here now. The hero slideshow's three wrappers
+  // used to be listed as well; they read the INHERITED `--sx-items` in
+  // _slider.scss instead, which is the pattern to copy for any other section
+  // with a nested grid — a custom property crosses the boundary, so this file
+  // never has to learn a section's internal markup.
+  .sx-content {
+    justify-items: var(--sx-items, normal);
+    justify-content: var(--sx-items, normal);
+  }
+}
+
+// ── Admin "Style" knobs ───────────────────────────────────────────────
+// Colour and background, applied by SectionRenderer as sx-* classes on the
+// same wrapper as the layout knobs above.
+//
+// TWO PARTS, and both are needed. The CLASS is the guard; the inline custom
+// property is the value.
+//
+// The guard is not optional. `.site-main .sx-section` is (0,2,0) and this
+// file is forwarded last, so it outranks the (0,1,0) root selector almost
+// every section partial uses to paint its own band. Writing
+// `background-color: var(--sx-bg)` unscoped would therefore resolve to
+// `unset` on every section that has no background knob — an undefined custom
+// property is invalid at computed-value time — and blank the band of the 10
+// section roots that paint one (.ben-, .comp-, .dh-, .hiw-, .product-, .ps-,
+// .rs-, .sm-, .story-, .tes-section) plus the dark-theme modifiers on
+// text-block, highlight-banner and video-embed. Scoping under the marker
+// class means the declaration only exists where a value does. Same rule as
+// the layout knobs: a section with no knobs set keeps its original CSS
+// untouched.
+//
+// The value indirects through --palette-{name}, which app/layout.js emits
+// from the admin's colour palette. A section stores the NAME ("sand"), never
+// a hex, so retuning sand in the admin moves every section using it. That is
+// the whole reason the palette exists rather than a per-section colour
+// picker.
+// PAINTED ON THE WRAPPER, NOT THE SECTION — and that placement is the whole
+// difference between the vertical padding knob working and lying.
+//
+// It was on `> .sx-section` first, which put the colour on the INNER element
+// while the padding knob padded the OUTER one. The padding therefore landed outside
+// the painted area: sm, md and lg produced three identical bands with a
+// different amount of invisible space around them. Reported from /test-page,
+// where three sand bands sat at 24px, 48px and 80px and looked the same.
+//
+// The section's own background has to be neutralised for this to show, since
+// it would otherwise paint over the wrapper's. `.sx-bg > .sx-section` is
+// (0,2,0) and this file is forwarded last, so it beats the (0,1,0) root
+// selector the painting partials use — the same specificity argument that
+// made the original rule work, now spent on clearing instead of setting.
+// A CONSTRAINT THIS PLACEMENT CREATES: **no negative z-index inside a section
+// may escape the section.** A positioned element at `z-index: -1` paints below
+// the background of its non-positioned ancestors, and the knob wrapper is now
+// exactly that — so the band would cover the section's own heading, copy and
+// imagery instead of sitting behind them. `.science` carried such a rule from
+// its Figma export and blanked the whole section at >=768px the moment an
+// operator set a background colour; it is gone.
+//
+// It applies to a DESCENDANT as much as to the root: a decorative `::before`
+// at z:-1 escapes just as far if nothing between it and the wrapper forms a
+// stacking context. Giving a partial a stacking context is the PROTECTIVE
+// move, not the risk — `.image-callout`'s `isolation: isolate` is the pattern
+// to copy. Every negative z here is contained today; the two closest to the
+// line, `.tf-page-title` and `.tf-select`'s caret, are reachable only from
+// application routes, which carry no knob wrapper.
+.sx-bg {
+  background-color: var(--sx-bg);
+}
+
+// BOTH KNOBS CLEAR IT, not just the colour one. The image is painted on the
+// wrapper too, so a section that paints its own opaque band would cover the
+// wrapper's image entirely and show it only in the padding ring — a
+// flat band with a strip of image around it, which reads as broken rather than
+// as wrong. `story` with a background image and no background colour is the
+// live example. Caught by fable-review-gate; /test-page could not show it,
+// because its style bands are `text-block--light`, whose root is transparent.
+.sx-bg > .sx-section,
+.sx-bgimg > .sx-section {
+  background-color: transparent;
+}
+
+// Inherited, so copy picks it up without each section opting in.
+//
+// A partial that hardcodes a colour still wins by ordinary cascade, and that
+// is a REAL LIMIT rather than a bug to route around with a blanket override —
+// a section's dark card is meant to keep its own text colour. The fix per
+// partial is `var(--sx-text, <original>)`, which is a no-op until an operator
+// sets the knob; _text-block.scss is the worked example, including the
+// color-mix() form that keeps a muted tint muted instead of flattening the
+// hierarchy. Sweeping the rest is tracked in docs/next-session.md.
+.sx-text {
+  color: var(--sx-text);
+}
+
+// `cover` + `center` because the band's height is set by its content and can
+// be anything. The colour knob is a sensible companion (it shows while the
+// image loads and behind a transparent PNG) but is deliberately independent:
+// an operator may want one without the other.
+// On the wrapper for the same reason as the colour above: an image behind a
+// band the operator has padded should grow with the padding, not sit inside it.
+.sx-bgimg {
+  background-image: var(--sx-bg-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+// Rich-editor output lands inside typed containers. Prose fields carry the
+// block markup their toolbar offers — paragraphs, H2/H3, lists, quotes — so
+// each needs a value here; without one it falls through to a Bootstrap
+// default sized for a different context. Everything stays scoped under
+// .rich-text so a section's own typography is untouched.
+.rich-text {
+  p {
+    margin: 0 0 0.6em;
+  }
+
+  // The editor emitted <p></p> for every blank line. The backend strips those
+  // on save now, so this only covers copy authored before that change.
+  p:empty {
+    margin: 0;
+  }
+
+  h2,
+  h3,
+  h4 {
+    margin: 1.4em 0 0.5em;
+    font-family: var(--font-display);
+    line-height: 1.25;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  // h4 exists here because knowledge-base monographs nest two levels inside a
+  // section the page already titled. Unstyled it fell through to a Bootstrap
+  // default that reads as body text — the failure mode this block's comment
+  // warns about for any new prose tag.
+  h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  ul,
+  ol {
+    margin: 0 0 1em;
+    padding-left: 1.25em;
+  }
+
+  li {
+    margin-bottom: 0.35em;
+  }
+
+  blockquote {
+    margin: 1em 0;
+    padding-left: 1em;
+    border-left: 3px solid var(--color-accent);
+    font-style: italic;
+  }
+
+  // Tables arrived with the knowledge base: the prose toolbar has a table
+  // tool, and the imported monographs carry dosing-titration grids.
+  //
+  // The wrapper is inserted by `toHtml` in lib/richText.js, not by the author
+  // — a table cannot scroll without one, and `overflow-x` on the table itself
+  // needs `display: block`, which destroys the table layout. Without this a
+  // wide table makes the whole PAGE scroll sideways on a phone.
+  &__scroll {
+    max-width: 100%;
+    margin: 1em 0;
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    // Keeps columns readable rather than crushing them; the wrapper scrolls.
+    min-width: 28rem;
+  }
+
+  th,
+  td {
+    padding: 0.5em 0.75em;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid color-mix(in srgb, currentcolor 18%, transparent);
+  }
+
+  th {
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  // Defers to the text knob, and the UNDERLINE is why it can. A prose link
+  // signals itself by decoration, not only by colour, so flattening it into
+  // the operator's colour costs nothing an operator would miss — whereas the
+  // theme accent against an operator-chosen dark band is what actually goes
+  // unreadable. `_text-block.scss` set this precedent for its own link.
+  a {
+    color: var(--sxb-text, var(--sx-text, var(--color-accent)));
+    text-decoration: underline;
+  }
+
+  // A heading opening the block shouldn't push it away from what precedes it,
+  // and the last child shouldn't add a gap the container already owns.
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+// ── Contained background ─────────────────────────────────────────────
+// `style_background_width: contained` paints the CONTENT COLUMN instead of
+// the band, so the colour stops where the text does rather than running to
+// the viewport edge.
+//
+// It exists because there was no way to say it. Width and inset move the
+// content and deliberately leave the background full-bleed — that is what
+// keeps a hero's imagery edge to edge while its copy moves — so an operator
+// who wanted a contained trust strip had nothing to reach for and tried
+// content width, padding and dummy items in turn. None of them could work.
+//
+// Painting `.sx-content` rather than the wrapper means the colour inherits
+// the width cap and inset already applied to it, so the two knobs compose
+// instead of fighting.
+//
+// TWO GUARDS, both from defects caught in review:
+//
+// `background-color`, never the `background` SHORTHAND — the shorthand resets
+// every longhand, so a section carrying a colour AND a background image would
+// have lost the image entirely: not contained, not full-bleed, gone.
+//
+// `:has(.sx-content)` because not every section has one. `stats-marquee` is
+// explicitly built without it, and clearing the wrapper for a section with
+// nothing to repaint would leave a transparent band while `.sx-bg` still
+// claimed a colour was chosen — precisely the "marker class lies" failure the
+// palette-deletion guard exists to prevent. Without a content column the knob
+// degrades to full-bleed, which is visible and honest. Keeping the clear and
+// the paint as SEPARATE rules matters for the same reason: a browser without
+// `:has()` drops only the clear, so the band reads full-bleed rather than
+// losing its colour.
+//
+// A section with SEVERAL content columns (the hero renders one per slide)
+// paints each of them, which is what "contained" means when the content is
+// in more than one place.
+.sx-bg.sx-bgw--contained:has(.sx-content) {
+  background-color: transparent;
+}
+
+.sx-bg.sx-bgw--contained .sx-content {
+  background-color: var(--sx-bg);
+}

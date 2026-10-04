@@ -1,0 +1,263 @@
+@use "../abstracts/index" as *;
+// Image-text-split section (`.science`). Mobile-first and scoped under
+// .science — these were flat Figma-export selectors gated behind a desktop
+// media query, which left mobile unstyled and leaked generic class names.
+// Science / image-text-split block. Mobile-first and scoped under
+// .science — these were flat Figma-export selectors (.grid, .heading, …)
+// gated behind a desktop media query, which left mobile unstyled and leaked
+// generic class names globally.
+.science {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+  // Horizontal padding and the column cap are gone on purpose: .sx-section
+  // takes the page gutter and .sx-content takes its width from the section's
+  // content_width knob, defaulted to `full` in the admin.
+  //
+  // The 1440 that used to be written here was already dead — the frame's lift
+  // list set `max-width: none` on .science .grid, so the grid spanned the
+  // whole frame. `full` is that same uncapped width, now stated as an
+  // operator default instead of buried in a list.
+  padding-block: 80px;
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: clamp(24px, 4vw, 64px);
+    row-gap: 40px;
+    width: 100%;
+  }
+
+  .textColumn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .badgeLabel {
+    color: var(--sx-text, #151415);
+    font-family: "Inter", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 150%;
+    text-transform: uppercase;
+  }
+
+  .headingGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .heading {
+    margin: 0;
+    color: var(--sx-text, var(--dark-2));
+    font-family: "Spectral", serif;
+    font-size: clamp(32px, 5.5vw, 80px);
+    font-style: normal;
+    font-weight: 300;
+    line-height: 1.1;
+  }
+
+  .description {
+    margin: 0;
+    max-width: 497px;
+    color: var(--sx-text, var(--dark-2));
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 162.5%;
+  }
+
+  .ctaButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    min-height: 52px;
+    padding: 8px 24px;
+    color: var(--sx-btn-text, #fff);
+    text-align: center;
+    text-transform: capitalize;
+    background: var(--sx-btn-bg, #000);
+    border-radius: 12px;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 140%;
+    letter-spacing: -0.28px;
+  }
+
+  .mediaColumn {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(16px, 3vw, 32px);
+  }
+
+  .intro {
+    align-self: flex-start;
+    margin: 0;
+    max-width: 100%;
+    color: var(--sx-text, var(--dark-2));
+    text-align: left;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 106.25%;
+  }
+
+  .photoWrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 990 / 792;
+    border-radius: 20px;
+  }
+
+  .photoBackground {
+    position: absolute;
+    z-index: 0;
+    width: 92%;
+    height: 92%;
+    inset: auto 0 0 auto;
+    object-fit: cover;
+    border-radius: 20px;
+    filter: blur(40px);
+    opacity: 0.6;
+  }
+
+  .photo {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom;
+  }
+
+  .badgeCard {
+    position: absolute;
+    z-index: 2;
+    top: auto;
+    right: 12px;
+    bottom: 12px;
+    width: min(220px, 55%);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+  }
+
+  @include up(md) {
+    // NO `z-index: -1` HERE. It was a Figma-export leftover and provably
+    // inert — removing it moved zero pixels on / and /about, at 1440 and 900,
+    // on every instance of this section. It was also actively dangerous: a
+    // negative z-index on a positioned root paints the section BELOW the
+    // background of its non-positioned ancestors, and the knob wrapper is
+    // exactly that. Setting Style → Background colour on this section blanked
+    // it to a featureless rectangle at >=768px, with heading, copy, CTA and
+    // photo all painted over — while mobile still looked correct, so a phone
+    // check would have passed it. Caught by fable-review-gate.
+    min-height: 750px;
+    background-image: url(/images/banner/science-bg.png);
+    background-size: 30%;
+    background-position: 58% bottom;
+    background-repeat: no-repeat;
+
+    .ctaButton {
+      width: auto;
+    }
+
+    .badgeCard {
+      top: 34%;
+      right: 4%;
+      bottom: auto;
+      width: min(301px, 40%);
+    }
+  }
+
+  @include up(tablet) {
+    .grid {
+      grid-template-columns: minmax(280px, 768px) 1fr;
+    }
+
+    .intro {
+      align-self: flex-end;
+      max-width: 372px;
+      text-align: right;
+    }
+
+    .badgeCard {
+      width: min(301px, 28%);
+    }
+  }
+}
+
+// Floating frosted cards over the science photo (Figma 1070-8760): stat
+// value or icon + text + star rating. Mobile-first: cards flow inside the
+// media column; ≥992px they float into slots anchored to the SECTION —
+// the photo is the section's background-image (58% bottom), not a column
+// child, so section-relative offsets are what line up with it.
+.science {
+  .science-floatCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 301px;
+    margin-top: 16px;
+    padding: 32px;
+    text-align: center;
+    background: rgb(255 255 255 / 50%);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+  }
+
+  .science-floatCardIcon {
+    width: 51px;
+    height: auto;
+  }
+
+  .science-floatCardValue {
+    margin: 0;
+    color: #000;
+    font-family: "Spectral", serif;
+    font-size: clamp(32px, 4vw, 41px);
+    font-weight: 300;
+    line-height: 1;
+  }
+
+  .science-floatCardText,
+  .science-floatCardRating {
+    margin: 0;
+    color: #000;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  .science-floatCardStars {
+    letter-spacing: 2px;
+  }
+
+  @include up(lg) {
+    .science-floatCard {
+      position: absolute;
+      z-index: 2;
+      margin-top: 0;
+
+      &--bottom-left {
+        bottom: 4%;
+        left: 25%;
+      }
+
+      &--top-right {
+        top: 34%;
+        right: 6%;
+      }
+    }
+  }
+}

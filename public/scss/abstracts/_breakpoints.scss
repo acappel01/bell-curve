@@ -1,0 +1,77 @@
+@use "sass:map";
+
+// The one breakpoint scale.
+//
+// Before this file the repo carried 14 different breakpoint values across 71
+// media queries, with no shared vocabulary — 767 next to 767.98, 1023 next to
+// 1024 next to 1025, and 36rem meaning the same thing as 576px. A section
+// author had no way to know which one was "the" tablet breakpoint.
+//
+// The canonical scale is BOOTSTRAP 5.3's, not an invented one, because
+// Bootstrap's grid and display utilities are loaded sitewide and the markup
+// uses them (`col-lg-12`, `d-none d-sm-block` in HeroSection). A scale that
+// disagreed with Bootstrap would make an Atlas rule and a Bootstrap utility
+// switch at different widths on the same element.
+//
+// MOBILE FIRST. Reach for `up()`. `down()` exists for the sections still
+// written desktop-first (faq, product-detail) and should shrink over time,
+// not grow — on this site mobile is the majority of traffic, so it should get
+// the base rules, not a pile of overrides.
+$breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+);
+
+// Off-scale values still in use. Named so they are greppable and countable
+// rather than anonymous magic numbers. Each is a candidate to snap onto the
+// canonical scale — but snapping MOVES A LAYOUT (992 vs 1024 is a 32px band),
+// so it is a deliberate visual change, not a tidy-up.
+$breakpoints-legacy: (
+  phone-lg: 480px,
+  phone-xl: 640px,
+  tablet: 1024px,
+  tablet-xl: 1100px,
+  // The hero slideshow's wide inset step. Off-scale (xxl is 1400) and kept
+  // there deliberately: snapping it to xxl moves a layout, which is a design
+  // decision rather than a tidy-up.
+  desktop-xl: 1440px,
+);
+
+@function bp($name) {
+  @if map.has-key($breakpoints, $name) {
+    @return map.get($breakpoints, $name);
+  }
+  @if map.has-key($breakpoints-legacy, $name) {
+    @return map.get($breakpoints-legacy, $name);
+  }
+  @error "Unknown breakpoint `#{$name}`. Known: #{map.keys($breakpoints)}, #{map.keys($breakpoints-legacy)}.";
+}
+
+// `up(md)` — this width and wider. The mobile-first direction.
+@mixin up($name) {
+  @media (min-width: bp($name)) {
+    @content;
+  }
+}
+
+// `down(md)` — everything BELOW md, i.e. max-width: 767.98px.
+//
+// The 0.02px step is Bootstrap's and is deliberate: `max-width: 767px` leaves
+// a dead band at 767.0–767.99 where neither `down(md)` nor `up(md)` applies,
+// and devices do report fractional CSS pixel widths. Matching Bootstrap's
+// arithmetic also keeps an Atlas rule and a `d-*` utility switching together.
+@mixin down($name) {
+  @media (max-width: (bp($name) - 0.02)) {
+    @content;
+  }
+}
+
+// `between(md, tablet-xl)` — from md up to just below tablet-xl.
+@mixin between($from, $to) {
+  @media (min-width: bp($from)) and (max-width: (bp($to) - 0.02)) {
+    @content;
+  }
+}

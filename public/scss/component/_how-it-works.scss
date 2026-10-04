@@ -1,0 +1,158 @@
+@use "../abstracts/index" as *;
+// How-it-works section (`hiw-*`). Mobile-first: steps stack, then run as a
+// connected row from md up.
+.hiw-section {
+  display: flex;
+  justify-content: center;
+  // Wears .sx-section/.sx-content: the frame owns the horizontal gutter and
+  // content_width owns the column cap (default `full`), so neither is set here.
+  padding-block: 40px;
+  background: var(--color-sand);
+}
+
+.hiw-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(32px, 5vw, 48px);
+  width: 100%;
+}
+
+.hiw-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.hiw-logo {
+  width: 32px;
+  height: auto;
+}
+
+.hiw-heading {
+  margin: 0;
+  max-width: 720px;
+  color: var(--sx-text, var(--dark-2));
+  font-family: "Spectral", serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-style: normal;
+  font-weight: 300;
+  line-height: 1.03;
+  text-transform: capitalize;
+}
+
+.hiw-label {
+  margin: 0;
+  color: var(--sx-text, var(--dark-2));
+  font-family: "Spectral", serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 187.5%;
+  letter-spacing: -0.4px;
+  text-transform: uppercase;
+}
+
+.hiw-stepsRow {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px clamp(24px, 4vw, 53px);
+  width: 100%;
+}
+
+.hiw-stepsRow::before {
+  position: absolute;
+  top: 7px;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: var(--dark-2);
+  content: "";
+}
+
+.hiw-step {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1 1 220px;
+  max-width: 262px;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.hiw-dot {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--dark-2);
+}
+
+.hiw-stepText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.hiw-stepTitle {
+  margin: 0;
+  color: var(--sx-text, var(--dark-2));
+  font-family: "Spectral", serif;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 188.235%;
+  letter-spacing: -0.51px;
+}
+
+.hiw-stepDescription {
+  margin: 0;
+  color: var(--sx-text, var(--dark-2));
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 166.667%;
+  letter-spacing: 0.12px;
+  opacity: 0.8;
+}
+
+.hiw-ctaButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 8px 24px;
+  color: var(--sx-btn-text, #fff);
+  text-align: center;
+  text-transform: capitalize;
+  background: var(--sx-btn-bg, #000);
+  border-radius: 12px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 140%;
+  letter-spacing: -0.28px;
+}
+
+@include down(md) {
+  .hiw-stepsRow::before {
+    content: none;
+  }
+
+  .hiw-stepsRow {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .hiw-ctaButton {
+    width: 100%;
+  }
+}

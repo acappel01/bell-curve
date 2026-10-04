@@ -1,0 +1,671 @@
+{
+    "$schema": "atlas-kb-curation/1",
+    "$note": [
+        "Atlas's editorial decisions about the prx-demo compound dump. Content is NOT here — this",
+        "file carries only the judgements a machine cannot make from the source, and the import",
+        "command (kb:import-compounds) reads it as a sidecar so the command itself stays generic.",
+        "",
+        "name/slug: the source keys on a lowercase generic_name that is neither display-quality nor",
+        "URL-safe ('test cyp', 'hcg (rx)', 'aod 9604'). Slugs are fixed here rather than generated so",
+        "a KB URL never moves because someone retitled a monograph.",
+        "",
+        "is_peptide: the gate on the peptide wiki. The source's compound_class cannot supply it — 94",
+        "of 106 rows say only 'Peptide', including amoxicillin, adapalene and vitamin B12. 32 of 102",
+        "compounds are actually peptides. Single amino acids (arginine, methionine) are not peptides;",
+        "tripeptides (glutathione, KPV, pinealon) are.",
+        "",
+        "regulatory_status: seeded, not authoritative. Every monograph imports unpublished and cannot",
+        "go live without a named reviewer, and confirming this field is part of what that reviewer is",
+        "confirming. Where a compound has both an approved product and a research-market existence",
+        "(melanotan 1 vs afamelanotide), the value describes it AS THIS PHARMACY SUPPLIES IT.",
+        "",
+        "merge: four pairs in the source are the same compound written twice. Two collide on slug",
+        "('aod 9604'/'aod-9604'); two do not and would otherwise publish as separate monographs",
+        "('5 amino 1-mq'/'5 amino 1mq' differ by a hyphen, 'mgf'/'mechano-growth-factor' and",
+        "'b6'/'pyridoxine' are name-vs-synonym). 'primary' names the row whose prose survives (the",
+        "longer monograph in all four cases); the absorbed row's brand names and synonyms are folded",
+        "into it and its prose is discarded."
+    ],
+    "source_system": "prx-demo",
+    "source_table": "protocol_compounds",
+    "merge": [
+        {
+            "primary": "aod 9604",
+            "absorb": [
+                "aod-9604"
+            ]
+        },
+        {
+            "primary": "5 amino 1-mq",
+            "absorb": [
+                "5 amino 1mq"
+            ]
+        },
+        {
+            "primary": "mgf",
+            "absorb": [
+                "mechano-growth-factor"
+            ]
+        },
+        {
+            "primary": "b6",
+            "absorb": [
+                "pyridoxine"
+            ]
+        }
+    ],
+    "compounds": {
+        "5 amino 1-mq": {
+            "name": "5-Amino-1MQ",
+            "slug": "5-amino-1mq",
+            "is_peptide": false,
+            "regulatory_status": "research_only"
+        },
+        "adapalene": {
+            "name": "Adapalene",
+            "slug": "adapalene",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "adipotide": {
+            "name": "Adipotide",
+            "slug": "adipotide",
+            "is_peptide": true,
+            "regulatory_status": "research_only"
+        },
+        "amoxicillin": {
+            "name": "Amoxicillin",
+            "slug": "amoxicillin",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "anastrozole": {
+            "name": "Anastrozole",
+            "slug": "anastrozole",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "aod 9604": {
+            "name": "AOD-9604",
+            "slug": "aod-9604",
+            "is_peptide": true,
+            "regulatory_status": "research_only"
+        },
+        "apomorphine": {
+            "name": "Apomorphine",
+            "slug": "apomorphine",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "ara-290": {
+            "name": "ARA-290",
+            "slug": "ara-290",
+            "is_peptide": true,
+            "regulatory_status": "investigational"
+        },
+        "arginine": {
+            "name": "L-Arginine",
+            "slug": "l-arginine",
+            "is_peptide": false,
+            "regulatory_status": "supplement"
+        },
+        "azithromycin": {
+            "name": "Azithromycin",
+            "slug": "azithromycin",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "b12": {
+            "name": "Vitamin B12 (Cobalamin)",
+            "slug": "vitamin-b12",
+            "is_peptide": false,
+            "regulatory_status": "supplement"
+        },
+        "b3": {
+            "name": "Vitamin B3 (Niacin)",
+            "slug": "vitamin-b3",
+            "is_peptide": false,
+            "regulatory_status": "supplement"
+        },
+        "b6": {
+            "name": "Pyridoxine (Vitamin B6)",
+            "slug": "pyridoxine",
+            "is_peptide": false,
+            "regulatory_status": "supplement"
+        },
+        "benzocaine": {
+            "name": "Benzocaine",
+            "slug": "benzocaine",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "benzoyl peroxide": {
+            "name": "Benzoyl Peroxide",
+            "slug": "benzoyl-peroxide",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "biestrogen": {
+            "name": "Bi-Est",
+            "slug": "biestrogen",
+            "is_peptide": false,
+            "regulatory_status": "compounded"
+        },
+        "biotin": {
+            "name": "Biotin",
+            "slug": "biotin",
+            "is_peptide": false,
+            "regulatory_status": "supplement"
+        },
+        "bpc-157": {
+            "name": "BPC-157",
+            "slug": "bpc-157",
+            "is_peptide": true,
+            "regulatory_status": "research_only"
+        },
+        "bupropion": {
+            "name": "Bupropion",
+            "slug": "bupropion",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "cagrilintide": {
+            "name": "Cagrilintide",
+            "slug": "cagrilintide",
+            "is_peptide": true,
+            "regulatory_status": "investigational"
+        },
+        "cagrisema": {
+            "name": "CagriSema",
+            "slug": "cagrisema",
+            "is_peptide": true,
+            "regulatory_status": "investigational"
+        },
+        "choline": {
+            "name": "Choline",
+            "slug": "choline",
+            "is_peptide": false,
+            "regulatory_status": "supplement"
+        },
+        "cjc-1295": {
+            "name": "CJC-1295",
+            "slug": "cjc-1295",
+            "is_peptide": true,
+            "regulatory_status": "research_only"
+        },
+        "clavulanate": {
+            "name": "Clavulanate",
+            "slug": "clavulanate",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "clindamycin": {
+            "name": "Clindamycin",
+            "slug": "clindamycin",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "clobetasol": {
+            "name": "Clobetasol Propionate",
+            "slug": "clobetasol",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "clomiphene": {
+            "name": "Clomiphene Citrate",
+            "slug": "clomiphene",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "cyanocobalamin": {
+            "name": "Cyanocobalamin",
+            "slug": "cyanocobalamin",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "desonide": {
+            "name": "Desonide",
+            "slug": "desonide",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "dhea": {
+            "name": "DHEA",
+            "slug": "dhea",
+            "is_peptide": false,
+            "regulatory_status": "supplement"
+        },
+        "dihexa": {
+            "name": "Dihexa",
+            "slug": "dihexa",
+            "is_peptide": true,
+            "regulatory_status": "research_only"
+        },
+        "doxycycline": {
+            "name": "Doxycycline",
+            "slug": "doxycycline",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "dsip": {
+            "name": "DSIP (Delta Sleep-Inducing Peptide)",
+            "slug": "dsip",
+            "is_peptide": true,
+            "regulatory_status": "research_only"
+        },
+        "enclomiphene": {
+            "name": "Enclomiphene",
+            "slug": "enclomiphene",
+            "is_peptide": false,
+            "regulatory_status": "compounded"
+        },
+        "estradiol": {
+            "name": "Estradiol",
+            "slug": "estradiol",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "estriol": {
+            "name": "Estriol",
+            "slug": "estriol",
+            "is_peptide": false,
+            "regulatory_status": "compounded"
+        },
+        "finasteride": {
+            "name": "Finasteride",
+            "slug": "finasteride",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "fluocinolone": {
+            "name": "Fluocinolone Acetonide",
+            "slug": "fluocinolone",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "ghrp-2": {
+            "name": "GHRP-2",
+            "slug": "ghrp-2",
+            "is_peptide": true,
+            "regulatory_status": "research_only"
+        },
+        "ghrp-6": {
+            "name": "GHRP-6",
+            "slug": "ghrp-6",
+            "is_peptide": true,
+            "regulatory_status": "research_only"
+        },
+        "glow": {
+            "name": "GLOW",
+            "slug": "glow",
+            "is_peptide": true,
+            "regulatory_status": "compounded"
+        },
+        "glutathione": {
+            "name": "Glutathione",
+            "slug": "glutathione",
+            "is_peptide": true,
+            "regulatory_status": "compounded"
+        },
+        "gonadorelin": {
+            "name": "Gonadorelin",
+            "slug": "gonadorelin",
+            "is_peptide": true,
+            "regulatory_status": "compounded"
+        },
+        "hcg (rx)": {
+            "name": "hCG (Human Chorionic Gonadotropin)",
+            "slug": "hcg",
+            "is_peptide": true,
+            "regulatory_status": "fda_approved"
+        },
+        "hyaluronic acid": {
+            "name": "Hyaluronic Acid",
+            "slug": "hyaluronic-acid",
+            "is_peptide": false,
+            "regulatory_status": "supplement"
+        },
+        "hydroquinone": {
+            "name": "Hydroquinone",
+            "slug": "hydroquinone",
+            "is_peptide": false,
+            "regulatory_status": "unapproved"
+        },
+        "inositol": {
+            "name": "Inositol",
+            "slug": "inositol",
+            "is_peptide": false,
+            "regulatory_status": "supplement"
+        },
+        "ivermectin": {
+            "name": "Ivermectin",
+            "slug": "ivermectin",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "ketoconazole": {
+            "name": "Ketoconazole",
+            "slug": "ketoconazole",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "kisspeptin-10": {
+            "name": "Kisspeptin-10",
+            "slug": "kisspeptin-10",
+            "is_peptide": true,
+            "regulatory_status": "research_only"
+        },
+        "klow": {
+            "name": "KLOW",
+            "slug": "klow",
+            "is_peptide": true,
+            "regulatory_status": "compounded"
+        },
+        "kpv": {
+            "name": "KPV",
+            "slug": "kpv",
+            "is_peptide": true,
+            "regulatory_status": "research_only"
+        },
+        "l-carnitine": {
+            "name": "L-Carnitine",
+            "slug": "l-carnitine",
+            "is_peptide": false,
+            "regulatory_status": "supplement"
+        },
+        "latanoprost": {
+            "name": "Latanoprost",
+            "slug": "latanoprost",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "lidocaine": {
+            "name": "Lidocaine",
+            "slug": "lidocaine",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "liraglutide": {
+            "name": "Liraglutide",
+            "slug": "liraglutide",
+            "is_peptide": true,
+            "regulatory_status": "fda_approved"
+        },
+        "ll-37 (cap-18)": {
+            "name": "LL-37 (CAP-18)",
+            "slug": "ll-37",
+            "is_peptide": true,
+            "regulatory_status": "research_only"
+        },
+        "melanotan 1": {
+            "name": "Melanotan I",
+            "slug": "melanotan-1",
+            "is_peptide": true,
+            "regulatory_status": "research_only"
+        },
+        "melanotan-ii": {
+            "name": "Melanotan II",
+            "slug": "melanotan-2",
+            "is_peptide": true,
+            "regulatory_status": "research_only"
+        },
+        "melatonin": {
+            "name": "Melatonin",
+            "slug": "melatonin",
+            "is_peptide": false,
+            "regulatory_status": "supplement"
+        },
+        "metformin": {
+            "name": "Metformin",
+            "slug": "metformin",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "methionine": {
+            "name": "L-Methionine",
+            "slug": "l-methionine",
+            "is_peptide": false,
+            "regulatory_status": "supplement"
+        },
+        "methylcobalamin": {
+            "name": "Methylcobalamin",
+            "slug": "methylcobalamin",
+            "is_peptide": false,
+            "regulatory_status": "compounded"
+        },
+        "methylene blue": {
+            "name": "Methylene Blue",
+            "slug": "methylene-blue",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "mgf": {
+            "name": "MGF (Mechano Growth Factor)",
+            "slug": "mgf",
+            "is_peptide": true,
+            "regulatory_status": "research_only"
+        },
+        "minocycline": {
+            "name": "Minocycline",
+            "slug": "minocycline",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "minoxidil": {
+            "name": "Minoxidil",
+            "slug": "minoxidil",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "nad+": {
+            "name": "NAD+",
+            "slug": "nad-plus",
+            "is_peptide": false,
+            "regulatory_status": "compounded"
+        },
+        "niacinamide": {
+            "name": "Niacinamide",
+            "slug": "niacinamide",
+            "is_peptide": false,
+            "regulatory_status": "supplement"
+        },
+        "np thyroid": {
+            "name": "NP Thyroid",
+            "slug": "np-thyroid",
+            "is_peptide": false,
+            "regulatory_status": "unapproved"
+        },
+        "ondansetron": {
+            "name": "Ondansetron",
+            "slug": "ondansetron",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "papaverine": {
+            "name": "Papaverine",
+            "slug": "papaverine",
+            "is_peptide": false,
+            "regulatory_status": "compounded"
+        },
+        "peg-mgf": {
+            "name": "PEG-MGF",
+            "slug": "peg-mgf",
+            "is_peptide": true,
+            "regulatory_status": "research_only"
+        },
+        "pentoxifylline": {
+            "name": "Pentoxifylline",
+            "slug": "pentoxifylline",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "pge1": {
+            "name": "Alprostadil (PGE1)",
+            "slug": "alprostadil",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "phentolamine": {
+            "name": "Phentolamine",
+            "slug": "phentolamine",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "pinealon": {
+            "name": "Pinealon",
+            "slug": "pinealon",
+            "is_peptide": true,
+            "regulatory_status": "research_only"
+        },
+        "pregnenolone": {
+            "name": "Pregnenolone",
+            "slug": "pregnenolone",
+            "is_peptide": false,
+            "regulatory_status": "supplement"
+        },
+        "progesterone": {
+            "name": "Progesterone",
+            "slug": "progesterone",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "retatrutide": {
+            "name": "Retatrutide",
+            "slug": "retatrutide",
+            "is_peptide": true,
+            "regulatory_status": "investigational"
+        },
+        "semaglutide": {
+            "name": "Semaglutide",
+            "slug": "semaglutide",
+            "is_peptide": true,
+            "regulatory_status": "fda_approved"
+        },
+        "sermorelin": {
+            "name": "Sermorelin",
+            "slug": "sermorelin",
+            "is_peptide": true,
+            "regulatory_status": "compounded"
+        },
+        "sertraline": {
+            "name": "Sertraline",
+            "slug": "sertraline",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "sildenafil": {
+            "name": "Sildenafil",
+            "slug": "sildenafil",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "snap-8": {
+            "name": "SNAP-8 (Acetyl Octapeptide-3)",
+            "slug": "snap-8",
+            "is_peptide": true,
+            "regulatory_status": "research_only"
+        },
+        "spironolactone": {
+            "name": "Spironolactone",
+            "slug": "spironolactone",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "sulfacetamide": {
+            "name": "Sulfacetamide",
+            "slug": "sulfacetamide",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "tacrolimus": {
+            "name": "Tacrolimus",
+            "slug": "tacrolimus",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "tadalafil": {
+            "name": "Tadalafil",
+            "slug": "tadalafil",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "tamoxifen": {
+            "name": "Tamoxifen",
+            "slug": "tamoxifen",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "test cyp": {
+            "name": "Testosterone Cypionate",
+            "slug": "testosterone-cypionate",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "test enan": {
+            "name": "Testosterone Enanthate",
+            "slug": "testosterone-enanthate",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "testosterone": {
+            "name": "Testosterone",
+            "slug": "testosterone",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "tetracaine": {
+            "name": "Tetracaine",
+            "slug": "tetracaine",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "thymalin": {
+            "name": "Thymalin",
+            "slug": "thymalin",
+            "is_peptide": true,
+            "regulatory_status": "research_only"
+        },
+        "tirzepatide": {
+            "name": "Tirzepatide",
+            "slug": "tirzepatide",
+            "is_peptide": true,
+            "regulatory_status": "fda_approved"
+        },
+        "topiramate": {
+            "name": "Topiramate",
+            "slug": "topiramate",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "tretinoin": {
+            "name": "Tretinoin",
+            "slug": "tretinoin",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "vardenafil": {
+            "name": "Vardenafil",
+            "slug": "vardenafil",
+            "is_peptide": false,
+            "regulatory_status": "fda_approved"
+        },
+        "vitamin d3": {
+            "name": "Vitamin D3 (Cholecalciferol)",
+            "slug": "vitamin-d3",
+            "is_peptide": false,
+            "regulatory_status": "supplement"
+        },
+        "wolverine": {
+            "name": "Wolverine",
+            "slug": "wolverine",
+            "is_peptide": true,
+            "regulatory_status": "compounded"
+        },
+        "yohimbine": {
+            "name": "Yohimbine",
+            "slug": "yohimbine",
+            "is_peptide": false,
+            "regulatory_status": "supplement"
+        }
+    }
+}

@@ -1,0 +1,252 @@
+@use "../abstracts/index" as *;
+// Cart header trigger (`ct-*`) and mini-cart drawer (`cd-*`). Mobile-first.
+// The `.cd-qty, .pd-qty` rule is shared with the detail page's buy box and must
+// stay ahead of `_product-buy-box.scss`, which overrides `.pd-qty`.
+/* ------------------------------------------------------------------ */
+/* Cart: header trigger (ct-*), mini-cart drawer (cd-*), detail buy    */
+/* box (pd-buy*). Mobile-first.                                        */
+/* ------------------------------------------------------------------ */
+.ct-trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  font-size: 20px;
+  color: var(--dark-2);
+  background: transparent;
+  border: 0;
+
+  &:hover {
+    color: var(--color-gold);
+  }
+}
+
+.ct-count {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  color: #fff;
+  background: var(--color-gold);
+  border-radius: 9px;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* Add-to-cart feedback: the bag bumps when the count increases — the only
+   feedback below the drawer's auto-open breakpoint. */
+.ct-bump {
+  animation: ct-bump 0.6s ease-in-out;
+
+  .ct-count {
+    animation: ct-count-pop 0.6s ease-in-out;
+  }
+}
+
+@keyframes ct-bump {
+  0%,
+  100% {
+    transform: none;
+  }
+
+  20% {
+    transform: scale(1.25) rotate(-8deg);
+  }
+
+  45% {
+    transform: scale(0.95) rotate(6deg);
+  }
+
+  70% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes ct-count-pop {
+  0% {
+    transform: scale(0.4);
+  }
+
+  50% {
+    transform: scale(1.35);
+  }
+
+  100% {
+    transform: none;
+  }
+}
+
+.cd-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgb(0 0 0 / 55%);
+}
+
+.cd-drawer {
+  z-index: 2001;
+  display: flex;
+  visibility: visible;
+  width: min(420px, 92vw);
+  transform: none;
+}
+
+.cd-drawer .canvas-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+}
+
+.cd-close {
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+
+.cd-body {
+  flex: 1 1 auto;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.cd-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--color-sand);
+
+  &:first-child {
+    padding-top: 0;
+  }
+}
+
+.cd-item .tf-mini-cart-image img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  background: var(--color-sand);
+  border-radius: 10px;
+}
+
+.cd-itemInfo {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.cd-planName {
+  margin: 0;
+  color: var(--color-gold);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.cd-lineMeta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.cd-qty,
+.pd-qty {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid rgb(176 145 105 / 40%);
+  border-radius: 10px;
+
+  .btn-quantity {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 34px;
+    padding: 0;
+    font-size: 16px;
+    color: var(--dark-2);
+    background: transparent;
+    border: 0;
+
+    &:disabled {
+      opacity: 0.35;
+    }
+  }
+
+  .quantity-product {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    text-align: center;
+    background: transparent;
+    border: 0;
+    font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+
+.cd-lineTotal {
+  color: var(--dark-2);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 15px;
+}
+
+.cd-remove {
+  padding: 0;
+  color: var(--dark-2);
+  text-decoration: underline;
+  background: transparent;
+  border: 0;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 13px;
+
+  &:hover {
+    color: var(--color-gold);
+  }
+}
+
+.cd-empty {
+  margin: 24px 0;
+  color: var(--dark-2);
+  text-align: center;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 15px;
+}
+
+.cd-footer {
+  flex: 0 0 auto;
+  padding: 20px;
+  border-top: 1px solid var(--color-sand);
+}
+
+.cd-subtotal {
+  display: flex;
+  justify-content: space-between;
+  color: var(--dark-2);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 16px;
+}
+
+.cd-note {
+  margin: 8px 0 0;
+  color: rgb(16 24 40 / 60%);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 12px;
+}

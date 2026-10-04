@@ -1,0 +1,105 @@
+@use "../abstracts/index" as *;
+
+// Category grid block (theme Categories2). Mobile-first and scoped under
+// .categorySection — these were flat desktop-first Figma-export selectors and
+// .arrow leaked globally.
+//
+// Wears .sx-section/.sx-content: the frame owns the horizontal gutter and
+// content_width owns the column cap, so neither appears here. The 16/32/60px
+// side padding this used to step through was NOT dead — .categorySection was
+// in no legacy list, so the grid really did sit 60px inside the page gutter on
+// desktop and the layout knobs really did nothing to it. Both are fixed by the
+// conversion; the grid is 120px wider at 1440 as a result.
+//
+// padding-block-start replaces the `pt-24` div the component used to open with.
+.categorySection {
+  display: flex;
+  justify-content: center;
+  padding-block-start: 24px;
+
+  .categoryGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .categoryCard {
+    position: relative;
+    display: flex;
+    height: 96px;
+    align-items: center;
+    overflow: hidden;
+    padding: 12px 20px;
+    color: var(--dark-2);
+    background: #f0e6da;
+  }
+
+  .categoryHeader {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .categoryName {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: "Inter", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 22px;
+    white-space: nowrap;
+  }
+
+  .categoryMark {
+    display: block;
+    width: 16px;
+    height: 14px;
+    flex-shrink: 0;
+    background: var(--dark-2);
+    clip-path: polygon(0 100%, 43% 0, 100% 0, 80% 46%, 59% 100%);
+  }
+
+  .arrow {
+    flex-shrink: 0;
+  }
+
+  .penImage {
+    position: absolute;
+    top: 0;
+    right: 42px;
+    width: 106px;
+    height: 96px;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+
+  @include up(md) {
+    .categoryGrid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .categoryCard {
+      height: 119px;
+    }
+
+    .categoryName {
+      font-size: 24px;
+    }
+
+    .penImage {
+      right: 45px;
+      height: 119px;
+    }
+  }
+
+  @include up(tablet) {
+    .categoryGrid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+}

@@ -1,0 +1,427 @@
+@use "../abstracts/index" as *;
+// "Pair With" mini slider + catalog quick-view modal (`pw-*`), plus the theme
+// grid fixes the slider needs and the detail-page accordion / cross-sell rail
+// placements. Mobile-first.
+/* ------------------------------------------------------------------ */
+/* Pair With mini slider + catalog quick-view modal (pw-*)             */
+/* Mobile-first; scoped to the detail-page Pair With placement.        */
+/* ------------------------------------------------------------------ */
+/* The theme's info column and its inner list are both display:grid with
+   no template — implicit `auto` tracks size to max-content and OVERFLOW
+   their container rather than shrink (unlike flex). The swiper's slide
+   track therefore inflated the whole column past the viewport. Pinning
+   the single column to minmax(0, 1fr) caps the track at container width
+   so the slider measures the real column. */
+.tf-product-info-wrap,
+.tf-product-info-wrap .tf-product-info-list {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.tf-product-info-wrap .tf-product-info-list {
+  min-width: 0;
+}
+
+.pw-slider {
+  width: 100%;
+  max-width: 100%;
+
+  .sw-dot-default {
+    display: flex;
+    margin-top: 12px;
+  }
+}
+
+.pw-card {
+  position: relative; /* the quick-view target below is absolute to the card */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* The shot sits INSIDE a fixed frame rather than filling a square one.
+   `aspect-ratio: 1` + `object-fit: cover` measured 316px square on desktop and
+   358px on mobile — the image WAS the card, and it was cropped besides: the
+   photography here is angled pens at ~1335x1178, so `cover` on a square trims
+   the ends off. Same treatment as `.rel-card__media` and `.inc-media` — a
+   fixed height, `contain`, padding, and a soft ground.
+
+   Height is deliberately one value at every width, and NOT an `aspect-ratio`.
+   The card is NARROWER on desktop (2-up in the info column) than on mobile
+   (1-up, full width), so a ratio would make the frame GROW on the viewport
+   where the complaint started — 358 wide at 4/3 is a 268px box, most of a
+   phone card again. A fixed height sizes the shot the same in both places and
+   lets the card width vary underneath it.
+
+   168px was tried first (the `.rel-card__media` value) and read as too small
+   here: that rail card carries a title, a blurb and a CTA under its frame, so
+   the frame is one element of several, where this card is a frame with two
+   lines under it. 210 puts the shot at ~211x186 — two thirds of the card's
+   width, against 316x316 filling it before. */
+.pw-cardMedia {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  height: 210px;
+  padding: 12px;
+  background: rgb(0 0 0 / 3%);
+  border-radius: 12px;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    transition: transform 300ms ease;
+  }
+
+  .pw-card:hover & img {
+    transform: scale(1.04);
+  }
+}
+
+/* Transparent quick-view target covering the WHOLE card, image and text alike
+   — it replaced a wrapper that did, and stopping at the image would leave a tap
+   on the product name doing nothing. It carries the card's accessible name;
+   the name and price stay plain text so the same control is not announced
+   twice. A SIBLING of the CTA, never its parent — see the component.
+
+   `.pw-cardMedia` is `position: relative` with no z-index, so it opens no
+   stacking context and the CTA inside it still layers above this by z-index
+   alone. */
+.pw-cardQuick {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 12px;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+}
+
+/* Add-to-cart overlay, pinned to the foot of the media box and one layer above
+   the quick-view target so it takes the click inside its own bounds. */
+.pw-cardCta {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  left: 10px;
+  z-index: 2;
+  padding: 9px 14px;
+  color: var(--palette-white, #fff);
+  background: var(--color-primary, #1a1a1a);
+  border: 0;
+  border-radius: 999px;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+
+  /* Brightness rather than opacity: the reveal below animates opacity, and a
+     hover rule on the same property would fight it at equal specificity. */
+  &:hover {
+    color: var(--palette-white, #fff);
+    filter: brightness(1.3);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    filter: none;
+    opacity: 0.55;
+  }
+}
+
+/* Reveal on hover only where hover exists. On touch — ~80% of this site's
+   traffic — there is no hover to reveal it with, so it stays visible; hiding it
+   behind a state the device cannot enter would be hiding it outright.
+   Keyboard reaches it either way: an opacity-0 button is still in the tab
+   order, and focus brings it back. */
+@media (hover: hover) {
+  .pw-cardCta {
+    opacity: 0;
+    transform: translateY(6px);
+    pointer-events: none;
+    transition:
+      opacity 200ms ease,
+      transform 200ms ease;
+  }
+
+  .pw-card:hover .pw-cardCta,
+  .pw-cardCta:focus-visible {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+}
+
+.pw-cardBadge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 3;
+  /* Decoration, not a target: it paints over the quick-view button, so without
+     this it would swallow the click in the card's top-left corner. */
+  pointer-events: none;
+  padding: 3px 8px;
+  color: #fff;
+  background: var(--color-gold);
+  border-radius: 6px;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 140%;
+}
+
+.pw-cardInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Joins the established error pair in `_product-buy-box.scss` for colour and
+   family; only the size differs, because this one sits in a card. */
+.pw-cardError {
+  color: #b3261e;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 140%;
+}
+
+.pw-cardName {
+  color: var(--dark-2);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 140%;
+}
+
+.pw-cardPrice {
+  color: var(--dark-2);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 140%;
+}
+
+.pw-qv {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgb(0 0 0 / 55%);
+}
+
+.pw-qvPanel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-height: 88vh;
+  padding: 24px 20px;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 20px 20px 0 0;
+  animation: pw-qv-in 240ms ease;
+}
+
+@keyframes pw-qv-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pw-qvClose {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  font-size: 14px;
+  color: var(--dark-2);
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+
+  &:hover {
+    background: var(--color-sand);
+  }
+}
+
+.pw-qvMedia {
+  flex: 0 0 auto;
+  overflow: hidden;
+  aspect-ratio: 1;
+  background: var(--color-sand);
+  border-radius: 16px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.pw-qvInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pw-qvKind {
+  margin: 0;
+  color: var(--color-gold);
+  text-transform: uppercase;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.pw-qvTitle {
+  margin: 0;
+  color: var(--dark-2);
+  font-family: var(--font-ivyora-text), Georgia, serif;
+  font-size: 26px;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.pw-qvSubtitle {
+  margin: 0;
+  color: var(--dark-2);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 150%;
+}
+
+.pw-qvPrice {
+  margin: 4px 0 0;
+  color: var(--dark-2);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.pw-qvStock {
+  margin: 0;
+  color: var(--dark-2);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  font-style: italic;
+}
+
+.pw-qvActions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+  margin-top: 8px;
+}
+
+.pw-qvCta {
+  justify-content: center;
+  width: 100%;
+}
+
+.pw-qvDetailsLink {
+  align-self: center;
+  color: var(--dark-2);
+  text-decoration: underline;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+
+  &:hover {
+    color: var(--color-gold);
+  }
+}
+
+@include up(md) {
+  .pw-qv {
+    align-items: center;
+    padding: 24px;
+  }
+
+  .pw-qvPanel {
+    flex-direction: row;
+    gap: 28px;
+    max-width: 720px;
+    padding: 32px;
+    border-radius: 20px;
+  }
+
+  .pw-qvMedia {
+    flex: 0 0 44%;
+  }
+
+  .pw-qvInfo {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .pw-qvCta {
+    width: auto;
+  }
+
+  .pw-qvDetailsLink {
+    align-self: flex-start;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Detail-page accordions, "below" placement variant                    */
+/* Full-width under the gallery/info row, above the (future) trust     */
+/* band. Mobile-first.                                                 */
+/* ------------------------------------------------------------------ */
+.tf-product-below-accordions {
+  margin-top: 8px;
+
+  .tf-product-side-accordions {
+    margin-bottom: 0;
+  }
+}
+
+@include up(md) {
+  .tf-product-below-accordions {
+    margin-top: 24px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Listing cross-sell rail (tf-cross-slider)                           */
+/* Sits between the page-title band and the listing control bar; the   */
+/* listing section below brings its own 64px top padding. Mobile-first.*/
+/* ------------------------------------------------------------------ */
+.tf-cross-slider {
+  padding-top: 40px;
+}
+
+@include up(md) {
+  .tf-cross-slider {
+    padding-top: 64px;
+  }
+}

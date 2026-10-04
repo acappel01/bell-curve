@@ -1,0 +1,120 @@
+/*------------ button ---------------- */
+@forward "button";
+/*------------ avatar ---------------- */
+@forward "avatar";
+/*------------ hover ---------------- */
+@forward "hover";
+/*------------ form ---------------- */
+@forward "form";
+/*------------ drop down ---------------- */
+@forward "dropdown";
+/*------------ carousel ---------------- */
+@forward "swiper";
+/*------------ pop up ---------------- */
+@forward "pop-up";
+/*------------ box icon ---------------- */
+@forward "box-icon";
+/*------------ tabs ---------------- */
+@forward "tabs";
+/*------------ accordion ---------------- */
+@forward "accordion";
+/*------------ header ---------------- */
+@forward "header";
+/*------------ footer ---------------- */
+@forward "footer";
+/*------------ blog ---------------- */
+@forward "blog";
+/*------------ slider banner ---------------- */
+@forward "slider";
+/*------------ collection ---------------- */
+@forward "collection";
+/*------------ product ---------------- */
+@forward "product";
+/*------------ testimonial ---------------- */
+@forward "testimonial";
+/*------------ lookbook ---------------- */
+@forward "lookbook";
+/*------------ brand ---------------- */
+@forward "brand";
+/*------------ zoom ---------------- */
+@forward "zoom";
+/*------------ shop ---------------- */
+@forward "shop";
+/*------------ shop ---------------- */
+@forward "cart";
+/*------------ account ---------------- */
+@forward "account";
+/*------------ categorybox ---------------- */
+@forward "categorybox";
+/*------------ flexible ---------------- */
+@forward "flexible";
+/* --- Atlas sections, pages and modules ------------------------------
+   Split out of the former 3,918-line _science.scss. FORWARD ORDER IS
+   THE OLD SOURCE ORDER and is load-bearing: several of these carry
+   equal-specificity overrides that win by position (.dh-section--dark
+   after .dh-section, _product-buy-box after _cart-drawer). Add a new
+   partial at the end unless it must override an earlier one.
+   ------------------------------------------------------------------ */
+@forward "image-text-split";
+@forward "physicians";
+@forward "faq";
+@forward "how-it-works";
+@forward "package-slider";
+@forward "comparison-table";
+@forward "product-slider";
+@forward "testimonials";
+@forward "product-detail";
+@forward "final-cta";
+@forward "theme-overrides";
+@forward "stats-marquee";
+@forward "results-stats";
+@forward "story";
+@forward "benefits";
+@forward "pair-with";
+@forward "product-trust-band";
+@forward "cart-drawer";
+@forward "product-buy-box";
+/*------------ product highlights ---------------- */
+@forward "product-highlights";
+/*------------ relation rail card ---------------- */
+@forward "relation-card";
+/*------------ included items ---------------- */
+@forward "included-items";
+/*------------ health goal badges ---------------- */
+@forward "health-goal-badges";
+/*------------ highlight banner ---------------- */
+@forward "highlight-banner";
+/*------------ benefits diagram ---------------- */
+@forward "benefits-diagram";
+/*------------ image callout ---------------- */
+@forward "image-callout";
+/*------------ conversion detail ---------------- */
+@forward "conversion-detail";
+/*------------ video embed ---------------- */
+@forward "video-embed";
+/*------------ checkout flow ---------------- */
+@forward "checkout-flow";
+/*------------ clinical intake (embed host) ---------------- */
+@forward "intake";
+/*------------ page header ---------------- */
+@forward "page-header";
+/*------------ hero banner ---------------- */
+@forward "hero-banner";
+/*------------ timeline ---------------- */
+@forward "timeline";
+/*------------ faq categories ---------------- */
+@forward "faq-categories";
+/*------------ text block ---------------- */
+@forward "text-block";
+/*------------ custom HTML escape hatch ---------------- */
+@forward "html-block";
+/*------------ quiz CTA (lead magnet ingress) ---------------- */
+@forward "quiz-cta";
+/*------------ knowledge base ---------------- */
+@forward "kb";
+/*------------ typed sub-blocks (sxb-* knobs) ---------------- */
+@forward "sub-blocks";
+/*------------ intake quiz step controls ---------------- */
+@forward "quiz-steps";
+/*------------ layout frame (keep LAST — overrides section gutters) ---------------- */
+@forward "layout-frame";

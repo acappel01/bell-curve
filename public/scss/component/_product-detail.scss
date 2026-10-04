@@ -1,0 +1,320 @@
+@use "../abstracts/index" as *;
+// Product detail page (`pd-*`): gallery, title block, deal grid, accordions.
+// NOTE: written desktop-first below lg — the base rules are the wide layout.
+.pd-section {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+.pd-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: clamp(32px, 5vw, 62px);
+  width: 100%;
+  max-width: 1312px;
+}
+.pd-gallery {
+  display: flex;
+  flex: 1 1 480px;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 740px;
+}
+.pd-galleryRow {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+.pd-thumbnails {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  gap: clamp(12px, 2vw, 31px);
+  width: clamp(72px, 9vw, 120px);
+}
+.pd-thumbnail {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 20px;
+}
+.pd-mainImageWrapper {
+  flex: 1 1 auto;
+  min-width: 0;
+  aspect-ratio: 1 / 1;
+}
+.pd-mainImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.pd-galleryProgress {
+  position: relative;
+  width: min(540px, 100%);
+  height: 4px;
+  background: #fff;
+  border-radius: 2px;
+}
+.pd-galleryProgressFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 38.33%;
+  height: 100%;
+  background: var(--color-gold);
+  border-radius: 2px;
+}
+.pd-info {
+  display: flex;
+  flex: 1 1 420px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 32px;
+  max-width: 486px;
+  min-width: 280px;
+}
+.pd-titleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2vw, 23px);
+}
+.pd-title {
+  margin: 0;
+  color: var(--dark-2);
+  font-family: var(--font-ivyora-text), Georgia, serif;
+  font-size: clamp(32px, 4.5vw, 48px);
+  font-style: normal;
+  font-weight: 300;
+  line-height: 1.1;
+}
+.pd-price {
+  margin: 0;
+  color: var(--dark-2);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 130%;
+  text-transform: capitalize;
+}
+.pd-rating {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.pd-stars {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.pd-star {
+  padding: 3px 2px;
+}
+.pd-reviewCount {
+  margin: 0;
+  color: var(--dark-2);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 120%;
+}
+.pd-dealSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+.pd-dealLabel {
+  margin: 0;
+  color: var(--dark-2);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 150%;
+  text-transform: uppercase;
+}
+.pd-dealGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  width: 100%;
+}
+.pd-dealCard {
+  position: relative;
+  display: flex;
+  flex: 1 1 140px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  min-width: 140px;
+  padding: 24px 20px;
+  text-align: center;
+  border: 1px solid rgb(176 145 105 / 40%);
+  border-radius: 16px;
+}
+.pd-dealCardPopular {
+  border-color: var(--dark-2);
+  background: rgb(0 0 0 / 4%);
+}
+.pd-popularBadge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  padding: 10px;
+  color: #fff;
+  white-space: nowrap;
+  background: var(--dark-2);
+  border-radius: 6px;
+  transform: translateX(-50%);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 140%;
+  letter-spacing: -0.14px;
+}
+.pd-dealMonths {
+  color: var(--dark-2);
+  font-family: var(--font-ivyora-text), Georgia, serif;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: -0.2px;
+}
+.pd-dealOff {
+  color: var(--color-gold);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+.pd-dealPrice {
+  color: var(--dark-2);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.pd-oneTimeLink {
+  color: var(--color-gold);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-decoration: underline;
+}
+.pd-accordionPanel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: clamp(20px, 3vw, 32px);
+  background: var(--color-sand);
+  border-radius: 24px;
+}
+.pd-accordionItem {
+  border-bottom: 1px solid var(--dark-2);
+}
+.pd-accordionItem:not(:first-child) .accordionHeader {
+  padding-top: 26px;
+}
+.pd-accordionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 20px;
+  color: var(--dark-2);
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-ivyora-text), Georgia, serif;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1.5;
+  letter-spacing: -0.72px;
+}
+.pd-accordionHeader::-webkit-details-marker {
+  display: none;
+}
+.pd-accordionIcon {
+  position: relative;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+}
+.pd-accordionIcon::before,
+.pd-accordionIcon::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 2px;
+  content: "";
+  background: var(--dark-2);
+  transform: translate(-50%, -50%);
+  transition: transform 180ms ease;
+}
+.pd-accordionIcon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+.pd-accordionItem[open] .accordionIcon::after {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+.pd-accordionBody {
+  padding-bottom: 24px;
+  color: var(--dark-2);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 168.75%;
+}
+.pd-accordionBody p {
+  margin: 0 0 16px;
+}
+.pd-accordionBody ul {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 20px;
+  margin: 0;
+}
+@include down(tablet) {
+  .pd-inner {
+    flex-direction: column;
+    align-items: center;
+  }
+  .pd-gallery {
+    width: 100%;
+    max-width: 600px;
+  }
+  .pd-info {
+    width: 100%;
+    max-width: 600px;
+  }
+}
+@include down(md) {
+  .pd-galleryRow {
+    flex-direction: column-reverse;
+  }
+  .pd-thumbnails {
+    flex-direction: row;
+    width: 100%;
+    overflow-x: auto;
+  }
+  .pd-thumbnail {
+    flex-shrink: 0;
+    width: 88px;
+  }
+  .pd-dealCard {
+    min-width: 45%;
+  }
+  .pd-accordionHeader {
+    font-size: 20px;
+  }
+}

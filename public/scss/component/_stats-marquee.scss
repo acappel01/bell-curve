@@ -1,0 +1,100 @@
+@use "../abstracts/index" as *;
+// Stats marquee section (`sm-*`) — auto-scrolling value/label strip.
+// Mobile-first, scoped under .sm-section. The track holds two copies of the
+// list; the loop translates -50% so the hand-off is seamless. Static wrap for
+// prefers-reduced-motion.
+//
+// Wears .sx-section and DELIBERATELY NO .sx-content — the overflowing track
+// needs the band itself as its clipping box, so this type has no content
+// column. See the note in StatsMarqueeSection.jsx. `overflow: hidden` below is
+// therefore load-bearing, not tidiness.
+@keyframes sm-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.sm-section {
+  overflow: hidden;
+  // The frame owns the horizontal gutter; only the vertical rhythm is ours.
+  padding-block: 24px;
+  background: var(--color-sand);
+
+  .sm-track {
+    display: flex;
+    width: max-content;
+    // Back out of .sx-section's re-pad. Overflow clips at the PADDING box,
+    // which spans the full bled band, so without this the strip starts one
+    // page-gutter in and the band opens on a blank notch before the loop
+    // covers it. The frame's gutter is right for a content column and wrong
+    // for a marquee, which is the same reason this type has no .sx-content.
+    margin-inline: calc(-1 * var(--page-gutter));
+    animation: sm-scroll 30s linear infinite;
+  }
+
+  .sm-track:hover {
+    animation-play-state: paused;
+  }
+
+  .sm-strip {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .sm-item {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 0 clamp(24px, 4vw, 48px);
+    white-space: nowrap;
+  }
+
+  .sm-item + .sm-item {
+    border-left: 1px solid rgb(0 0 0 / 12%);
+  }
+
+  .sm-value {
+    color: var(--sx-accent, var(--color-gold));
+    font-family: "Spectral", serif;
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 300;
+    line-height: 1.2;
+  }
+
+  .sm-label {
+    color: var(--sx-text, var(--dark-2));
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sm-track {
+      // Static and wrapped, so it is a content column again and wants the
+      // gutter back.
+      width: auto;
+      margin-inline: 0;
+      animation: none;
+    }
+
+    .sm-strip {
+      flex-wrap: wrap;
+      justify-content: center;
+      row-gap: 16px;
+    }
+
+    .sm-strip[aria-hidden] {
+      display: none;
+    }
+  }
+}

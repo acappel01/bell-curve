@@ -1,0 +1,159 @@
+@use "../abstracts/index" as *;
+// Detail-page buy box (`pd-buy*`, selectable deal cards, quantity, add button)
+// and the mobile-first gallery override. Overrides `.pd-qty` from
+// `_cart-drawer.scss`, so this must stay forwarded after it.
+.pd-buyBox {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.pd-dealCardSelectable {
+  cursor: pointer;
+  background: transparent;
+  transition: border-color 150ms ease, background 150ms ease;
+
+  &:hover {
+    border-color: var(--color-gold);
+  }
+}
+
+.pd-oneTimeSelectable {
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.pd-oneTimeSelected {
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.pd-buyRow {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.pd-qty {
+  flex: 0 0 auto;
+
+  .btn-quantity {
+    height: 46px;
+  }
+
+  .quantity-product {
+    height: 46px;
+  }
+}
+
+.pd-addBtn {
+  flex: 1 1 auto;
+  justify-content: center;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.pd-buyError,
+.pw-qvError {
+  margin: 0;
+  color: #b3261e;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 13px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Detail-page gallery, mobile-first. Phones get the arrows-only main  */
+/* carousel — no thumb strip (the theme's responsive block turns the   */
+/* vertical thumbs swiper into a full-width column of stacked slides)  */
+/* — and a capped media height so the image doesn't consume the whole  */
+/* viewport. Thumbs return at 1200px — the theme's responsive sheet    */
+/* keeps the column layout (full-width thumbs) through 1199px, so the  */
+/* vertical thumbs swiper only works in the >=1200 side-by-side grid.  */
+/* ------------------------------------------------------------------ */
+.product-thumbs-slider {
+  .tf-product-media-thumbs {
+    display: none;
+  }
+
+  /* The frame is a square the shot sits INSIDE, not a portrait box it fills.
+     Measured on /products/tirzepatide at 1440: a 488x758 frame (the theme's
+     `max-height: 758px`) holding a 961x848 landscape photo with
+     `object-fit: cover` scaled it to 859px wide and cropped ~43% of the
+     width. Same treatment as `.inc-media` and `.rel-card__media` — a ratio,
+     `contain`, and internal padding. Sizing the IMG rather than the box also
+     leaves drift-zoom bound to an element that matches the visible photo,
+     which `cover` never did. */
+  /* ONE cap sizes the whole row, and it has to be `max-height` on the THUMBS.
+     Measured, not assumed: `aspect-ratio` on either the column or `.item`
+     loses to flex stretch, because the row's cross size is set by the thumbs
+     column — its content is four Swiper-baked slide heights, themselves
+     derived from whatever the column measured at init, and the theme's
+     `max-height: 758px` (`_product.scss`) is what breaks that loop. So both
+     caps move together, from one variable, or the two columns drift apart. */
+  --pd-gallery-height: 55vh;
+
+  .tf-product-media-thumbs,
+  .flat-wrap-media-product .tf-product-media-main .item {
+    max-height: var(--pd-gallery-height);
+  }
+
+  .flat-wrap-media-product .tf-product-media-main .item {
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    border-radius: 12px;
+    background: rgb(0 0 0 / 3%);
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+
+  /* Thumbs have to read as the same shot as the main frame; `cover` in a
+     122px column re-crops each one differently. */
+  .tf-product-media-thumbs .swiper-slide .item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    background: rgb(0 0 0 / 3%);
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+
+  @include up(xl) {
+    /* Was 758px, which is where the crop came from: a portrait box that tall
+       against a ~488px column forced a landscape photo to 859px wide under
+       `object-fit: cover` and lost ~43% of its width. */
+    --pd-gallery-height: 560px;
+
+    .tf-product-media-thumbs {
+      display: block;
+    }
+
+    .flat-wrap-media-product .tf-product-media-main .item {
+      padding: 24px;
+    }
+  }
+}

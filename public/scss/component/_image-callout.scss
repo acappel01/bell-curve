@@ -1,0 +1,227 @@
+@use "../abstracts/index" as *;
+// Image callout banner (Figma 1268-2811): full-width rounded background
+// image with floating frosted callout cards. Mobile-first: cards stack in
+// flow over the image bottom; at 992px each card floats into its slot
+// (slot 0 = left, slot 1 = right), vertically centered.
+//
+// Three levels of the layout contract, because `__frame` is a visual card:
+// `.image-callout` is the band, `.sx-content` the column the knobs move, the
+// frame the card. The frame's old `max-width: 1216px` is deleted rather than
+// handed to content_width — legacy list 2 had already lifted it to `none`, so
+// it was DEAD and this section has been rendering uncapped. That is what its
+// served default (`content_width: full`) describes, and the measured widths
+// agree. Copying the dead value into a token would have narrowed the section.
+.image-callout {
+  padding-block: 32px;
+
+  &__frame {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100%;
+    min-height: 420px;
+    border-radius: clamp(20px, 3vw, 40px);
+    overflow: hidden;
+    // Keeps the tint's mix-blend from leaking past the frame.
+    isolation: isolate;
+  }
+
+  // Monochrome tint: replaces the photo's hue/saturation with a single
+  // color while keeping its luminosity (background_treatment "tint").
+  &__tint {
+    position: absolute;
+    inset: 0;
+    background: #f0e6da;
+    mix-blend-mode: color;
+    pointer-events: none;
+  }
+
+  &__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__cards {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: clamp(16px, 3vw, 32px);
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    padding: 32px;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+  }
+
+  // Compact media card (Figma 339-2041 top-left): small frosted card with
+  // an image over left-aligned copy.
+  &__card--media-card {
+    align-items: flex-start;
+    gap: 30px;
+    background: rgba(247, 247, 247, 0.5);
+    backdrop-filter: blur(36px);
+
+    .image-callout__title,
+    .image-callout__content {
+      text-align: left;
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+  }
+
+  // Feature copy (Figma 339-2041 right side): large serif title and
+  // left-aligned text. Keeps the frosted backing on mobile where it sits
+  // over the busy photo; the desktop block strips the card chrome once the
+  // copy floats into the image's clear space.
+  &__card--feature {
+    align-items: flex-start;
+
+    .image-callout__title {
+      text-align: left;
+      font-size: clamp(32px, 4vw, 48px);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .image-callout__content {
+      text-align: left;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+  }
+
+  &__icon {
+    width: 51px;
+    height: auto;
+  }
+
+  &__title {
+    margin: 0;
+    color: var(--sx-text, #000);
+    text-align: center;
+    font-family: "Spectral", serif;
+    font-size: 27px;
+    font-weight: 300;
+    line-height: 1.3;
+  }
+
+  &__content {
+    margin: 0;
+    color: var(--sx-text, #000);
+    text-align: center;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  &__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 32px;
+    color: var(--sx-btn-text, #fff);
+    text-transform: capitalize;
+    background: var(--sx-btn-bg, #000);
+    border: 1px solid var(--sx-btn-bg, #000);
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: "Inter", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+  }
+
+  .section-cta__error {
+    margin: 0;
+    color: #b3261e;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  @include up(lg) {
+    &__frame {
+      min-height: 600px;
+    }
+
+    &__cards {
+      position: absolute;
+      inset: 0;
+      display: block;
+      padding: 0;
+    }
+
+    &__card {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 511px;
+
+      &--slot-0 {
+        left: 61px;
+      }
+
+      &--slot-1 {
+        right: 61px;
+      }
+
+      &--media-card {
+        width: 249px;
+
+        &.image-callout__card--slot-0 {
+          left: 54px;
+        }
+
+        &.image-callout__card--slot-1 {
+          right: 54px;
+        }
+      }
+
+      &--feature {
+        width: 353px;
+        padding: 0;
+        background: none;
+        backdrop-filter: none;
+        border-radius: 0;
+
+        &.image-callout__card--slot-0 {
+          left: 72px;
+        }
+
+        &.image-callout__card--slot-1 {
+          right: 72px;
+        }
+      }
+
+      &--align-top {
+        top: 83px;
+        transform: none;
+      }
+
+      &--align-bottom {
+        top: auto;
+        bottom: 71px;
+        transform: none;
+      }
+    }
+  }
+}

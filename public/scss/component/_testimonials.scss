@@ -1,0 +1,165 @@
+@use "../abstracts/index" as *;
+// Testimonials carousel section (`tes-*`). Mobile-first scroll track driven by
+// a range input. Distinct from the theme's own `_testimonial.scss`.
+.tes-section {
+  display: flex;
+  justify-content: center;
+  padding-block: 40px;
+  background: var(--color-sand);
+}
+
+// Width comes from content_width (admin default: xwide). The carousel track
+// still scrolls INSIDE this column — the knob moves the column, not the track.
+.tes-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  width: 100%;
+}
+
+.tes-heading {
+  margin: 0;
+  max-width: 770px;
+  color: var(--sx-text, var(--dark-2));
+  text-align: center;
+  font-family: "Spectral", serif;
+  font-size: clamp(32px, 5vw, 48px);
+  font-style: normal;
+  font-weight: 300;
+  line-height: 103%;
+  text-transform: capitalize;
+}
+
+.tes-carouselWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+}
+
+.tes-carousel {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+  padding-bottom: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
+.tes-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.tes-card {
+  display: flex;
+  flex: 0 0 min(420px, 85vw);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  padding: 40px;
+  background: var(--atlas-bg);
+  border-radius: 24px;
+}
+
+.tes-cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+}
+
+.tes-name {
+  margin: 0;
+  color: #1e1e1e;
+  font-feature-settings:
+          "liga" off,
+          "clig" off;
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.tes-quoteIcon {
+  flex-shrink: 0;
+  width: clamp(36px, 5vw, 48px);
+  height: clamp(36px, 5vw, 48px);
+}
+
+.tes-quote {
+  margin: 0;
+  color: #1e1e1e;
+  font-feature-settings:
+          "liga" off,
+          "clig" off;
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.tes-rangeInput {
+  appearance: none;
+  width: min(343px, 60%);
+  height: 4px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.tes-rangeInput::-webkit-slider-runnable-track {
+  height: 4px;
+  background: linear-gradient(
+                  to right,
+                  var(--color-gold) var(--pct),
+                  rgb(255 255 255 / 60%) var(--pct)
+  );
+  border-radius: 2px;
+}
+
+.tes-rangeInput::-moz-range-track {
+  height: 4px;
+  background: rgb(255 255 255 / 60%);
+  border-radius: 2px;
+}
+
+.tes-rangeInput::-moz-range-progress {
+  height: 4px;
+  background: var(--color-gold);
+  border-radius: 2px;
+}
+
+.tes-rangeInput::-webkit-slider-thumb {
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  margin-top: -12px;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  box-shadow:
+          0 6px 13px rgb(0 0 0 / 12%),
+          0 0.5px 4px rgb(0 0 0 / 12%);
+}
+
+.tes-rangeInput::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  box-shadow:
+          0 6px 13px rgb(0 0 0 / 12%),
+          0 0.5px 4px rgb(0 0 0 / 12%);
+}
+
+@include down(md) {
+  .tes-card {
+    flex-basis: min(320px, 82vw);
+    padding: 32px 24px;
+    gap: 24px;
+  }
+}

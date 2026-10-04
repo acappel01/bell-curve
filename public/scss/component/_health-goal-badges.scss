@@ -1,0 +1,94 @@
+@use "../abstracts/index" as *;
+
+/* ------------------------------------------------------------------ */
+/* Health-goal badges (hg-*) — the "good for" chips on a catalog item. */
+/* Mobile-first. Rendered by components/catalog/HealthGoalBadges.jsx.  */
+/* ------------------------------------------------------------------ */
+
+/* THE COLOURS ARE NOT SET HERE, and must not be. `--hg-bg` and `--hg-text`
+   are written as inline custom properties by the component, resolving to
+   `--palette-{name}` and its derived `-contrast` companion. A hardcoded
+   fallback colour here would silently repaint every badge whose palette
+   colour an operator deleted, hiding exactly the breakage the backend's
+   palette-deletion guard exists to prevent. Unstyled-but-visible is the
+   correct failure. */
+
+.hg-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hg-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  line-height: 1.5;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+
+  /* The neutral chip an untagged-colour goal falls back to. A goal the
+     operator tagged but never coloured still carries information, so it
+     renders rather than disappearing. */
+  color: var(--color-text, #1a1a1a);
+  background: rgb(0 0 0 / 6%);
+}
+
+.hg-badge--colored {
+  color: var(--hg-text);
+  background: var(--hg-bg);
+}
+
+/* A card in a grid row shares its height with its neighbours, so badges
+   cannot be allowed to wrap indefinitely and shove the price out of line.
+   Two rows is the cap, and the number is derived rather than eyeballed:
+   chip height is 16.5px (11px x 1.5 line-height) + 6px vertical padding =
+   22.5px, so two rows plus the 6px flex gap is 51px. The first version of
+   this said 46px, which sliced through the middle of row two and clipped the
+   descender off "weight loss".
+
+   Anything past two rows is HIDDEN OUTRIGHT — `flex-wrap: wrap` with
+   `overflow: hidden` does not scroll, and there is no affordance saying more
+   exist. That is a deliberate trade for grid-row height parity, but it means
+   an operator who tags a product with six goals silently sees three. If that
+   becomes a real complaint, the fix is a "+2 more" chip, not a taller cap. */
+.hg-badges--card {
+  max-height: 51px;
+  overflow: hidden;
+}
+
+/* On a detail page the badges sit between the subtitle and the price, where
+   there is no shared-height constraint — so no clamp, and a little more room
+   than a card chip gets. */
+.hg-badges--heading {
+  margin: 10px 0 14px;
+
+  .hg-badge {
+    padding: 4px 12px;
+    font-size: 12px;
+  }
+}
+
+/* Inside a "What's Included" row the badges sit under the product name in a
+   narrow column, so they stay small and are allowed to wrap to one extra
+   line before the row grows. */
+.hg-badges--row .hg-badge {
+  padding: 2px 8px;
+  font-size: 10px;
+}
+
+/* ONE ROW on a rail card, never two. The cards share a height across the
+   slider, so a second row of chips would shove every CTA below it out of
+   line with its neighbours. 22.5px is a single chip (see the card clamp
+   above for the derivation); overflow is hidden, same accepted trade. */
+.hg-badges--rail {
+  max-height: 22.5px;
+  overflow: hidden;
+  justify-content: center;
+}

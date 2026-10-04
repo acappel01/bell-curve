@@ -1,0 +1,44 @@
+@use "../abstracts/index" as *;
+
+/* ------------------------------------------------------------------ */
+/* Credibility list under the buy box (pd-highlights-*).              */
+/* Mobile-first. Lives in the narrow info column, so lines are short  */
+/* by instruction rather than by truncation — the admin says so.      */
+/* ------------------------------------------------------------------ */
+
+.pd-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pd-highlights__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+/* Fixed box so the text edges align whatever glyph an operator picks —
+   a Tabler icon, an emoji, or the check-mark fallback. */
+.pd-highlights__icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--color-primary, #1a1a1a);
+}
+
+.pd-highlights__text {
+  min-width: 0;
+  color: var(--color-text, #1a1a1a);
+}

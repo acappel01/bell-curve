@@ -1,0 +1,66 @@
+@use "../abstracts/index" as *;
+// Detail-page buy-once line and trust band (`tb-*`, components/productDetails/
+// TrustBand.jsx). Mobile-first.
+/* ------------------------------------------------------------------ */
+/* Figma Product V1: buy-once line, trust band (tb-*), benefits        */
+/* diagram (bd-*). Mobile-first.                                       */
+/* ------------------------------------------------------------------ */
+.pd-oneTime {
+  margin: 12px 0 0;
+  color: var(--color-gold);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.tb-band {
+  padding: 28px 0;
+  background: var(--color-sand);
+}
+
+.tb-items {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.tb-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  color: #000;
+  opacity: 0.9;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 22px;
+
+  img {
+    flex: 0 0 auto;
+  }
+}
+
+@include up(md) {
+  .tb-items {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@include up(xl) {
+  .tb-band {
+    padding: 40px 0;
+  }
+
+  .tb-items {
+    grid-template-columns: repeat(4, auto);
+    justify-content: space-between;
+  }
+
+  .tb-item {
+    font-size: 19px;
+  }
+}

@@ -1,0 +1,193 @@
+@use "../abstracts/index" as *;
+// Timeline section (Figma 337-1549): centered serif heading + lead, then a
+// vertical hairline rail with black dot markers and an optional emblem at
+// the top. Mobile-first: rail on the left, steps stacked full-width;
+// ≥992px the rail centers and steps alternate sides (1st right, 2nd left…),
+// left-side steps right-aligned toward the rail.
+.timeline {
+  // Wears .sx-section/.sx-content: the frame owns the horizontal gutter and
+  // content_width owns the column cap (default `full`), so neither is set here.
+  padding-block: clamp(40px, 6vw, 60px);
+
+  &__inner {
+    margin: 0 auto;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: clamp(32px, 5vw, 56px);
+    text-align: center;
+  }
+
+  &__heading {
+    margin: 0;
+    max-width: 878px;
+    color: var(--sx-text, #000);
+    text-transform: capitalize;
+    font-family: "Spectral", serif;
+    font-size: clamp(32px, 4.5vw, 53px);
+    font-weight: 300;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  &__lead {
+    margin: 0;
+    max-width: 605px;
+    color: var(--sx-text, #2a3342);
+    font-family: "Inter", sans-serif;
+    font-size: clamp(16px, 2vw, 18px);
+    font-weight: 500;
+    line-height: 1.8;
+  }
+
+  &__rail-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__mark {
+    width: 51px;
+    height: auto;
+    margin-bottom: 24px;
+  }
+
+  &__steps {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    // The vertical rail. Left-anchored on mobile, centered at desktop.
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 6px;
+      width: 1px;
+      background: #d9d9d9;
+    }
+  }
+
+  &__step {
+    position: relative;
+    padding: 16px 0 16px 36px;
+  }
+
+  &__dot {
+    position: absolute;
+    top: 26px;
+    left: 0;
+    width: 14px;
+    height: 14px;
+    // A glyph drawn with `background`, not `color` — the live case the FAQ
+    // one only illustrates. The step copy beside it follows the knob, so a
+    // black dot left behind vanishes on an ink band.
+    background: var(--sx-text, #000);
+    border-radius: 50%;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__title {
+    margin: 0;
+    color: var(--sx-text, #121f30);
+    font-family: "Inter", sans-serif;
+    font-size: clamp(20px, 2.5vw, 24px);
+    font-weight: 400;
+    line-height: 1.35;
+  }
+
+  &__meta {
+    margin: 0;
+    color: var(--sx-text, #90979e);
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  &__body {
+    margin: 0;
+    color: var(--sx-text, #121f30);
+    font-family: "Inter", sans-serif;
+    font-size: clamp(16px, 2vw, 18px);
+    line-height: 1.7;
+  }
+
+  &__bullets {
+    margin: 0;
+    padding-left: 27px;
+    color: var(--sx-text, #121f30);
+    font-family: "Inter", sans-serif;
+    font-size: clamp(16px, 2vw, 18px);
+    line-height: 1.7;
+    list-style: disc;
+
+    // The theme reset applies the list-style shorthand to li directly, so
+    // both longhands must be restored at the li level — inheritance from
+    // the ul never wins against it.
+    li {
+      list-style-type: disc;
+      list-style-position: outside;
+    }
+
+    li + li {
+      margin-top: 4px;
+    }
+  }
+
+  @include up(lg) {
+    &__steps::before {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &__step {
+      width: 50%;
+      padding: 16px 0;
+    }
+
+    &__step--right {
+      align-self: flex-end;
+      padding-left: 48px;
+
+      .timeline__dot {
+        left: -7px;
+      }
+    }
+
+    &__step--left {
+      align-self: flex-start;
+      padding-right: 48px;
+      text-align: right;
+
+      .timeline__dot {
+        right: -7px;
+        left: auto;
+      }
+
+      // Inside markers keep the disc adjacent to the text when the whole
+      // column is right-aligned.
+      .timeline__bullets {
+        padding-left: 0;
+
+        li {
+          list-style-position: inside;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,399 @@
+/* ------------------------------------------------------------------ */
+/* Checkout flow (ck-*) + cart upsell strip (cu-*). Mobile-first.      */
+/* Layout skeleton reuses the theme's checkout classes                 */
+/* (tf-checkout-cart-main, box-ip-checkout, tf-page-cart-sidebar);     */
+/* these rules only cover what the live flow adds on top.              */
+/* ------------------------------------------------------------------ */
+
+@use "../abstracts/index" as *;
+
+.ck-form {
+  row-gap: 32px;
+}
+
+.ck-empty {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  padding: 64px 0;
+  text-align: center;
+}
+
+.ck-error {
+  margin: 6px 0 0;
+  color: #c0392b;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.ck-formError {
+  margin: 0 0 16px;
+  padding: 12px 16px;
+  color: #c0392b;
+  font-size: 14px;
+  background: rgb(192 57 43 / 8%);
+  border-radius: 8px;
+}
+
+/* Date of birth is a MASKED TEXT field (mm/dd/yyyy) with a native picker
+   beside it, not a bare date input — so the theme's floating label works
+   normally again and the old .ck-staticLabel / .ck-dateInput pinning rules
+   are gone rather than left as decoration. */
+.ck-dobField {
+  position: relative;
+
+  .tf-field {
+    width: 100%;
+  }
+
+  .tf-field-input {
+    padding-right: 44px;
+  }
+}
+
+/* The picker is a real date input, collapsed to its calendar affordance and
+   overlaid on the masked field. Typing is the fast path on desktop; tapping
+   the calendar is the fast path on a phone. Both write the same masked value,
+   so there is one source of truth in state. */
+.ck-dobPicker {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: rgb(0 0 0 / 45%);
+  cursor: pointer;
+
+  input[type="date"] {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  &:hover {
+    color: var(--color-text, #101010);
+  }
+
+  svg {
+    pointer-events: none;
+  }
+}
+
+/* Theme's .cb-ship leaves the native checkbox flush against the label
+   text — give the consent rows a proper flex gutter. */
+.box-ip-checkout .cb-ship {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+
+  input {
+    flex: 0 0 auto;
+    margin-top: 3px;
+  }
+
+  label {
+    cursor: pointer;
+  }
+}
+
+.ck-orderImg img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  background: var(--color-sand);
+  border-radius: 10px;
+}
+
+.ck-localNotice {
+  margin: 16px 0 0;
+  padding: 12px 16px;
+  font-size: 14px;
+  background: var(--color-sand);
+  border-radius: 8px;
+}
+
+.ck-handoffNote {
+  margin: 12px 0 0;
+  text-align: center;
+}
+
+/* ------------------------------------------------------------------ */
+/* Upsell strip — compact suggestion cards. Lives in the cart drawer   */
+/* footer and the checkout sidebar; hidden entirely when the backend   */
+/* returns no suggestions.                                             */
+/* ------------------------------------------------------------------ */
+
+.cu-strip {
+  padding-top: 4px;
+}
+
+.cu-title {
+  margin: 0 0 10px;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.cu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cu-card {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 8px;
+  background: var(--color-sand);
+  border-radius: 10px;
+}
+
+.cu-cardMedia {
+  flex: 0 0 auto;
+
+  img {
+    display: block;
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    background: #fff;
+    border-radius: 8px;
+  }
+}
+
+.cu-cardInfo {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.cu-cardName {
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cu-cardPrice {
+  color: var(--color-gold);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.cu-cardAdd {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  color: #fff;
+  font-size: 16px;
+  line-height: 1;
+  text-decoration: none;
+  background: var(--color-dark, #1a1a1a);
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+/* Drawer placement: keep the strip visually separate from the subtotal. */
+.cd-footer .cu-strip {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-sand);
+}
+
+.cd-checkoutBtn {
+  margin-top: 12px;
+}
+
+/* Checkout sidebar placement gets a divider above. */
+.order-box .cu-strip {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-sand);
+}
+
+
+/* ------------------------------------------------------------------ */
+/* Intake form — the step that happens on THIS site before the embed.  */
+/* Mobile-first: single column by default, two up from md.             */
+/* ------------------------------------------------------------------ */
+
+.ck-sectionHead {
+  margin-bottom: 20px;
+}
+
+.ck-sectionTitle {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.ck-sectionNote {
+  margin: 6px 0 0;
+  color: rgb(0 0 0 / 55%);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Own grid rather than the theme's .grid-2 / .grid-3, which stay two and
+   three across at every width — these collapse on a phone, which is ~80% of
+   this site's traffic. */
+.ck-grid2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+
+  @include up(md) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.ck-addressGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+
+  @include up(md) {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+}
+
+.ck-radioGroup {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.ck-radioLegend {
+  margin-bottom: 8px;
+  padding: 0;
+  color: rgb(0 0 0 / 55%);
+  font-size: 12px;
+  line-height: 1;
+}
+
+.ck-radioRow {
+  display: flex;
+  gap: 10px;
+}
+
+/* Full-height tap targets: a 44px row is the minimum comfortable touch
+   target, and these sit beside a same-height input on the md grid. */
+.ck-radio {
+  display: flex;
+  flex: 1 1 0;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 14px;
+  font-size: 14px;
+  border: 1px solid rgb(0 0 0 / 12%);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+
+  &:hover {
+    border-color: rgb(0 0 0 / 28%);
+  }
+
+  &:has(input:checked) {
+    background: rgb(0 0 0 / 3%);
+    border-color: var(--color-text, #101010);
+  }
+
+  &:has(input:focus-visible) {
+    outline: 2px solid var(--color-accent, #101010);
+    outline-offset: 2px;
+  }
+
+  input {
+    accent-color: var(--color-text, #101010);
+    cursor: pointer;
+  }
+}
+
+.ck-toggleRow {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-top: 14px;
+  cursor: pointer;
+
+  input {
+    flex: 0 0 auto;
+    margin-top: 2px;
+  }
+}
+
+.ck-summaryHead {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.ck-summaryCount {
+  color: rgb(0 0 0 / 55%);
+  font-size: 13px;
+}
+
+/* Bootstrap ships this, but the checkout page does not load the utilities
+   bundle — and a legend that is visually hidden still has to reach a screen
+   reader. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Card entry (pay-*). Rendered ONLY when this deployment collects     */
+/* payment itself; otherwise the provider's embed takes it.           */
+/* ------------------------------------------------------------------ */
+
+.pay-fields {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Reassurance sits directly under the fields rather than in the section
+   header: it answers the question at the moment it is asked, which is while
+   someone is looking at their card. */
+.pay-note {
+  margin: 14px 0 0;
+  color: rgb(0 0 0 / 55%);
+  font-size: 12px;
+  line-height: 1.5;
+}

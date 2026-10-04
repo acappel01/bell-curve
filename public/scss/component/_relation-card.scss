@@ -1,0 +1,123 @@
+@use "../abstracts/index" as *;
+
+/* ------------------------------------------------------------------ */
+/* Detail-page recommendation rail (rel-*) — "People Also Bought" and  */
+/* its siblings. Mobile-first.                                        */
+/*                                                                    */
+/* SCOPED TO THIS RAIL ON PURPOSE. Every rule here is namespaced under */
+/* .rel-card or .rel-rail, so nothing reaches the listing cards        */
+/* (.ps-card / .card-product), the CMS product-slider and             */
+/* package-slider sections, or the generic content container the rail  */
+/* happens to sit inside. That isolation is a requirement, not a       */
+/* preference: those surfaces were reworked and verified separately.   */
+/* ------------------------------------------------------------------ */
+
+/* The rail had NO vertical padding at all, so it butted against the band
+   above it and against the footer below. Padding belongs to the rail
+   itself rather than to the container it sits in — the container is shared
+   with everything else on the page. */
+.rel-rail {
+  padding-top: 48px;
+  padding-bottom: 48px;
+
+  @include up(md) {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+}
+
+/* Swiper sizes a slide to its own content, so a card's `height: 100%` has
+   nothing to resolve against and short-blurb cards come up shorter than
+   their neighbours — leaving the CTAs on a ragged line across the rail.
+   `height: auto` on the slide plus a stretched wrapper makes every slide
+   as tall as the tallest, which is what the card then fills. */
+.rel-rail {
+  .swiper-wrapper {
+    align-items: stretch;
+  }
+
+  .swiper-slide {
+    height: auto;
+  }
+}
+
+.rel-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* every card in the rail ends at the same baseline */
+  padding: 20px;
+  border-radius: 16px;
+  background: #fff;
+  text-align: center;
+}
+
+/* A fixed, contained image box. The product card used to crop its shot to
+   fill a tall frame; these are angled vials and pens, so they sit INSIDE
+   the box with room around them instead. */
+.rel-card__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 168px;
+  margin-bottom: 16px;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+.rel-card__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 auto; /* pushes the CTA to the bottom of the tallest card */
+}
+
+.rel-card__title {
+  color: var(--color-text, #1a1a1a);
+  font-family: var(--font-display), serif;
+  font-size: 20px;
+  line-height: 1.25;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.rel-card__price {
+  margin: 0;
+  font-weight: 500;
+}
+
+.rel-card__blurb {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgb(0 0 0 / 62%);
+}
+
+/* Sits last so the button lines up across the rail whatever the copy
+   above it did. */
+.rel-card__cta {
+  margin-top: auto;
+  align-self: stretch;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: var(--color-primary, #1a1a1a);
+  color: var(--palette-white, #fff);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+
+  &:hover {
+    opacity: 0.88;
+    color: var(--palette-white, #fff);
+  }
+}

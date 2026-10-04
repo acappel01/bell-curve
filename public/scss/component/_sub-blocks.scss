@@ -1,0 +1,233 @@
+@use "sass:map";
+@use "../abstracts/index" as *;
+
+// Typed sub-blocks — the operator's knobs, one level down.
+//
+// A section's `data.children` holds typed child blocks (backend contract:
+// prx-backend docs/frontend/dev.md §4c). ChildBlockRenderer wraps each one in
+// `.sxb-block` plus the `sxb-*` knob classes, the child-level twin of the
+// `sx-*` classes in _layout-frame.scss.
+//
+// WHY A SECOND VOCABULARY RATHER THAN REUSING sx-*. Every rule in
+// _layout-frame.scss is descendant-scoped: `.site-main .sx-section` matches at
+// any depth, and the inset/width/align rules reach their content containers as
+// descendants. A child wearing those classes would therefore
+//
+//   - bleed out of its PARENT'S content column by the page gutter, because the
+//     band rule's negative margin would fire again inside the column, and
+//   - take the parent's inset and width a SECOND time, since the parent's
+//     wrapper is an ancestor of the child's content container.
+//
+// _layout-frame.scss names that hazard itself ("a $content-containers element
+// nested inside another one gets the knob applied twice"). Rewriting those
+// rules with `>` combinators would touch a cascade the file documents as
+// load-bearing, for no gain a child needs.
+//
+// SAME SCALE, THOUGH. Every value here comes from the same maps in
+// abstracts/_layout-tokens.scss. `md` must not mean one inset on a section and
+// a different one on a card inside it — that is drift an operator can see and
+// cannot fix.
+//
+// ONE LEVEL, NOT TWO. A section splits into a full-bleed band and a content
+// column because it spans the page. A child is already inside a column, so
+// there is nothing to bleed and nothing to re-pad: the knobs apply to the
+// wrapper element ITSELF. That is also why nothing here uses a descendant
+// selector, which is what makes children safe to nest at all.
+
+.sxb-block {
+  // The wrapper exists only to carry knobs. Without a knob set,
+  // ChildBlockRenderer emits no wrapper at all, so this is never a bare div
+  // in the markup — but when it is there it must not disturb the block's own
+  // box.
+  min-width: 0;
+}
+
+// Vertical padding, top and bottom independently — the child-level twin of
+// the section knobs that replaced `extra_padding`.
+//
+// Separate longhands under separate markers, so a child that sets only a top
+// padding leaves its bottom edge genuinely untouched rather than writing an
+// implicit zero over the block's own spacing.
+@each $token, $value in $knob-pad {
+  .sxb-pad-top--#{$token} {
+    --sxb-pad-top: #{$value};
+  }
+
+  .sxb-pad-bottom--#{$token} {
+    --sxb-pad-bottom: #{$value};
+  }
+}
+
+@each $tier in $knob-tiers {
+  @include up($tier) {
+    @each $token, $value in $knob-pad {
+      .sxb-pad-top-#{$tier}--#{$token} {
+        --sxb-pad-top: #{$value};
+      }
+
+      .sxb-pad-bottom-#{$tier}--#{$token} {
+        --sxb-pad-bottom: #{$value};
+      }
+    }
+  }
+}
+
+.sxb-pad-top {
+  padding-block-start: var(--sxb-pad-top, 0);
+}
+
+.sxb-pad-bottom {
+  padding-block-end: var(--sxb-pad-bottom, 0);
+}
+
+// Horizontal inset. On a card-shaped child this MOVES THE CARD rather than
+// padding inside it — the wrapper is a level above the block's own markup,
+// the same three-level rule the card-shaped sections follow.
+//
+// THERE IS NO `flush` HERE, and its absence is the point. At section level
+// flush cancels `--page-gutter`, the padding `.sx-section` re-applies after
+// its own bleed. A child sits inside its parent's content column and is not
+// adjacent to the viewport edge, so there is no gutter under it to cancel —
+// the value would have nothing to do. sectionKnobs.js drops it from a child's
+// allow-list and the admin never offers it, so this file is the third place
+// the same fact is enforced rather than the place it would go wrong.
+@each $token, $value in $knob-inset {
+  .sxb-inset--#{$token} {
+    --sxb-inset: #{$value};
+  }
+}
+
+@each $tier in $knob-tiers {
+  @include up($tier) {
+    @each $token, $value in $knob-inset {
+      .sxb-inset-#{$tier}--#{$token} {
+        --sxb-inset: #{$value};
+      }
+    }
+  }
+}
+
+.sxb-inset {
+  padding-inline: var(--sxb-inset, 0);
+}
+
+// Width cap, centred.
+@each $token, $value in $knob-width {
+  .sxb-width--#{$token} {
+    max-width: $value;
+    margin-inline: auto;
+  }
+}
+
+// `full` is INERT today, and kept for an honest reason: the tokens are
+// mutually exclusive classes, so choosing `full` simply emits no cap here —
+// there is nothing on the wrapper for it to override. It exists so the block
+// vocabulary answers every value the admin can store, rather than silently
+// having a gap where a section has a rule.
+//
+// A block whose OWN root carries a max-width is not reached by this: the cap
+// would have to move onto that root, the way a section's did.
+.sxb-width--full {
+  max-width: none;
+}
+
+// Alignment.
+//
+// The wrapper becomes a GRID when this knob is set, and only then. Without
+// it, `justify-items` on a block-flow box reaches nothing — the knob would
+// set text-align and leave the block exactly where it was, which is the
+// "control that lies to the operator" shape this system keeps removing. One
+// grid item, placed by justify-items, is the smallest thing that makes
+// "align this card right" mean what it says.
+//
+// It still cannot move a block that claims its own full width, and the first
+// one does: `.testimonialCard` is `width: 100%` of the hero's fixed 351px
+// slot, so on that block this knob delivers text-align only. Stated rather
+// than worked around — the fix is the card declaring an intrinsic width, not
+// more specificity here.
+//
+// SPLIT INTO SETTER AND CONSUMER when the responsive tiers landed, because the
+// `display: grid` half must NOT be redefined per breakpoint — a child with only
+// a tablet alignment still needs to be a grid at every width, or the knob would
+// silently do nothing below md. The setters carry the values; the marker rule
+// carries the structure.
+@each $token, $pair in $knob-align {
+  .sxb-align--#{$token} {
+    --sxb-items: #{map.get($pair, items)};
+    --sxb-align: #{map.get($pair, align)};
+  }
+}
+
+@each $tier in $knob-tiers {
+  @include up($tier) {
+    @each $token, $pair in $knob-align {
+      .sxb-align-#{$tier}--#{$token} {
+        --sxb-items: #{map.get($pair, items)};
+        --sxb-align: #{map.get($pair, align)};
+      }
+    }
+  }
+}
+
+.sxb-align {
+  display: grid;
+  justify-items: var(--sxb-items, normal);
+  text-align: var(--sxb-align, inherit);
+}
+
+// Frame: border and radius. No bleed to worry about one level down — the
+// wrapper IS the painted box and is already inside its parent's column, which
+// is the whole reason a child needs one level where a section needs two.
+@each $token, $value in $knob-border {
+  .sxb-bw--#{$token} {
+    --sxb-border-width: #{$value};
+  }
+}
+
+.sxb-border {
+  border: var(--sxb-border-width, 1px) solid var(--sxb-border-color);
+}
+
+@each $token, $value in $knob-radius {
+  .sxb-radius--#{$token} {
+    border-radius: #{$value};
+  }
+}
+
+// ── Style knobs ───────────────────────────────────────────────────────
+//
+// Each is guarded by its marker class, exactly as the section knobs are. An
+// unscoped `background-color: var(--sxb-bg)` would resolve to `unset` on every
+// child without the knob and blank whatever the block's own partial painted —
+// the testimonial card's dark panel, for one.
+
+// THE SAME CLEARING THE SECTION KNOBS NEEDED, for the same reason. The knob
+// paints the WRAPPER, so a block whose own markup paints an opaque panel — the
+// hero's testimonial card does — covers it completely, and the operator's
+// colour survives only in whatever padding ring happens to exist. The
+// section-level version of this bug shipped and had to be caught in review;
+// this is the child-level twin, fixed before it could.
+//
+// `.sxb-block.sxb-bg > *` is (0,2,0), which TIES the compiled
+// `.tf-slideshow .testimonialCard`. _sub-blocks.scss is forwarded after
+// _slider.scss in component/_index.scss, so source order decides it — the same
+// load-order argument the section frame relies on. Keep this file's forward
+// after the block partials.
+.sxb-block.sxb-bg > *,
+.sxb-block.sxb-bgimg > * {
+  background-color: transparent;
+}
+
+.sxb-bg {
+  background-color: var(--sxb-bg);
+}
+
+.sxb-text {
+  color: var(--sxb-text);
+}
+
+.sxb-bgimg {
+  background-image: var(--sxb-bg-image);
+  background-position: center;
+  background-size: cover;
+}

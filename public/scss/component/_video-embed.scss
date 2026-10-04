@@ -1,0 +1,73 @@
+@use "../abstracts/index" as *;
+// Video embed band — responsive 16:9 iframe with optional heading/caption.
+.video-embed {
+  display: flex;
+  justify-content: center;
+  // Wears .sx-section/.sx-content: the frame owns the horizontal gutter and
+  // content_width owns the column cap (default `narrow`). The band now reaches
+  // the viewport edge, so the --dark/--cream backgrounds no longer leave
+  // ribbons of page at the sides.
+  padding-block: 48px;
+
+  &--dark {
+    background: #151415;
+
+    .video-embed__heading,
+    .video-embed__caption {
+      color: var(--sx-text, #fff);
+    }
+  }
+
+  &--cream {
+    background: #f0e6da;
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+  }
+
+  &__heading {
+    margin: 0;
+    color: var(--sx-text, #151415);
+    text-align: center;
+    font-family: "Spectral", serif;
+    font-size: clamp(28px, 3.5vw, 40px);
+    font-weight: 300;
+    line-height: 1.3;
+  }
+
+  &__frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 20px;
+    overflow: hidden;
+
+    iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  }
+
+  &__caption {
+    margin: 0;
+    color: var(--sx-text, #545454);
+    text-align: center;
+    font-family: "Inter", sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  &__link {
+    color: var(--sx-text, #151415);
+    text-decoration: underline;
+    font-family: "Inter", sans-serif;
+  }
+}

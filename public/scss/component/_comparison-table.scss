@@ -1,0 +1,166 @@
+@use "../abstracts/index" as *;
+// Comparison table section (`comp-*`). Mobile-first: a narrow two-gutter grid
+// that widens at md.
+//
+// Three levels, not two: .comp-section is the band, .comp-column is the
+// .sx-content column, and .comp-inner is the rounded cream CARD inside it. The
+// card is not the column on purpose — its clamp() padding is a design value
+// that content_inset would otherwise overwrite. See ComparisonTableSection.jsx.
+//
+// The frame owns the horizontal gutter, so the 40px side padding that used to
+// sit on .comp-section is gone — it was already dead, overridden by the
+// frame's own rule at higher specificity. The 1440px cap on .comp-inner is
+// gone too: the flexible type's schema carries layout_defaults
+// {"content_width":"xwide"}. That token used to measure the same 1440px; it
+// was retuned to 1760px on 2026-08-25, so this column is now wider than the
+// original theme on large displays — deliberately, and changeable in
+// abstracts/_layout-tokens.scss without touching any content.
+.comp-section {
+  display: flex;
+  justify-content: center;
+  padding-block: 40px;
+  background-color: var(--color-sand);
+}
+
+.comp-column {
+  width: 100%;
+}
+
+.comp-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  background-color: var(--atlas-bg);
+  padding: clamp(24px, 5vw, 64px) clamp(20px, 4vw, 40px);
+  border-radius: 24px;
+}
+
+.comp-heading {
+  margin: 0;
+  max-width: 861px;
+  color: var(--sx-text, var(--dark-2));
+  text-align: center;
+  font-family: "Spectral", serif;
+  font-size: clamp(32px, 5vw, 48px);
+  font-style: normal;
+  font-weight: 300;
+  line-height: 103%;
+  text-transform: capitalize;
+}
+
+.comp-table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 926px;
+}
+
+.comp-tableHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.comp-logo {
+  flex-shrink: 0;
+  width: clamp(36px, 5vw, 50px);
+  height: auto;
+}
+
+// The logo arrives as sanitized inline SVG inside a .comp-logo wrapper span.
+.comp-logo svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.comp-othersLabel {
+  color: var(--dark-2);
+  font-family: "Inter", sans-serif;
+  font-size: clamp(22px, 3.5vw, 36px);
+  font-weight: 300;
+  line-height: 103%;
+  text-transform: capitalize;
+}
+
+.comp-rows {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.comp-row {
+  display: grid;
+  grid-template-columns: 14px 1fr 14px;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgb(0 0 0 / 40%);
+}
+
+.comp-row:last-child {
+  border-bottom: none;
+}
+
+.comp-check {
+  justify-self: start;
+  flex-shrink: 0;
+}
+
+.comp-cross {
+  justify-self: end;
+  flex-shrink: 0;
+}
+
+.comp-label {
+  margin: 0;
+  color: var(--dark-2);
+  text-align: center;
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.comp-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-width: 200px;
+  height: 52px;
+  padding: 8px 24px;
+  color: #fff;
+  text-align: center;
+  text-transform: capitalize;
+  background: #000;
+  border-radius: 12px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 140%;
+  letter-spacing: -0.28px;
+}
+
+@include up(md) {
+  .comp-row {
+    grid-template-columns: 16px 1fr 16px;
+    gap: 16px;
+    padding: 20px 0;
+  }
+
+  .comp-label {
+    font-size: 19px;
+    line-height: 22px;
+  }
+
+  .comp-button {
+    width: auto;
+  }
+}

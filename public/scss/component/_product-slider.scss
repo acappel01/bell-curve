@@ -1,0 +1,27 @@
+@use "../abstracts/index" as *;
+// Product slider section (`product-*`). Only the band and its content column
+// live here — the slider itself is Swiper plus the theme's `card-product`
+// markup, styled by _slider.scss and _product.scss.
+//
+// `.product-section` is the sand band of the progressbar variant only; the
+// arrows variant's band is theme utilities (see ProductSliderSection.jsx).
+// Both wear .sx-section/.sx-content, so the frame owns the horizontal gutter
+// and content_width owns the column.
+//
+// The pre-rebuild track markup (`.product-inner`, `.product-track`,
+// `.product-card` and nine more) was deleted 2026-08-25 after a scan of all
+// 65 tables / 225 text columns of the Atlas database found no reference in
+// section data, custom_css or any rich-text class attribute.
+.product-section {
+  display: flex;
+  justify-content: center;
+  padding-block: 40px;
+  background-color: var(--color-sand);
+}
+
+// .product-section is a flex container, so its column needs a width or it
+// shrink-to-fits and the Swiper track collapses. Same reason .story-inner and
+// every other converged column in a centring flex band carries one.
+.product-column {
+  width: 100%;
+}

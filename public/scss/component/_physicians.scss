@@ -1,0 +1,236 @@
+@use "../abstracts/index" as *;
+// Physicians spotlight section (`dh-*`, theme "DrHolland" card, one per
+// physician). Mobile-first. Optional header and trust strip render only when
+// authored. `.dh-section--dark` is declared last so its equal-specificity
+// overrides win by source order.
+// Physicians spotlight (theme "DrHolland" card, one per physician).
+// Mobile-first and scoped under .dh-section; type styles match the
+// theme-reference DrHolland component exactly. Optional generic header
+// (dh-header) and trust strip render only when authored.
+.dh-section {
+  display: flex;
+  justify-content: center;
+  // Wears .sx-section/.sx-content: the frame owns the horizontal gutter and
+  // content_width owns the column cap (default `full`), so neither is set here.
+  padding-block: 40px;
+  background-color: var(--color-sand);
+
+  .dh-inner {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(32px, 5vw, 48px);
+    width: 100%;
+  }
+
+  .dh-header {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 860px;
+  }
+
+  .dh-sectionEyebrow {
+    margin: 0;
+    color: var(--sx-accent, var(--color-gold));
+    font-family: "Spectral", serif;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 150%;
+    text-transform: capitalize;
+  }
+
+  .dh-sectionHeading {
+    margin: 0;
+    color: var(--sx-text, var(--dark-2));
+    font-family: "Spectral", serif;
+    font-size: clamp(32px, 5vw, 64px);
+    font-weight: 300;
+    line-height: 1.08;
+  }
+
+  .dh-sectionHeading em {
+    color: var(--sx-accent, var(--color-gold));
+    font-style: italic;
+  }
+
+  .dh-lead {
+    margin: 0;
+    max-width: 640px;
+    color: var(--sx-text, var(--dark-2));
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 162.5%;
+    opacity: 0.8;
+  }
+
+  .dh-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(32px, 5vw, 64px);
+    width: 100%;
+    padding: clamp(32px, 5vw, 64px);
+    text-align: left;
+    background: var(--atlas-bg);
+    border-radius: 24px;
+  }
+
+  .dh-photoWrapper {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: clamp(160px, 45vw, 220px);
+    margin: 0 auto;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: linear-gradient(160deg, #cfc6bd 0%, #8f8579 100%);
+    border-radius: 50%;
+  }
+
+  .dh-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .dh-photoInitials {
+    color: #fff;
+    font-family: "Spectral", serif;
+    font-size: clamp(48px, 7vw, 96px);
+    font-weight: 300;
+  }
+
+  .dh-content {
+    display: flex;
+    flex: 1 1 420px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    min-width: 280px;
+  }
+
+  .dh-eyebrow {
+    margin: 0;
+    color: var(--color-gold);
+    font-family: "Spectral", serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 150%;
+    text-transform: capitalize;
+  }
+
+  .dh-heading {
+    margin: 0;
+    color: var(--dark-2);
+    font-family: "Spectral", serif;
+    font-size: clamp(36px, 6vw, 75px);
+    font-style: normal;
+    font-weight: 300;
+    line-height: 109.333%;
+    text-transform: capitalize;
+  }
+
+  .dh-textGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .dh-subheading {
+    margin: 0;
+    color: var(--dark-2);
+    font-family: "Spectral", serif;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 188.235%;
+    letter-spacing: -0.51px;
+  }
+
+  .dh-description {
+    margin: 0;
+    color: var(--dark-2);
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 166.667%;
+    letter-spacing: 0.12px;
+    opacity: 0.8;
+  }
+
+  .dh-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .dh-badgeRow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .dh-badge {
+    display: inline-flex;
+    min-height: 35px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 20px;
+    color: var(--dark-2);
+    font-family: $font-2;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 90%;
+    text-transform: uppercase;
+    background: rgb(255 255 255 / 40%);
+    border-radius: 100px;
+  }
+
+  .dh-badgeIcon {
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  @include up(md) {
+    .dh-card {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .dh-photoWrapper {
+      width: clamp(220px, 24vw, 380px);
+      margin: 0;
+    }
+  }
+}
+
+// Dark physicians variant (Figma 1073-8788): near-black card, light text,
+// translucent badge pills. The section shell stays sand — only the card
+// swaps palette. Declared after .dh-section so equal-specificity overrides
+// win by order.
+.dh-section--dark {
+  .dh-card {
+    background: #1c1c1a;
+  }
+
+  .dh-heading {
+    color: #fff;
+  }
+
+  .dh-subheading {
+    color: #f0e6da;
+  }
+
+  .dh-description {
+    color: #f8f3ef;
+  }
+
+  .dh-badge {
+    color: #fff;
+  }
+}

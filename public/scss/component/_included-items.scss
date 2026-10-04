@@ -1,0 +1,104 @@
+@use "../abstracts/index" as *;
+
+/* ------------------------------------------------------------------ */
+/* "What's Included" rows (inc-*) — the products inside a stack.       */
+/* Mobile-first; lives in the detail page's info-column accordion.     */
+/* ------------------------------------------------------------------ */
+
+.inc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.inc-row {
+  display: flex;
+  align-items: center; /* the image is vertically centred against the text */
+  gap: 14px;
+  padding: 12px;
+  border: 1px solid rgb(0 0 0 / 8%);
+  border-radius: 14px;
+  background: var(--color-background, #fff);
+}
+
+/* A fixed square that the shot sits INSIDE rather than fills. Product
+   photography here is portrait and often shot at an angle; `cover` on a
+   72px box crops the ends off a vial. `contain` plus padding gives the
+   frame the image was missing. */
+.inc-media {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  padding: 8px;
+  border-radius: 10px;
+  background: rgb(0 0 0 / 3%);
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+.inc-media--empty {
+  background: rgb(0 0 0 / 3%);
+}
+
+.inc-body {
+  min-width: 0; /* lets a long product name wrap instead of pushing the row wide */
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.inc-name {
+  color: var(--color-text, #1a1a1a);
+  font-weight: 500;
+  line-height: 1.35;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/* Price sits BELOW the name, struck through, with the badge beside it —
+   the row's whole job is to say "this costs money on its own, and you are
+   not paying it". */
+.inc-price {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  font-size: 13px;
+}
+
+.inc-price__was {
+  color: rgb(0 0 0 / 45%);
+  text-decoration: line-through;
+}
+
+.inc-price__unit {
+  /* Not the item's stored price_suffix — see IncludedItemList.jsx. */
+  margin-left: 1px;
+}
+
+.inc-price__badge {
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: rgb(0 0 0 / 6%);
+  color: var(--color-text, #1a1a1a);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}

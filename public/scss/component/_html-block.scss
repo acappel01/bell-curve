@@ -1,0 +1,23 @@
+@use "../abstracts/index" as *;
+// Custom HTML — the operator's own markup, rendered verbatim.
+//
+// DELIBERATELY ALMOST EMPTY, and it should stay that way. The point of this
+// block is that what the operator pasted is what renders; every rule added
+// here is a rule that silently overrides their markup and is invisible from
+// the admin. If a page needs styling it cannot bring itself, it needs a real
+// section type, not a rule in this file.
+//
+// The band still wears the layout contract, so the width, inset, padding and
+// background knobs apply — that is the frame's business, not the content's.
+
+.html-block {
+  padding-block: clamp(24px, 4vw, 56px);
+
+  &__content {
+    // Long tables and wide pasted layouts scroll inside the block rather than
+    // making the PAGE scroll sideways, which is the project's responsive rule
+    // and the one thing worth enforcing over content we did not author.
+    max-width: 100%;
+    overflow-x: auto;
+  }
+}

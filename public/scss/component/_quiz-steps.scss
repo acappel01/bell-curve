@@ -1,0 +1,952 @@
+@use "../abstracts/index" as *;
+
+// Intake quiz step controls — the sex square-radios and the age slider.
+//
+// Mobile-first, and the squares are sized so the whole question fits above the
+// fold on a phone: mobile is ~80% of this site's traffic and the first quiz
+// step is where a funnel loses people.
+//
+// NO background and no max-width here, for the same reason as `_quiz-cta`:
+// when these land inside a CMS section, `style_background_color` and
+// `content_width` own those and a value set here would beat the operator's
+// knob invisibly.
+
+// The two sex colours.
+//
+// These are custom properties rather than literals so they can be retuned, but
+// they are deliberately NOT `theme.palette` entries. The palette is the
+// install's brand vocabulary, and these two are conventional rather than
+// brand — the Mars blue and Venus purple read as "male" and "female" to a
+// visitor precisely because they are not this brand's colours. Promoting them
+// to the palette would also mean a `PaletteColorNotInUse` guard has to walk a
+// non-section table to know they are used. If an operator ever needs them
+// per-install, they become two Settings fields injected onto :root next to the
+// theme variables, not palette rows.
+:root {
+  --quiz-sex-male: #1b3a6b;
+  --quiz-sex-female: #7b2d5e;
+}
+
+.quiz-field {
+  border: 0;
+  padding: 0;
+  margin: 0 0 clamp(24px, 4vw, 40px);
+  min-inline-size: 0; // fieldset defaults to min-content, which breaks grid children
+
+  &__legend {
+    float: none; // reset the Bootstrap reboot, which makes legends full-width blocks
+    width: auto;
+    padding: 0;
+    margin-bottom: 6px;
+    font-family: var(--font-display), sans-serif;
+    font-size: clamp(20px, 3.2vw, 26px);
+    line-height: 1.25;
+    color: var(--color-text);
+  }
+
+  &__hint {
+    margin: 0 0 18px;
+    font-size: 14px;
+    line-height: 1.5;
+    // Deliberately not a hardcoded grey — inherits the section's text colour
+    // at reduced strength so it stays legible on a dark `style_background_color`.
+    color: currentColor;
+    opacity: 0.7;
+  }
+}
+
+/* ---- sex: square radios ---- */
+
+.quiz-sex {
+  &__options {
+    display: grid;
+    // Two up on the narrowest phone; the squares shrink rather than wrap,
+    // because a single option on its own row reads as the default choice.
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(12px, 3vw, 20px);
+    max-width: 420px;
+  }
+
+  // Visually hidden, not `display: none` — a hidden input is removed from the
+  // tab order and from the radio group, which would leave the squares
+  // unreachable by keyboard and unannounced by a screen reader.
+  &__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  &__square {
+    --quiz-sex-accent: var(--color-text);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    // Square by construction rather than by a fixed height, so it stays square
+    // as the grid column narrows.
+    aspect-ratio: 1;
+    padding: 12px;
+
+    border: 2px solid rgba(128, 128, 128, 0.35);
+    border-radius: 14px;
+    cursor: pointer;
+    text-align: center;
+
+    transition:
+      border-color 0.18s ease,
+      background-color 0.18s ease,
+      transform 0.18s ease;
+
+    &[data-sex="male"] {
+      --quiz-sex-accent: var(--quiz-sex-male);
+    }
+
+    &[data-sex="female"] {
+      --quiz-sex-accent: var(--quiz-sex-female);
+    }
+
+    i {
+      font-size: clamp(38px, 9vw, 56px);
+      line-height: 1;
+      color: var(--quiz-sex-accent);
+    }
+  }
+
+  &__label {
+    font-size: clamp(14px, 2.4vw, 16px);
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  // Hover only where a pointer actually hovers — on touch this fires on tap
+  // and sticks, which makes an unselected square look selected.
+  @media (hover: hover) {
+    &__input:not(:checked) + &__square:hover {
+      border-color: var(--quiz-sex-accent);
+      transform: translateY(-2px);
+    }
+  }
+
+  &__input:checked + &__square {
+    border-color: var(--quiz-sex-accent);
+    // 12% tint of the accent. `color-mix` degrades to the untinted background
+    // in browsers without it, which loses emphasis but never legibility — the
+    // border and the icon still carry the selected state.
+    background-color: color-mix(in srgb, var(--quiz-sex-accent) 12%, transparent);
+  }
+
+  // Focus ring on the SQUARE, driven by focus on the hidden input. Without
+  // this the control is keyboard-operable but gives no sign of where you are.
+  &__input:focus-visible + &__square {
+    outline: 3px solid var(--quiz-sex-accent);
+    outline-offset: 3px;
+  }
+}
+
+/* ---- age: slider ---- */
+
+.quiz-age {
+  max-width: 480px;
+
+  &__value {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  &__number {
+    font-family: var(--font-display), sans-serif;
+    font-size: clamp(34px, 8vw, 48px);
+    line-height: 1;
+    font-weight: 700;
+    color: var(--color-accent, var(--color-primary));
+    // Tabular figures stop the track and bounds shifting sideways as the
+    // number goes 99 -> 100 while dragging.
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__unit {
+    font-size: 15px;
+    opacity: 0.75;
+  }
+
+  &__track {
+    // rc-slider's own vendor CSS is imported in app/layout.js with the rest of
+    // the vendor bundle; only the parts that must follow the theme are set
+    // here. See the CSS-import-order note in CLAUDE.md before moving it.
+    padding-block: 6px;
+
+    .rc-slider-track {
+      background-color: var(--color-accent, var(--color-primary));
+    }
+
+    .rc-slider-handle {
+      border-color: var(--color-accent, var(--color-primary));
+      opacity: 1;
+
+      // The default handle is a 14px dot — under the 24px minimum for a touch
+      // target, and this is the primary control on a phone.
+      width: 26px;
+      height: 26px;
+      margin-top: -11px;
+
+      &:focus-visible {
+        outline: 3px solid var(--color-accent, var(--color-primary));
+        outline-offset: 2px;
+        box-shadow: none;
+      }
+    }
+
+    .rc-slider-handle-dragging {
+      border-color: var(--color-accent, var(--color-primary));
+      box-shadow: 0 0 0 5px color-mix(in srgb, var(--color-accent, var(--color-primary)) 30%, transparent);
+    }
+  }
+
+  &__bounds {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    font-size: 13px;
+    opacity: 0.6;
+  }
+
+  // The native range mirrors the slider for assistive tech. Off-screen until
+  // focused, then brought back so a keyboard user can see what they are
+  // driving.
+  &__native {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+
+    &:focus {
+      position: static;
+      width: 100%;
+      height: auto;
+      clip-path: none;
+      margin-top: 12px;
+    }
+  }
+}
+
+/* ---- wizard chrome ---- */
+
+.quiz-page {
+  padding-block: clamp(28px, 5vw, 64px);
+  max-width: 760px;
+  margin-inline: auto;
+
+  &__title {
+    // Steps down harder on mobile than the document h1 scale: this is a form
+    // heading, and a three-line title pushes the first question below the fold
+    // on a phone, which is where this funnel loses people.
+    font-size: clamp(28px, 6vw, 44px);
+    line-height: 1.15;
+    margin-bottom: clamp(20px, 3vw, 32px);
+  }
+
+  &__empty {
+    opacity: 0.75;
+  }
+}
+
+.quiz-wizard {
+  &__progress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 clamp(28px, 4vw, 40px);
+    // Three steps fit on the narrowest phone only by letting the labels
+    // shrink; they are a progress indicator, not content.
+    font-size: clamp(12px, 3vw, 14px);
+  }
+
+  &__step {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1 1 0;
+    min-width: 0;
+    opacity: 0.45;
+
+    &[data-state="current"] {
+      opacity: 1;
+      font-weight: 600;
+    }
+
+    &[data-state="done"] {
+      opacity: 0.8;
+    }
+
+    // Connector between steps. On the last one it would trail off the row.
+    &:not(:last-child)::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.3;
+    }
+  }
+
+  &__step-index {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid currentColor;
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__step[data-state="current"] &__step-index {
+    background: var(--color-accent, var(--color-primary));
+    border-color: var(--color-accent, var(--color-primary));
+    color: #fff;
+  }
+
+  &__step-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: clamp(20px, 3vw, 28px);
+  }
+
+  &__error {
+    margin-top: 16px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid currentColor;
+    font-size: 14px;
+  }
+}
+
+/* ---- goal picker ---- */
+
+.quiz-goals {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+
+  @include up(sm) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  &__option {
+    display: block;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  // Same reasoning as the sex squares: visually hidden, not removed, so the
+  // checkbox keeps its keyboard and screen-reader behaviour.
+  &__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  &__card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 18px;
+    border: 2px solid rgba(128, 128, 128, 0.35);
+    border-radius: 12px;
+    transition:
+      border-color 0.18s ease,
+      background-color 0.18s ease;
+
+    i {
+      font-size: 26px;
+      line-height: 1;
+      color: var(--color-accent, var(--color-primary));
+      flex: 0 0 auto;
+    }
+  }
+
+  &__input:checked + &__card {
+    border-color: var(--color-accent, var(--color-primary));
+    background-color: color-mix(in srgb, var(--color-accent, var(--color-primary)) 10%, transparent);
+  }
+
+  &__input:focus-visible + &__card {
+    outline: 3px solid var(--color-accent, var(--color-primary));
+    outline-offset: 3px;
+  }
+}
+
+/* ---- results ---- */
+
+.quiz-result {
+  padding-block: clamp(18px, 3vw, 26px);
+
+  & + & {
+    border-top: 1px solid rgba(128, 128, 128, 0.25);
+  }
+
+  &__title {
+    font-size: clamp(19px, 3vw, 24px);
+    margin-bottom: 12px;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 8px;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-block: 8px;
+    }
+
+    a {
+      font-weight: 600;
+    }
+  }
+
+  &__kind {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid currentColor;
+    opacity: 0.6;
+  }
+
+  // The restricted and unmapped states. Deliberately not styled as an error —
+  // "we don't have something for you" is honest information, not a failure the
+  // visitor caused, and red would read as rejection.
+  &__empty {
+    margin: 0;
+    opacity: 0.75;
+    line-height: 1.6;
+  }
+}
+
+/* ---- the `quiz` section (wizard mounted inside a CMS page) ---- */
+
+// NO background and NO max-width, same as every other section partial: the
+// operator owns those through style_background_color and content_width, and a
+// value here would land on a descendant of what those knobs target and beat
+// them invisibly. LayoutDefaults ships `content_width: medium` for this type.
+.quiz-section {
+  padding-block: clamp(32px, 5vw, 72px);
+
+  &__eyebrow {
+    margin: 0 0 10px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent, var(--color-primary));
+  }
+
+  &__heading {
+    margin-bottom: 12px;
+  }
+
+  &__body {
+    margin-bottom: clamp(22px, 3vw, 34px);
+    // Copy stays readable even when the operator widens the section; the
+    // wizard below has its own measures and is unaffected.
+    max-width: 62ch;
+  }
+
+  // Follows content_align rather than fixing it — the frame sets --sx-items
+  // on the wrapper and never learns this markup. `normal` is the CSS initial
+  // value, so an unset knob is a no-op.
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: var(--sx-items, normal);
+  }
+}
+
+/* ---- answer cards (single + multi select) ---- */
+
+// The gold circle behind an option's icon. A translucent fill of the accent
+// rather than a solid one, so the card reads as a surface with something on it
+// rather than a button with a badge — and so it still works on a dark
+// style_background_color, where a solid accent disc would glare.
+.quiz-options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+
+  @include up(sm) {
+    // Two up once there is room. Not three: these carry a label, a second line
+    // and sometimes a price, and a third column starts wrapping the labels.
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  &__item {
+    min-width: 0;
+  }
+
+  // Visually hidden, never `display: none` — see the sex squares.
+  &__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  &__card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    height: 100%;
+    padding: 16px 18px;
+    margin: 0;
+    border: 2px solid rgba(128, 128, 128, 0.3);
+    border-radius: 14px;
+    cursor: pointer;
+    transition:
+      border-color 0.18s ease,
+      background-color 0.18s ease;
+  }
+
+  &__icon {
+    display: grid;
+    flex: 0 0 auto;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    // The gold disc. `color-mix` degrades to no fill where unsupported, which
+    // loses the disc but never the icon — the label still reads.
+    background: color-mix(in srgb, var(--sx-accent, var(--color-accent, #b09169)) 22%, transparent);
+
+    i {
+      // Deliberately NOT the accent: a gold icon on a gold disc disappears.
+      // Dark ink on the tint is the contrast the design asks for, and it holds
+      // on both light and dark bands because the disc is translucent.
+      font-size: 20px;
+      line-height: 1;
+      color: #1b1b1b;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  &__label {
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  &__desc {
+    font-size: 13px;
+    line-height: 1.4;
+    opacity: 0.7;
+  }
+
+  &__price {
+    margin-left: auto;
+    padding-left: 10px;
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    opacity: 0.75;
+  }
+
+  @media (hover: hover) {
+    &__input:not(:checked) + &__card:hover {
+      border-color: var(--sx-accent, var(--color-accent, #b09169));
+    }
+  }
+
+  &__input:checked + &__card {
+    border-color: var(--sx-accent, var(--color-accent, #b09169));
+    background-color: color-mix(in srgb, var(--sx-accent, var(--color-accent, #b09169)) 10%, transparent);
+  }
+
+  &__input:focus-visible + &__card {
+    outline: 3px solid var(--sx-accent, var(--color-accent, #b09169));
+    outline-offset: 3px;
+  }
+}
+
+/* ---- measurements ---- */
+
+// Shares the age slider's treatment rather than restating it: they are the
+// same control with a different unit, and two near-identical blocks would
+// drift the first time one is retuned.
+.quiz-measure {
+  max-width: 480px;
+
+  &__value {
+    display: block;
+    margin-bottom: 14px;
+    font-family: var(--font-display), sans-serif;
+    font-size: clamp(30px, 7vw, 42px);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    color: var(--sx-accent, var(--color-accent, var(--color-primary)));
+  }
+
+  &__track {
+    padding-block: 6px;
+
+    .rc-slider-track {
+      background-color: var(--sx-accent, var(--color-accent, var(--color-primary)));
+    }
+
+    .rc-slider-handle {
+      width: 26px;
+      height: 26px;
+      margin-top: -11px;
+      border-color: var(--sx-accent, var(--color-accent, var(--color-primary)));
+      opacity: 1;
+    }
+  }
+
+  &__bounds {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    font-size: 13px;
+    opacity: 0.6;
+  }
+
+  &__native {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+
+    &:focus {
+      position: static;
+      width: 100%;
+      height: auto;
+      margin-top: 12px;
+      clip-path: none;
+    }
+  }
+}
+
+/* ---- contact step ---- */
+
+.quiz-contact {
+  max-width: 520px;
+
+  &__fields {
+    display: grid;
+    gap: 14px;
+  }
+
+  &__consents {
+    display: grid;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  &__consent {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.45;
+    cursor: pointer;
+
+    input {
+      flex: 0 0 auto;
+      margin-top: 3px;
+    }
+  }
+
+  // The legal line. Smaller, but never faint enough to fail contrast — this is
+  // the sentence describing what someone just agreed to, and the footer
+  // disclaimer on this site once shipped at 2.42:1 for exactly this reason.
+  &__legal {
+    margin: 18px 0 0;
+    font-size: 13px;
+    line-height: 1.55;
+    opacity: 0.85;
+  }
+}
+
+/* ---- the plan / confirmation page ---- */
+
+.quiz-plan {
+  max-width: 640px;
+  padding-block: clamp(40px, 7vw, 88px);
+  margin-inline: auto;
+
+  &__eyebrow {
+    margin: 0 0 10px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent, var(--color-primary));
+  }
+
+  &__title {
+    margin: 0 0 14px;
+    font-size: clamp(30px, 6vw, 46px);
+    line-height: 1.12;
+  }
+
+  &__lede {
+    margin: 0 0 28px;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  &__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(128, 128, 128, 0.25);
+
+    a {
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  }
+}
+
+/* ---- progress: a counter on a phone, the dotted list above it ---- */
+
+.quiz-wizard {
+  &__count {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0 0 clamp(22px, 4vw, 32px);
+    font-size: 13px;
+    opacity: 0.75;
+
+    @include up(sm) {
+      display: none;
+    }
+  }
+
+  &__bar {
+    display: block;
+    height: 3px;
+    overflow: hidden;
+    background: rgba(128, 128, 128, 0.25);
+    border-radius: 999px;
+
+    span {
+      display: block;
+      height: 100%;
+      background: var(--color-accent, var(--color-primary));
+      transition: width 0.3s ease;
+    }
+  }
+
+  // The dotted list is the desktop treatment; below `sm` the counter replaces
+  // it rather than the two stacking.
+  &__progress {
+    display: none;
+
+    @include up(sm) {
+      display: flex;
+    }
+  }
+}
+
+// A disabled action has to LOOK disabled, or it reads as clickable and produces
+// a dead tap. This was written for the plan page's disabled PDF button, which
+// is gone; it now covers the add-to-cart button while a cart request is in
+// flight, which is the same problem and the reason the rule stays.
+.quiz-plan .tf-btn[disabled] {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+/* ---- the matched protocol on the plan page ---- */
+
+// The confirmation page is capped at 640px, which suits a column of text and
+// is far too narrow for a card grid. The report widens its OWN container
+// rather than raising the cap for every state, so a visitor who matched
+// nothing still reads a 640px measure instead of a short line stranded across
+// a wide page.
+.quiz-plan--report {
+  max-width: 1040px;
+}
+
+.plan-report {
+  margin-block: clamp(28px, 5vw, 44px);
+
+  // Text blocks keep the readable measure the rest of the page uses; only the
+  // card grid below is allowed the full width.
+  &__heading {
+    max-width: 640px;
+    margin: 0 0 12px;
+    font-size: clamp(22px, 4vw, 30px);
+    line-height: 1.2;
+  }
+
+  &__body {
+    max-width: 640px;
+    margin: 0 0 clamp(24px, 4vw, 36px);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+}
+
+.plan-goal {
+  padding-top: clamp(22px, 4vw, 32px);
+  margin-bottom: clamp(24px, 4vw, 36px);
+  border-top: 1px solid rgba(128, 128, 128, 0.25);
+
+  &__title {
+    margin: 0 0 16px;
+    font-size: clamp(18px, 3vw, 22px);
+  }
+
+  // One column on a phone, deliberately: these cards carry a title, badges, a
+  // blurb, a price and a control, and two of them across a 390px viewport puts
+  // every one of those on its own line.
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    @include up(sm) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @include up(lg) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  // The restricted / unmapped sentence. Same measure as the other prose.
+  &__empty {
+    max-width: 640px;
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    opacity: 0.85;
+  }
+}
+
+.plan-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background: rgb(255 255 255 / 4%);
+  border: 1px solid rgba(128, 128, 128, 0.25);
+  border-radius: 12px;
+
+  // A CONTAINED frame, not a cropped one — the same treatment signed off for
+  // the gallery and the Pairs With rail. These are product shots on a
+  // transparent ground; `cover` would cut the vial off at both ends.
+  &__media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 168px;
+    padding: 14px;
+    background: rgb(0 0 0 / 3%);
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.3;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+    }
+  }
+
+  &__blurb {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.55;
+    opacity: 0.8;
+  }
+
+  &__price {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  // Pushes the control to the bottom so a short blurb and a long one still
+  // line their buttons up across a row.
+  &__cta,
+  &__link {
+    margin-top: auto;
+  }
+
+  &__link,
+  &__add {
+    width: 100%;
+  }
+
+  // `currentColor` rather than a red hex, matching this partial's other error
+  // style: the palette is the operator's and a literal here would survive a
+  // rebrand that moved everything around it.
+  &__error {
+    margin: 8px 0 0;
+    font-size: 12px;
+    line-height: 1.4;
+    opacity: 0.9;
+  }
+}

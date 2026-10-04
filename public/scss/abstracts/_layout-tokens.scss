@@ -1,0 +1,164 @@
+@use "sass:list";
+@use "sass:map";
+@use "sass:string";
+
+// The presentation-knob token scale, in one place.
+//
+// THIS IS THE TOKEN => PIXEL MAP. The admin stores a semantic token
+// (`wide`), never a measurement: prx-backend serves more than one frontend,
+// so a width belonging to the Atlas theme may not appear in its code. Retune
+// the scale here and every page follows, with no content edit and no admin
+// change.
+//
+// Lifted out of _layout-frame.scss when sub-blocks landed. Sections
+// (`sx-*`) and typed child blocks (`sxb-*`) are two class vocabularies —
+// they have to be, because the section rules are descendant-scoped and a
+// child wearing them would inherit its parent's inset twice and bleed out of
+// its parent's column — but they must never be two SCALES. `md` meaning one
+// inset on a section and a different one on a card inside it is precisely
+// the kind of drift an operator cannot see and cannot fix.
+//
+// Order matters: the generated rules follow map order, so reordering a map
+// reorders the compiled stylesheet.
+
+// Vertical padding, applied to the wrapper itself. TOP AND BOTTOM ARE NOW
+// SEPARATE KNOBS (`style_padding_top` / `style_padding_bottom`), which is why
+// this map is read twice — the retired `extra_padding` drove both edges from
+// one token and could not say "generous above, tight below".
+//
+// `none: 0` is NOT redundant with leaving the knob unset. A per-breakpoint
+// override holding null means "inherit the width below", never "reset", so
+// without an explicit zero an operator could add padding on mobile and have
+// no way to take it away again on desktop. Same reason it appears in every
+// scale below that has a tier.
+$knob-pad: (
+  none: 0,
+  sm: 24px,
+  md: 48px,
+  lg: 80px,
+);
+
+// Horizontal inset — pulls content in from the edges.
+//
+// `flush` is deliberately NOT here, for the same reason `full` is absent from
+// $knob-width: it is a categorical override rather than a measurement. Every
+// token in this map is an amount of padding to ADD; flush REMOVES the page
+// gutter that sits underneath all of them, which is a different operation and
+// gets its own rule.
+$knob-inset: (
+  none: 0,
+  sm: clamp(12px, 2vw, 24px),
+  md: clamp(16px, 4vw, 64px),
+  lg: clamp(20px, 7vw, 120px),
+  xl: clamp(24px, 10vw, 180px),
+);
+
+// Content width cap, centred. The values are the widths this theme's
+// partials used to hardcode. `full` is deliberately NOT here: it is an
+// explicit override to "no cap", not a measurement, and is emitted as its
+// own rule.
+// RETUNED 2026-08-25, on the operator's call, after /test-page showed the
+// problem: wide (1394) and xwide (1440) were 46px apart — 23px a side — and
+// indistinguishable on a 27" monitor. Two tokens an operator cannot tell apart
+// are one token and a decoy. wide takes over the old xwide measurement, and
+// xwide becomes a genuinely wide option for large displays.
+//
+// This is the retune the token map exists to make cheap: the backend stores
+// the NAME, never a pixel value, so nothing in the database changes and no
+// content edit is needed. Sections already set to `wide` gain 46px; those set
+// to `xwide` gain 320px.
+$knob-width: (
+  narrow: 960px,
+  medium: 1216px,
+  wide: 1440px,
+  xwide: 1760px,
+);
+
+// Content alignment. `align` is the text-align value; `items` moves the
+// children of a grid or flex container, which text-align alone cannot do —
+// buttons and cards would stay stuck to the start edge.
+$knob-align: (
+  left: (align: left, items: start),
+  center: (align: center, items: center),
+  right: (align: right, items: end),
+);
+
+// Border width for the section band. Paints the same box the background does,
+// which is why the wrapper's bleed had to be fixed (c43e9a7) before this could
+// land — a border on a band that stopped a gutter short would have framed the
+// wrong box and made the bug obvious in a way the colour alone did not.
+$knob-border: (
+  none: 0,
+  sm: 1px,
+  md: 2px,
+  lg: 4px,
+);
+
+// Corner radius for the section band. Reads best on a section that is NOT
+// full-bleed: a rounded frame reaching the viewport edge shows its corners as
+// a curve cut out of the page, which is why `.sx-media--full` explicitly
+// squares its own media.
+$knob-radius: (
+  none: 0,
+  sm: 4px,
+  md: 12px,
+  lg: 24px,
+);
+
+// THE RESPONSIVE TIERS, in emission order.
+//
+// Two, `md` and `lg`, and the names are _breakpoints.scss's — Bootstrap 5.3's
+// 768 and 992 — so an Atlas knob and a `d-lg-*` utility switch at the same
+// width on the same element. Do not invent a scale here.
+//
+// BASE IS THE MOBILE VALUE and these override upward, which is the direction
+// the rest of the stylesheet is written in (`up()`), and the direction that
+// suits a site whose traffic is mostly phones: the common case gets the plain
+// rule and the exceptions get the media queries.
+//
+// The setters are redefined INSIDE a media query rather than emitting a class
+// per value per breakpoint. The deciding argument was cascade, not size:
+// _responsive.scss loads after the frame and contains zero `sx-` references,
+// so a custom-property setter cannot be beaten there and no new tie-break
+// surface is created. Consumer declarations stay singular and never enter a
+// media query at all.
+$knob-tiers: (md, lg);
+
+// The radius tokens that actually round something.
+//
+// `none` is a real, choosable value — "square corners" — and it must behave
+// differently from the others: a rounded section stops bleeding and becomes a
+// card, while a squared one keeps running edge to edge. So the rules that
+// un-bleed need every token EXCEPT none, and deriving that list here keeps it
+// from drifting if the scale is retuned.
+@function radius-tokens() {
+  $out: ();
+
+  @each $token in map.keys($knob-radius) {
+    @if $token != none {
+      $out: list.append($out, $token);
+    }
+  }
+
+  @return $out;
+}
+
+// Build a knob class selector list — `selectors("sx-inset", (sm, md))` gives
+// `.sx-inset--sm, .sx-inset--md`.
+//
+// The combined rules have to name every token of a scale, and writing them
+// out by hand is how a scale and its consumers drift: adding `xxl` to a map
+// above would otherwise compile cleanly while silently doing nothing.
+@function selectors($prefix, $tokens) {
+  $out: "";
+
+  @each $token in $tokens {
+    @if $out != "" {
+      $out: $out + ", ";
+    }
+
+    $out: $out + "." + $prefix + "--" + $token;
+  }
+
+  @return string.unquote($out);
+}

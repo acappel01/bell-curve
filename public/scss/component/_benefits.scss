@@ -1,0 +1,197 @@
+@use "../abstracts/index" as *;
+// Benefits section (`ben-*`), shared by the benefits-him and benefits-her
+// blueprint types. Mobile-first.
+// Benefits (him/her) — dark pitch column + 2×2 protocol-card grid.
+// Mobile-first, scoped under .ben-section; the --mirrored modifier
+// (benefits-her) flips column order on desktop only.
+.ben-section {
+  display: flex;
+  justify-content: center;
+  // Wears .sx-section/.sx-content: the frame owns the horizontal gutter and
+  // content_width owns the column cap, so neither appears here.
+  padding-block: clamp(48px, 8vw, 96px);
+  background: var(--dark-3);
+
+  .ben-inner {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(32px, 5vw, 64px);
+    width: 100%;
+  }
+
+  .ben-pitch {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .ben-eyebrow {
+    margin: 0;
+    color: var(--color-gold);
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .ben-heading {
+    margin: 0;
+    color: var(--sx-text, #fff);
+    font-family: "Spectral", serif;
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 300;
+    line-height: 1.05;
+  }
+
+  .ben-heading em {
+    color: var(--sx-accent, var(--color-gold));
+    font-style: italic;
+  }
+
+  .ben-lead {
+    margin: 0;
+    max-width: 520px;
+    color: var(--sx-text, #fff);
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 168.75%;
+    opacity: 0.75;
+  }
+
+  .ben-image {
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+
+  .ben-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    min-height: 52px;
+    padding: 8px 24px;
+    color: var(--sx-btn-text, var(--dark-2));
+    text-align: center;
+    text-transform: capitalize;
+    background: var(--sx-btn-bg, #fff);
+    border-radius: 12px;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 140%;
+    letter-spacing: -0.28px;
+    transition: opacity 180ms ease;
+  }
+
+  .ben-cta:hover,
+  .ben-cta:focus-visible {
+    color: var(--sx-btn-text, var(--dark-2));
+    opacity: 0.88;
+  }
+
+  .ben-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(16px, 2vw, 24px);
+    width: 100%;
+  }
+
+  .ben-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: clamp(24px, 3vw, 40px);
+    background: rgb(255 255 255 / 4%);
+    border: 1px solid rgb(255 255 255 / 8%);
+    border-radius: 20px;
+  }
+
+  .ben-cardHeader {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .ben-category {
+    color: var(--color-gold);
+    font-family: monospace;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .ben-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    color: #fff;
+    font-family: "Inter", sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: rgb(255 255 255 / 10%);
+    border-radius: 100px;
+  }
+
+  .ben-title {
+    margin: 0;
+    color: var(--sx-text, #fff);
+    font-family: "Spectral", serif;
+    font-size: clamp(22px, 2.5vw, 28px);
+    font-weight: 300;
+    line-height: 1.25;
+  }
+
+  .ben-body {
+    margin: 0;
+    color: var(--sx-text, #fff);
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 170%;
+    opacity: 0.7;
+  }
+
+  @include up(phone-xl) {
+    .ben-cta {
+      width: auto;
+    }
+
+    .ben-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @include up(tablet) {
+    .ben-inner {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+
+    .ben-pitch {
+      position: sticky;
+      top: 96px;
+      flex: 1 1 40%;
+    }
+
+    .ben-grid {
+      flex: 1 1 60%;
+    }
+
+    &.ben-section--mirrored .ben-inner {
+      flex-direction: row-reverse;
+    }
+  }
+}

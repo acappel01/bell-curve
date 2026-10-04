@@ -1,0 +1,114 @@
+@use "../abstracts/index" as *;
+// Final CTA / wellness banner section (`wellness-*`), driven by FinalCtaSection.
+// Mobile-first: stacked copy, widening at sm / md / xl.
+//
+// Three levels, not two: .wellness-cta-section is the band, .wellness-column is
+// the .sx-content column, and .wellness-cta is the CARD inside it. The card is
+// not the column on purpose — its 40–71px padding is a design value that
+// content_inset would otherwise overwrite. See FinalCtaSection.jsx.
+.wellness-cta-section {
+  display: flex;
+  justify-content: center;
+  // The frame owns the horizontal gutter; the 40px here was already dead.
+  padding-block: 0 40px;
+  margin-bottom: 20px;
+}
+
+.wellness-column {
+  width: 100%;
+}
+
+.wellness-cta {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 30px;
+  padding: 40px;
+  background: var(--dark-3);
+}
+
+.wellness-title {
+  margin: 0;
+  font-family: $font-main;
+  font-weight: 300;
+}
+
+.wellness-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.wellness-eyebrow {
+  margin: 0;
+  color: var(--sx-accent, var(--color-gold));
+  font-family: $font-main;
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 1.3;
+}
+
+.wellness-title {
+  max-width: 650px;
+  color: var(--sx-text, #ffffff);
+  font-size: 48px;
+  line-height: 1.1;
+  text-transform: capitalize;
+}
+
+.wellness-button {
+  flex: 0 0 auto;
+  padding: 16px 32px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--sx-btn-bg, #ffffff);
+  // `var(--ink)` — a variable DEFINED NOWHERE in this project. An invalid
+  // substitution makes the property compute to `unset`, and `color` is
+  // inherited, so `unset` means `inherit`: the label quietly took its colour
+  // from whatever ancestor it happened to sit under. That worked by accident
+  // while the ancestor was dark, and broke the moment a section text knob
+  // recoloured the ancestor — a sand label on a white pill, which was misread
+  // as the text knob overreaching rather than as this dangling variable.
+  //
+  // #000 is not a guess: it is what the button computes today on a knobless
+  // page (probed on / before the change), so the fix is invisible where no
+  // knob is set and only removes the unreadable case.
+  color: var(--sx-btn-text, #000);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.4;
+  transition: opacity 180ms ease;
+}
+
+.wellness-button:hover,
+.wellness-button:focus-visible {
+  background: var(--sx-btn-bg, #ffffff);
+  color: var(--sx-btn-text, #000);
+  opacity: 0.88;
+}
+@include up(sm) {
+  .wellness-title {
+    font-size: 60px;
+  }
+}
+
+@include up(md) {
+  .wellness-cta {
+    padding: 60px 64px;
+  }
+
+  .wellness-title {
+    font-size: 68px;
+  }
+}
+
+@include up(xl) {
+
+  .wellness-cta {
+    padding: 60px 71px 77px;
+  }
+
+  .wellness-title {
+    font-size: 75px;
+  }
+}

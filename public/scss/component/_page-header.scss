@@ -1,0 +1,105 @@
+@use "../abstracts/index" as *;
+// Page title banner (Figma 337-1182): full-width background photo with a
+// 20% dark scrim, centered white display title, optional subtitle/intro,
+// and a breadcrumb trail. Mobile-first: compact banner that grows toward
+// the design's 400px at desktop.
+.page-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px;
+  padding: 48px 16px;
+  overflow: hidden;
+  background: #fbfbfd;
+  border-bottom: 1px solid #edeff7;
+
+  &__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__scrim {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  &__inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    max-width: 962px;
+    text-align: center;
+  }
+
+  &__crumbs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.85);
+    text-transform: capitalize;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+
+    a {
+      color: #fff;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__crumb {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__crumb-sep {
+    opacity: 0.6;
+  }
+
+  &__title {
+    margin: 0;
+    color: #fff;
+    text-transform: capitalize;
+    font-family: "Spectral", serif;
+    font-size: clamp(40px, 6vw, 80px);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+
+  &__subtitle {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.92);
+    font-family: "Inter", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  &__intro {
+    margin: 0;
+    max-width: 640px;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  @include up(lg) {
+    min-height: 400px;
+  }
+}

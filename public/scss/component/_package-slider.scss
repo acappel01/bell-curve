@@ -1,0 +1,341 @@
+@use "../abstracts/index" as *;
+// Package / price slider section (`ps-*`). Mobile-first: base styles are the
+// small-screen layout, desktop widths arrive at md.
+// `.ps-cardButton` is intentionally unscoped — the FAQ section CTA reuses it.
+//
+// Wears the layout contract at THREE levels, because `.ps-banner` is a visual
+// card: `.ps-section` is the band, `.sx-content` the column the knobs move,
+// `.ps-banner` the card. The card's max-width is deliberately GONE — it is
+// now content_width, whose served default is `xwide`. That token WAS the
+// 1440px this file used to hardcode; the scale was retuned 2026-08-25 and
+// xwide now measures 1760px. The card therefore measures
+// min(viewport - 128, 1760) — the frame's gutter maxes at 64px a side — so it
+// passes the original theme's 1440 from about 1568px, and saturates at its new
+// cap from about 1888px. Two different numbers; do not quote the second as
+// though it were the crossover. That a retune reaches this card at all is the
+// point of storing a token rather than a measurement. See the note in
+// PackageSliderSection.jsx.
+.ps-section {
+  padding-block: 40px;
+  background-color: var(--color-sand);
+}
+
+.ps-banner {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: clamp(32px, 6vw, 100px) clamp(20px, 5vw, 72px) clamp(24px, 4vw, 100px);
+  background:
+          linear-gradient(0deg, rgb(0 0 0 / 20%) 0%, rgb(0 0 0 / 20%) 100%),
+          url("/images/slider/price-slider-bg.jpg")
+          center / cover no-repeat;
+  border-radius: 16px;
+}
+
+.ps-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+}
+
+.ps-headerRow {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+}
+
+.ps-intro {
+  margin: 0;
+  max-width: 100%;
+  color: #fff;
+  font-family: $font-2;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 150%;
+}
+
+.ps-heading {
+  margin: 0;
+  max-width: 100%;
+  color: #fff;
+  font-family: "Spectral", serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-style: normal;
+  font-weight: 300;
+  line-height: 125%;
+}
+
+.ps-carouselWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+}
+
+.ps-carousel {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  padding-bottom: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  cursor: grab;
+}
+
+.ps-carousel.is-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.ps-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+// THE KEEP OPT-OUT, and the reusable pattern for it.
+//
+// `.ps-cardButton` renders on TWO surfaces: inside this card, where a section
+// background knob cannot reach and the card owns its colours, and directly in
+// `.sx-content` on the band from FaqSection.jsx, where it should follow. One
+// class, two correct answers — so the base rule follows and the card opts out.
+//
+// `initial` on a custom property is GUARANTEED-INVALID at substitution time,
+// which is exactly the point: every `var(--sx-btn-*, <original>)` inside this
+// card falls back to its designed colour, with no need to know which
+// declarations those are or to out-specify them. Copy this shape for any
+// future card that must resist a section knob.
+.ps-card {
+  --sx-btn-bg: initial;
+  --sx-btn-text: initial;
+  display: flex;
+  flex: 0 0 min(300px, 82vw);
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+  background: rgb(255 255 255 / 94%);
+  backdrop-filter: blur(36px);
+  border-radius: 20px;
+}
+
+.ps-cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ps-cardHeading {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ps-cardTitle {
+  margin: 0;
+  color: var(--dark-2);
+  font-family: "Spectral", serif;
+  font-size: 27px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 28px;
+  letter-spacing: -0.54px;
+}
+
+.ps-cardPricing {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ps-priceFirst {
+  margin: 0;
+  color: var(--dark-2);
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.ps-priceRecurring {
+  margin: 0;
+  color: var(--dark-2);
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+}
+
+/* The listing card's single "From $X/mo" line. A NEW class rather than a reuse
+   of the two above: the CMS package slider still renders the First month /
+   Recurring pair under operator-authored labels, and it must not move when the
+   listing card does. Sized like `.ps-priceFirst` — with one price line it is
+   the primary one. */
+.ps-priceFrom {
+  margin: 0;
+  color: var(--dark-2);
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.ps-cardImage {
+  flex-shrink: 0;
+  width: 74px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.ps-cardDescription {
+  margin: 0;
+  color: var(--dark-2);
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 150%;
+  opacity: 0.5;
+}
+
+.ps-cardButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: auto;
+  padding: 13px 16px;
+  color: var(--sx-btn-text, #fff);
+  text-align: center;
+  text-transform: capitalize;
+  background: var(--sx-btn-bg, #000);
+  border-radius: 12px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 140%;
+  letter-spacing: -0.28px;
+}
+
+.ps-rangeInput {
+  appearance: none;
+  width: min(343px, 60%);
+  height: 4px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.ps-rangeInput::-webkit-slider-runnable-track {
+  height: 4px;
+  background: linear-gradient(
+                  to right,
+                  #151415 var(--pct),
+                  rgb(255 255 255 / 60%) var(--pct)
+  );
+  border-radius: 2px;
+}
+
+.ps-rangeInput::-moz-range-track {
+  height: 4px;
+  background: rgb(255 255 255 / 60%);
+  border-radius: 2px;
+}
+
+.ps-rangeInput::-moz-range-progress {
+  height: 4px;
+  background: #151415;
+  border-radius: 2px;
+}
+
+.ps-rangeInput::-webkit-slider-thumb {
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  margin-top: -12px;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  box-shadow:
+          0 6px 13px rgb(0 0 0 / 12%),
+          0 0.5px 4px rgb(0 0 0 / 12%);
+}
+
+.ps-rangeInput::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  box-shadow:
+          0 6px 13px rgb(0 0 0 / 12%),
+          0 0.5px 4px rgb(0 0 0 / 12%);
+}
+
+// ─── PHONE: one column, and the card reads top to bottom ────────────────
+//
+// The header is a ROW by design — title and pricing on the left, a tall
+// product shot on the right — and at 390px that row had 145px of text beside a
+// 74px image, so a three-word stack name wrapped to three lines next to a
+// picture. The operator's read was "images partially on and partially off the
+// cards"; the measurement was a 279px card in a two-column grid whose second
+// column ran past the viewport edge.
+//
+// So on phones the card becomes a single centred column: image, then name,
+// then price, then the recurring line, then copy, then the button. `order`
+// does the reordering rather than the markup, because the DOM order is right
+// for every other width and for a screen reader — the image is decorative
+// (`aria-hidden`) and belongs after the name in the document.
+@include down(md) {
+  .ps-cardHeader {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .ps-cardHeading {
+    align-items: center;
+    width: 100%;
+  }
+
+  .ps-cardImage {
+    order: -1;
+    width: 120px;
+    height: 156px;
+  }
+
+  .ps-cardPricing {
+    align-items: center;
+  }
+
+  .ps-cardDescription {
+    text-align: center;
+  }
+}
+
+@include up(md) {
+  .ps-headerRow {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .ps-intro {
+    max-width: 444px;
+  }
+
+  .ps-heading {
+    max-width: 591px;
+  }
+
+  .ps-card {
+    flex-basis: min(331px, 85vw);
+    padding: 32px;
+  }
+
+  .ps-cardButton {
+    width: auto;
+  }
+}

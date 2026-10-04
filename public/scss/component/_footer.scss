@@ -1,0 +1,407 @@
+@use "../abstracts/index" as *;
+
+.footer-default {
+    font-family: "Spectral", serif;
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 400;
+    color: var(--dark);
+    background-image:url(/images/footer-bg.png);
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    position: relative;
+    a {
+        color: var(--dark);
+    }
+    .form-newsletter {
+        max-width: 401px;
+        .subscribe-button {
+            padding: 13px;
+            border-radius: 50%;
+            .icon {
+                font-size: 17px;
+            }
+        }
+    }
+    .footer-bottom {
+        border-top: 1px solid var(--line);
+    }
+    .footer-top {
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        padding: 32px 0px;
+    }
+    .footer-top-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        flex-wrap: wrap;
+        .tf-social-icon {
+            gap: 8px;
+        }
+    }
+    .footer-body {
+        position: relative;
+        z-index: 10;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        .btn-line-dark {
+            color: #444444;
+            &::after {
+                background-color: #444444;
+            }
+        }
+    }
+}
+
+.footer-logo {
+    max-width: 157px;
+    width: 100%;
+    > a {
+        width: 100%;
+        display: block;
+        img {
+            width: 100%;
+        }
+    }
+}
+.footer-wrap {
+    border-top: 1px solid var(--line);
+}
+
+.footer-info {
+    margin-bottom: 15px;
+    display: grid;
+    gap: 15px;
+    a {
+        &.infor_address {
+            font-weight: 400;
+            span {
+                @include transition3;
+            }
+            &:hover {
+                color: inherit;
+            }
+        }
+        
+    }
+    .item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #0d0d0d;
+        a {
+            color: #0d0d0d;
+            &:hover{
+                color: var(--primary);
+            }
+        }
+    }
+    .box-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 1px solid var(--line);
+        font-size: 14px;
+        color: var(--dark);
+        background-color: var(--white);
+        flex-shrink: 0;
+        &:hover {
+            background-color: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+            svg path {
+                fill: var(--white);
+            }
+        }
+    }
+}
+.footer-heading {
+    margin-bottom: 15px;
+    color: var(--dark);
+}
+.footer-menu-list {
+    display: grid;
+    gap: 15px;
+    a {
+        &:hover {
+            color: var(--text);
+        }
+    }
+}
+.footer-newsletter {
+    display: grid;
+    gap: 20px;
+}
+
+.footer-bottom-wrap {
+    @include flex(center, space-between);
+    flex-wrap: wrap;
+    padding: 32px 0px;
+    position: relative;
+    gap: 15px;
+    p,
+    a {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    .image-select {
+        &.style-default {
+            border-radius: 4px !important;
+            border: 1px solid #2e2e2e26 !important;
+            width: 184px !important;
+            padding: 8px 10px;
+            .filter-option-inner-inner {
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 20px;
+                color: var(--dark);
+            }
+            > .dropdown-toggle {
+                background-color: transparent !important;
+                border: 1px solid var(--line);
+                outline: none !important;
+                color: var(--dark);
+                position: relative;
+                &::after {
+                    display: none;
+                }
+                &::before {
+                    position: absolute;
+                    content: "\e905";
+                    font-family: $fontIcon;
+                    right: 0px;
+                    font-size: 6px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+            }
+            > .dropdown-menu {
+                a {
+                    .text {
+                        font-size: 14px;
+                        line-height: 20px;
+                    }
+                }
+            }
+        }
+    }
+    .tf-payment {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+        .item {
+            max-width: 40px;
+        }
+    }
+    .box-right {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
+}
+
+.footer-default {
+    .subscribe-email,
+    .tf-social-icon .social-item {
+        background-color: transparent;
+    }
+}
+
+.footer-style-2 {
+    margin: 0px 12px 80px;
+    .footer-bottom-wrap {
+        padding: 24px 0px;
+        border-top: 1px solid var(--line);
+    }
+    .footer-info {
+        gap: 10px;
+    }
+    .footer-logo {
+        max-width: 108px;
+        margin-bottom: 28px;
+    }
+}
+
+.footer-pb-2 {
+    padding-bottom: 100px;
+}
+
+.footer-bg {
+    color: var(--white);
+    .footer-top {
+        border-top: 0;
+        border-color: #7f7f7f;
+    }
+    .row-footer {
+        .s1,
+        .s2 {
+            border-color: #7f7f7f;
+        }
+    }
+    .footer-bottom {
+        border-color: #7f7f7f;
+    }
+    .tf-social-icon {
+        .social-item:not(:hover) {
+            border-color: #989898;
+            color: var(--white);
+        }
+    }
+    .footer-info .box-icon {
+        border-color: transparent;
+    }
+    a,
+    .item,
+    .item a,
+    .footer-heading {
+        color: var(--white);
+    }
+    .subscribe-email {
+        border-color: var(--white) !important;
+        background-color: var(--white);
+    }
+    .footer-heading-mobile {
+        &::before,
+        &::after {
+            background-color: var(--white);
+        }
+    }
+}
+
+.cloud-footer {
+    margin-bottom: -2px;
+    img {
+        width: 100%;
+        height: auto;
+        animation: floating 5s infinite ease-in-out alternate;
+    }
+}
+.footer-cloud {
+    background-color: #d1d6ff;
+    position: relative;
+    .footer-top {
+        border-top: 0;
+        border-color: var(--white);
+        .social-item {
+            border-color: var(--white);
+        }
+    }
+    .row-footer {
+        .s1,
+        .s2 {
+            border-color: var(--white);
+        }
+        .form-newsletter input{
+            background-color: var(--white);
+            border-color: var(--white);
+            &:focus{
+                border-color: var(--dark);
+            }
+        }
+    }
+    .footer-bottom{
+        border-color: var(--white);
+    }
+    .footer-info {
+        .box-icon{
+            background-color: transparent;
+            border-color: var(--white);
+        }
+    }
+}
+
+/* ---------- site-wide sections mounted in a layout region ---------- */
+
+/*
+ * Global blocks an operator mounts in the `footer` region land here, above
+ * the copyright line — the slot a legal disclaimer belongs in, authored once
+ * and rendered on every page.
+ *
+ * This wrapper sets NEITHER alignment NOR width. `content_align` and
+ * `content_width` are both knobs on every section, so those are the
+ * operator's choices in the admin rather than values hardcoded here.
+ * `_text-block.scss` settled the width half already — "content_width owns
+ * the measure... Picking a reading measure is the operator's call, not this
+ * file's" — and a cap in here would quietly beat it, because it lands on a
+ * descendant of the element the knob caps.
+ *
+ * What it DOES do is rescale. A `text-block` is designed for page content and
+ * brings page-sized rhythm with it; dropped into a footer unchanged it reads
+ * as a second article rather than fine print. The rules below tighten the
+ * type and mute the colour without touching the section's own knobs, so an
+ * operator can still override padding or background per instance.
+ */
+.footer-sections {
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+
+    /* OPAQUE, because the footer's background is a PHOTOGRAPH.
+       `.footer-default` paints `footer-bg.png` across the whole element, so
+       the disclaimer band sits on whatever part of that image lands there.
+       Measured across the band, the photo's luminance ranges 0.337 to 1.0 —
+       there is no single contrast ratio for text on it, and a translucent
+       scrim only narrows that range instead of removing it. A first attempt
+       at 82% still measured 4.42:1 at the best glyph core.
+
+       Fully opaque, so the band has ONE known surface. It sits under the
+       section's own background knob, so an operator who sets a colour still
+       wins — this is the floor, not the decision. */
+    background: var(--color-background, #f7f2ec);
+
+    .sx-section {
+        padding-block: 0;
+    }
+
+    .sx-content {
+        padding-block: 24px 8px;
+    }
+
+    /* Fine print, not body copy. Spacing is deliberately left alone:
+       `.rich-text p` in _layout-frame.scss loads later at equal specificity
+       and .text-block__body.rich-text p is more specific still, so a margin
+       set here would be dead code that reads as if it were doing something.
+
+       NO `opacity` HERE. It used to carry `opacity: 0.72`, which compounded
+       with the 0.7 alpha `_text-block.scss` already applies to its body copy:
+       0.7 x 0.72 = 0.5 effective, at 12px, over a photograph — a measured
+       2.42:1 against WCAG AA's 4.5:1, which is how a live FDA/503A disclaimer
+       came to read as absent. Element opacity is also the one property a
+       colour knob cannot override, so it could not be fixed from the admin.
+       Size is the lever for "fine print"; transparency is not. */
+    p,
+    li {
+        font-size: 13px;
+        line-height: 1.65;
+    }
+
+    /* FULL OPACITY, overriding the 70% alpha `_text-block.scss` gives its body
+       copy. That alpha is a reading-comfort choice for a long-form block in the
+       middle of a page; in a legal band it is the difference between a
+       disclaimer being read and being skipped. Compounded at 13px in a serif
+       whose stems are barely a pixel wide, almost NO glyph pixel reaches full
+       coverage — the darkest text pixel measured rgb(120,120,120) against a
+       white surface where the colour alone predicted 76.
+
+       Still `var(--sx-text, …)`, so an operator's text-colour knob wins; what
+       changes is that it is applied at full alpha rather than 70%. */
+    .text-block__body.rich-text,
+    .text-block__body.rich-text p,
+    .text-block__body.rich-text li {
+        color: var(--sx-text, var(--color-text, #151415));
+    }
+}
+
+/*
+ * The `pre_footer` region: a full band between page content and the footer.
+ * Unlike `.footer-sections` this one is NOT rescaled — a pre-footer section
+ * is page-sized by intent (a CTA band, a newsletter strip), so it keeps its
+ * own design and its own knobs.
+ */
+.site-pre-footer {
+    /* Intentionally unstyled — a hook for future per-region rules only. The
+       sections inside are full `.sx-section` bands and bring their own
+       design and their own knobs. */
+}

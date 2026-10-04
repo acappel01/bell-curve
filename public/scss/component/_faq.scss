@@ -1,0 +1,216 @@
+@use "../abstracts/index" as *;
+// FAQ section (`faq-*`). Two-column copy + accordion, collapsing to one
+// column below md. NOTE: written desktop-first — the base rules are the wide
+// layout and `down(md)` overrides them. Converting to mobile-first is queued.
+//
+// Wears .sx-section/.sx-content: the frame owns the horizontal gutter and
+// content_width owns the column cap, so neither appears here. Unlike most of
+// the sweep this one MOVES — .faq-inner's own side padding was additive with
+// the page gutter, so the grid gains 40px each side at desktop and 20px on
+// mobile.
+.faq-card {
+  width: 100%;
+  padding: clamp(32px, 5vw, 64px);
+  border-radius: 24px;
+}
+.faq-card-mt {
+  margin-top: 40px;
+  width: 100%;
+  padding: clamp(32px, 5vw, 64px);
+  background: var(--color-sand);
+  border-radius: 24px;
+}
+.faq-section {
+  display: flex;
+  justify-content: center;
+  padding-block: 40px 0;
+}
+
+// DELIBERATELY OVERSIZED AND OFFSET — art direction, not a stray rule: the
+// product shot is painted at 2x its layout box and pushed right so it crosses
+// under the accordion column. The `width: 50%` was an HTML `width="50%"`
+// attribute until this pass; an img width attribute takes a pixel count, so
+// that only worked as a presentational hint. Measured at a 1440 viewport the
+// painted box is 460px wide starting 403px from the left, i.e. left edge at
+// 0.65 x the intro column — proportional to the column, which is why widening
+// the column by 40px moves it without overflowing at any width from 390 up.
+//
+// THE DEBT IS THE LAYOUT/PAINT MISMATCH, not the position: `transform` is
+// paint-time, so the flow still reserves the HALF-size box and the section's
+// vertical rhythm is computed for an image half the size of the one on screen.
+// Rewriting it honestly (real width, absolute or object-fit crop) changes the
+// intro column's height on three live pages, which is a design call — logged
+// in docs/next-session.md rather than guessed at here.
+.faq-image {
+  width: 50%;
+  max-width: 100%;
+  height: auto;
+  transform: scale(2);
+  vertical-align: middle;
+  position: relative;
+  left: 90%;
+  top: -40%;
+}
+
+.faq-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(360px, 1fr);
+  gap: clamp(48px, 11vw, 160px);
+  width: 100%;
+  // Was clamp(24px, 5vw, 10px), whose max is below its min — per spec that
+  // resolves to the min at every viewport, so this is the same 24px.
+  padding-block: 24px;
+}
+
+.faq-introduction {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.faq-eyebrow {
+  margin: 0;
+  color: var(--color-gold);
+  font-family: var(--font-acumin-pro), Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.faq-heading {
+  margin: 0;
+  color: var(--sx-text, var(--dark-2));
+  font-family: "Spectral", serif;
+  font-size: clamp(42px, 5vw, 68px);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.faq-description {
+  margin: 0;
+  max-width: 350px;
+  color: var(--sx-text, var(--dark-2));
+  font-family: var(--font-acumin-pro), Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  opacity: 0.7;
+}
+
+.faq-accordion {
+  border-top: 1px solid rgb(161 130 99 / 30%);
+}
+
+.faq-item {
+  border-bottom: 1px solid rgb(161 130 99 / 30%);
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 0;
+  color: var(--sx-text, var(--dark-2));
+  cursor: pointer;
+  font-family: "Spectral", serif;
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 300;
+  line-height: 1.2;
+  list-style: none;
+}
+
+.faq-question::-webkit-details-marker {
+  display: none;
+}
+
+.faq-question:focus-visible {
+  outline: 2px solid var(--color-tan);
+  outline-offset: -2px;
+}
+
+.faq-icon {
+  position: relative;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.faq-icon::before,
+.faq-icon::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 1px;
+  content: "";
+  // NOTE, and the pass-2 commit message overstated this: `.faq-icon` and
+  // `.faq-question` above are NOT RENDERED BY ANYTHING. FaqSection.jsx emits
+  // the theme's `.widget-accordion` / `.accordion-title` / `.icon-arrow-down`,
+  // which carry no colour rule and so already follow the knob by plain
+  // inheritance. Only `.faq-heading` and `.faq-description` in this file are
+  // live. The deferral is kept because it is correct if this markup is ever
+  // revived, but it fixes nothing today.
+  //
+  // The principle it illustrates IS real and cost a find: a glyph drawn as two
+  // 1px BARS takes colour through `background`, so a sweep that only looks at
+  // `color` misses it. See _timeline.scss for the live instance.
+  background: var(--sx-text, var(--dark-2));
+  transform: translate(-50%, -50%);
+  transition: transform 180ms ease;
+}
+
+.faq-icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.faq-item[open] .icon::after {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+@include down(md) {
+  .faq-inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  // NEVER A PERCENTAGE HEIGHT ON THIS IMAGE, and the reason is a real bug
+  // that only appeared on iOS.
+  //
+  // This was `width: auto; height: 75%`. A percentage height resolves against
+  // the containing block's height, and `.faq-introduction` is a grid item whose
+  // height comes from its content — so the height is INDEFINITE. Chromium
+  // treats that as `auto` and the intrinsic ratio survives, which is why the
+  // headless check measured 358x316 at a natural 1335x1178 and read as
+  // perfectly healthy. WebKit resolves it against the parent's used height
+  // instead, so with `width: auto` the image kept its layout width while its
+  // height was forced: on an iPhone the vial rendered about twice as tall as it
+  // is wide, with the wordmark visibly squeezed, and pushed the accordion a
+  // screen and a half down the page.
+  //
+  // So the ratio is left to the image. One axis is set, the other is `auto`,
+  // and nothing downstream can stretch it.
+  .faq-image {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    margin-inline: auto;
+    // The desktop rule paints this at 2x and shoves it right so it crosses
+    // under the accordion column. There is no second column to cross into
+    // here, so both are undone rather than re-tuned.
+    transform: none;
+    position: static;
+  }
+  .faq-introduction {
+    gap: 20px;
+  }
+
+  .faq-question {
+    padding: 22px 0;
+  }
+}

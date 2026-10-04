@@ -1,0 +1,12 @@
+@use "sass:meta";
+// Fonts + vendor CSS libraries are imported by app/layout.js (webpack-inlined
+// in guaranteed order). Plain-CSS @import lines here compile to browser-level
+// @import statements, and once another css module precedes this one in the
+// compiled bundle the browser ignores them entirely (CSS spec: @import must
+// come before all rules) — that intermittently dropped Bootstrap/Swiper/fonts.
+// The Google Fonts import lives in app/layout.js as a <link> for the same
+// reason. Do not re-add url()/plain-css @import lines to this file.
+
+// Import custom styles
+@include meta.load-css("app.scss");
+@include meta.load-css("custom.scss");

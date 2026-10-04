@@ -1,0 +1,58 @@
+@use "../abstracts/index" as *;
+
+// Neutral shell for the generic flexible-section renderer (admin-defined
+// types with no bespoke component yet). Mobile-first. Per-type styling hooks:
+// .flexible--{type-slug} and .flexible-field--{field-key}.
+.flexible-section {
+  display: flex;
+  justify-content: center;
+  // Wears .sx-section/.sx-content: the frame owns the horizontal gutter.
+  padding-block: 40px;
+
+  .flexible-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    // The one converted section that KEEPS its own cap. Admin-defined types
+    // have dynamic slugs, so LayoutDefaults has no per-type entry for them
+    // and no sx-width class is emitted until an operator picks one — without
+    // this, every flexible section would span the whole frame. content_width
+    // still overrides it: equal specificity, and _layout-frame.scss is
+    // forwarded last.
+    max-width: 926px;
+  }
+
+  h2 {
+    margin: 0;
+    color: var(--sx-text, var(--dark-2));
+    font-family: "Spectral", serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 300;
+    line-height: 110%;
+  }
+
+  p {
+    margin: 0;
+    color: var(--sx-text, var(--dark-2));
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+  }
+}

@@ -1,0 +1,96 @@
+@use "../abstracts/index" as *;
+// Highlight banner (Figma 1268-2795): slim band of icon + bold text
+// highlights. Mobile-first: single column; --per-row (set inline by the
+// component from the blueprint's per_row field) takes over at 768px.
+.highlight-banner {
+  display: flex;
+  justify-content: center;
+  // Wears .sx-section/.sx-content: the frame owns the horizontal gutter and
+  // content_width owns the column cap (default `medium`). The band now reaches
+  // the viewport edge, so the --dark/--cream backgrounds no longer leave
+  // ribbons of page at the sides.
+  padding-block: 32px;
+
+  &--cream {
+    background: #f0e6da;
+  }
+
+  &--light {
+    background: #fff;
+  }
+
+  &--dark {
+    background: #151415;
+
+    .highlight-banner__text {
+      color: var(--sx-text, #fff);
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px clamp(24px, 3vw, 48px);
+    width: 100%;
+
+    @include up(sm) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @include up(md) {
+      grid-template-columns: repeat(var(--per-row, 4), minmax(0, 1fr));
+      // Each item sits centred in its own equal track, so a full row reads as
+      // evenly distributed across the band — the look the hardcoded trust
+      // band got from `repeat(4, auto)` + space-between. The component caps
+      // the track count at the number of items so there is never an empty
+      // track dragging everything left.
+      justify-items: center;
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0.9;
+  }
+
+  // An icon class rather than an image: sized to the text it sits beside.
+  &__glyph {
+    flex: 0 0 auto;
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  &--icon-top &__item {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  &--bordered &__item {
+    padding: 16px 20px;
+    border: 1px solid rgba(21, 20, 21, 0.25);
+    border-radius: 12px;
+  }
+
+  &--dark#{&}--bordered &__item {
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: auto;
+  }
+
+  &__text {
+    margin: 0;
+    color: var(--sx-text, #151415);
+    font-family: "Inter", sans-serif;
+    font-size: clamp(16px, 1.6vw, 19px);
+    font-weight: 700;
+    line-height: 22px;
+    white-space: pre-line;
+  }
+}

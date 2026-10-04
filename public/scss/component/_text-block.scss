@@ -1,0 +1,159 @@
+@use "../abstracts/index" as *;
+// Generic prose section (`text-block`). Carries legal and long-form pages,
+// so the body is optimised for reading: capped measure, generous leading,
+// and real spacing for the headings/lists a rich editor emits.
+.text-block {
+  // Centre the content column the way every other section does. The site
+  // centres via flex on the section itself (.faq-cats is the reference), not
+  // via margins on the inner — a plain block child pins to the frame's left
+  // gutter and reads as misaligned against its neighbours.
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-block: clamp(32px, 6vw, 72px);
+
+  &--light {
+    background: transparent;
+  }
+
+  &--cream {
+    background: #f0e6da;
+  }
+
+  &--dark {
+    color: var(--sx-text, #fff);
+    background: #151415;
+
+    .text-block__eyebrow {
+      color: color-mix(in srgb, var(--sx-text, #fff) 60%, transparent);
+    }
+
+    .text-block__body {
+      color: color-mix(in srgb, var(--sx-text, #fff) 75%, transparent);
+    }
+
+    a {
+      color: var(--sx-text, #b09169);
+    }
+  }
+
+  &--center {
+    text-align: center;
+  }
+
+  &__inner {
+    // No cap here: this is .sx-content, and content_width owns the measure
+    // (default `wide`, matching .faq-cats__panels so a legal page's copy
+    // starts on the same vertical as content elsewhere on the site). Picking
+    // a reading measure is the operator's call, not this file's — `narrow`
+    // is one click away in the admin.
+    width: 100%;
+  }
+
+  &__eyebrow {
+    margin: 0 0 8px;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    // DEFERS TO THE STYLE KNOB. `var(--sx-text, …)` is exactly the original
+    // colour until an operator sets one, and color-mix keeps the tint
+    // RELATIVE — a flat var() here would make muted eyebrow, body copy and
+    // headings all the same colour and flatten the reading hierarchy.
+    color: color-mix(in srgb, var(--sx-text, #000) 55%, transparent);
+  }
+
+  &__heading {
+    margin: 0 0 20px;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+
+  // Compounded with .rich-text (Html always emits both) so this section's
+  // long-form scale beats the shared .rich-text base, which loads later —
+  // _layout-frame.scss is last in _index.scss by design. Text-block is a
+  // reading surface and wants larger type than inline prose elsewhere.
+  &__body.rich-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: color-mix(in srgb, var(--sx-text, #000) 70%, transparent);
+
+    // Rich-editor output: headings, lists, tables and links all land here.
+    h2,
+    h3,
+    h4 {
+      margin: 1.6em 0 0.5em;
+      font-weight: 400;
+      line-height: 1.3;
+      color: var(--sx-text, #151415);
+    }
+
+    h2 {
+      font-size: 26px;
+    }
+
+    h3 {
+      font-size: 21px;
+    }
+
+    h4 {
+      font-size: 18px;
+    }
+
+    p {
+      margin: 0 0 1em;
+    }
+
+    // The editor emits <p></p> for blank lines — collapse them so authored
+    // whitespace doesn't turn into large dead gaps.
+    p:empty {
+      margin: 0;
+    }
+
+    ul,
+    ol {
+      margin: 0 0 1em;
+      padding-left: 1.4em;
+    }
+
+    li {
+      margin-bottom: 0.4em;
+    }
+
+    a {
+      color: var(--sx-text, #151415);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    strong {
+      font-weight: 600;
+      color: var(--sx-text, #151415);
+    }
+
+    blockquote {
+      margin: 1.5em 0;
+      padding-left: 1.2em;
+      border-left: 2px solid rgba(0, 0, 0, 0.2);
+      font-style: italic;
+    }
+
+    table {
+      width: 100%;
+      margin: 1.5em 0;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 10px 12px;
+      text-align: left;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+    }
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+}

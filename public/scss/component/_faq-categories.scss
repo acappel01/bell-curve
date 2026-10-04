@@ -1,0 +1,245 @@
+@use "../abstracts/index" as *;
+// Grouped FAQ panels (Figma 339-2088): a filter pill row above one rounded
+// cream panel per FAQ category, each panel a badge plus bordered disclosure
+// rows. Mobile-first — the design's 80px/66px panel padding and 24px
+// question type scale down on small viewports, and the pill row scrolls
+// horizontally rather than wrapping into a tall stack.
+//
+// Wears .sx-section, with ONE .sx-content column (`&__column`) around all
+// three of its children. They looked like three differently-capped columns —
+// intro 861, filters 1343, panels 1394 — but only the intro's is a real
+// measure. The other two are both in $content-containers today, so the
+// content_width knob (0,2,0) already overrode BOTH to the same value and the
+// 1343 was dead; one column carrying the knob reproduces exactly what renders
+// and lets the two follow it. The intro's 861 stays: the frame owns the
+// column, not every typographic measure inside it.
+.faq-cats {
+  // The frame owns the horizontal gutter; the clamp() that used to sit beside
+  // this 20px was additive with it, so /faq's content moves out 12-23px.
+  padding-block: 20px;
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    max-width: 861px;
+    padding: 24px 16px 4px;
+    text-align: center;
+  }
+
+  &__eyebrow {
+    margin: 0;
+    font-size: 16px;
+    line-height: 30px;
+    letter-spacing: -0.4px;
+    text-transform: uppercase;
+  }
+
+  &__heading {
+    margin: 0;
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 300;
+    line-height: 1.03;
+  }
+
+  &__description {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.8;
+    color: color-mix(in srgb, var(--sx-text, #000) 50%, transparent);
+  }
+
+  // ── Filter pills ──────────────────────────────────────────────────────
+  &__filters {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    @include up(xl) {
+      justify-content: center;
+      overflow-x: visible;
+    }
+  }
+
+  &__pill {
+    flex: 0 0 auto;
+    padding: 12px clamp(24px, 4vw, 48px);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.2;
+    // A GHOST control, so it follows: its background is transparent, which
+    // means the band shows through and black-on-ink is unreadable. Both the
+    // text and the outline defer, or the outline survives as a black ring on
+    // a dark band. The `.is-active` state below deliberately does NOT follow
+    // -- it is white-on-black, a self-contained pairing like a solid button.
+    color: var(--sx-text, #000);
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    background: transparent;
+    border: 0.5px solid var(--sx-text, #000);
+    border-radius: 50px;
+    opacity: 0.5;
+    transition:
+      opacity 0.2s ease,
+      background-color 0.2s ease,
+      color 0.2s ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &.is-active {
+      color: #fff;
+      background: #000;
+      border-color: #000;
+      opacity: 1;
+    }
+  }
+
+  // ── Category panels ───────────────────────────────────────────────────
+  &__panels {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+
+  &__panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: clamp(28px, 5vw, 66px) clamp(16px, 5vw, 80px);
+    overflow: hidden;
+    background: #f0e6da;
+    border-radius: 28px;
+  }
+
+  // ── Everything below sits on __panel's cream card ──────────────────────
+  //
+  // KEEP, all of it. The panel paints `#f0e6da` and lives INSIDE .sx-content,
+  // so `.sx-bg > .sx-section` never clears it and no knob combination can move
+  // it. This section therefore has TWO OPPOSING SURFACES fed by one knob: the
+  // intro and pills above sit on the band and follow; questions, answers, the
+  // disclosure glyph and the badge dot sit on cream and must not.
+  //
+  // These were converted to follow and it was wrong — `ink` background with
+  // `sand` text, the pairing this whole knob exists for, rendered every
+  // question sand-on-cream at about 1.3:1. There is NO colour readable on both
+  // an ink band and a cream panel, so following manufactures the exact defect
+  // the sweep removes elsewhere. Caught by fable-review-gate.
+  //
+  // The panels are repeated cards beneath a section heading, which is the KEEP
+  // side of the rule. `__badge` and `__row`'s border already kept; these now
+  // match. Making the PANEL SURFACE participate in the knobs is the other
+  // possible answer, and the only one that would let these follow safely.
+
+  &__badge {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #151415;
+    text-transform: capitalize;
+  }
+
+  &__dot {
+    flex: 0 0 auto;
+    width: 14px;
+    height: 14px;
+    color: #000;
+  }
+
+  &__cat-description {
+    margin: -8px 0 0;
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &__row {
+    width: 100%;
+    border-bottom: 1px solid #000;
+
+    &:first-child {
+      border-top: 1px solid #000;
+    }
+
+    // Open rows are a 26px-padded column with a 48px gap between the
+    // question and its answer (Figma), so the question drops its own
+    // bottom padding and the answer owns the full gap.
+    &.is-open .faq-cats__question {
+      padding-bottom: 0;
+    }
+  }
+
+  // The whole header row is the control, so the hit area spans full width.
+  &__question {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: clamp(18px, 2.4vw, 26px) clamp(4px, 2vw, 24px);
+    font-size: clamp(17px, 2.2vw, 24px);
+    font-weight: 300;
+    line-height: 1.5;
+    color: #000;
+    text-align: left;
+    letter-spacing: -0.72px;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+
+    > span {
+      max-width: 620px;
+    }
+  }
+
+  &__icon {
+    flex: 0 0 auto;
+    width: 24px;
+    height: 24px;
+    color: #000;
+  }
+
+  &__answer {
+    padding:
+      clamp(20px, 4vw, 48px) clamp(4px, 2vw, 24px)
+      clamp(18px, 2.4vw, 26px);
+    font-size: 16px;
+    line-height: 1.8;
+    color: rgba(0, 0, 0, 0.5);
+
+    p {
+      margin: 0 0 12px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
