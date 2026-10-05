@@ -1,122 +1,167 @@
 "use client";
 import Link from "next/link";
-import { useEffect } from "react";
-import Nav from "./Nav";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import CartTrigger from "@/components/cart/CartTrigger";
 import { menuLinkHref } from "@/lib/routes";
 
 /**
- * Site header (port of theme Header1): mobile menu trigger, logo, desktop
- * nav, CTA button. Content is API-driven — logo/name from /config brand,
- * links from the header region's menu. Menu items whose `badge` is "cta"
- * render as the header button instead of a nav link, so the CTA is
- * admin-managed like everything else.
+ * Site header: logo, desktop nav, the menu's CTA button, and the mobile menu.
  *
- * Also owns the theme's hide-on-scroll-down / reveal-on-scroll-up behavior
- * (ported from the reference layout.js).
+ * Content is API-driven: the logo comes from /config brand, the links from the
+ * menu mounted in the header region. A menu item whose `badge` is "cta" renders
+ * as the button (BCH: the rose START HERE pill) rather than a nav link, so it is
+ * admin-managed like the rest.
+ *
+ * The bag icon renders only when `showCart` is true. The client brief is
+ * explicit that account and bag icons appear only when those functions work,
+ * so an install without live retail checkout shows neither.
+ *
+ * The mobile menu lives here rather than in its own offcanvas so one piece of
+ * state drives the toggle, the panel and the scroll lock. It lists the same
+ * items in the same order, so Telehealth Care and Shop open first.
  */
-export default function Header({ brand, menu }) {
+export default function Header({ brand, menu, showCart = false }) {
   const items = menu?.items ?? [];
   const cta = items.find((item) => item.badge === "cta");
   const navItems = items.filter((item) => item.badge !== "cta");
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const toggleRef = useRef(null);
 
+  const isCurrent = (href) => href !== "#" && href.split("?")[0] === pathname;
+
+  // Close on navigation.
   useEffect(() => {
-    let lastScrollTop = 0;
-    const delta = 5;
-    let didScroll = false;
-    const header = document.querySelector("header#header");
+    setOpen(false);
+  }, [pathname]);
 
-    const handleScroll = () => {
-      didScroll = true;
+  // Escape closes; the page behind does not scroll while the panel is open.
+  useEffect(() => {
+    if (!open) {
+      return undefined;
+    }
+
+    const onKey = (event) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        toggleRef.current?.focus();
+      }
     };
 
-    const checkScroll = () => {
-      if (!didScroll || !header) {
-        return;
-      }
-
-      const st = window.scrollY || document.documentElement.scrollTop;
-      const navbarHeight = header.offsetHeight;
-
-      if (st > navbarHeight) {
-        if (st > lastScrollTop + delta) {
-          header.style.top = `-${navbarHeight}px`;
-        } else if (st < lastScrollTop - delta) {
-          header.style.top = "0";
-          header.classList.add("header-bg");
-        }
-      } else {
-        header.style.top = "";
-        header.classList.remove("header-bg");
-      }
-
-      lastScrollTop = st;
-      didScroll = false;
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    const scrollInterval = setInterval(checkScroll, 250);
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      clearInterval(scrollInterval);
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
     };
-  }, []);
+  }, [open]);
+
+  const logo = brand?.logo_url ? (
+    // Backend-hosted SVG: plain <img>.
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src={brand.logo_url} alt={brand?.name || "Home"} width={72} height={72} />
+  ) : (
+    <strong>{brand?.name || ""}</strong>
+  );
 
   return (
-    <header id="header" className="header-default">
-      <div className="container">
-        <div className="row wrapper-header align-items-center">
-          <div className="col-md-4 col-3 d-xl-none">
-            <a
-              href="#mobileMenu"
-              className="mobile-menu"
-              data-bs-toggle="offcanvas"
-              aria-controls="mobileMenu"
-            >
-              <i className="icon icon-categories1" />
-            </a>
-          </div>
-          <div className="col-xl-2 col-md-4 col-6">
-            <Link href="/" className="logo-header">
-              {brand?.logo_url ? (
-                // Backend-hosted image: plain <img>, browser loads cross-origin freely.
-                // eslint-disable-next-line @next/next/no-img-element
-                <img alt={brand?.name || "logo"} className="logo" src={brand.logo_url} height={44} />
-              ) : (
-                <strong className="logo">{brand?.name || ""}</strong>
-              )}
-            </Link>
-          </div>
-          <div className="col-xl-8 d-none d-xl-block">
-            <nav className="box-navigation text-center">
-              <ul className="box-nav-menu">
-                <Nav items={navItems} />
-              </ul>
-            </nav>
-          </div>
-          <div className="col-xl-2 col-md-4 col-3">
-            <ul className="nav-icon d-flex justify-content-end align-items-center">
-              {cta ? (
-                <li>
-                  {/* d-sm-flex, not d-sm-block: the display utility carries
-                      !important, and `block` kills .atlas-header-cta's flex
-                      centering, dropping the label to the top of the pill. */}
+    <header className="bch-header">
+      <div className="bch-container bch-header__inner">
+        <button
+          ref={toggleRef}
+          type="button"
+          className="bch-header__toggle"
+          aria-expanded={open}
+          aria-controls="bch-mobile-menu"
+          onClick={() => setOpen(true)}
+        >
+          <span className="bch-visually-hidden">Open menu</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" strokeWidth="1.5" />
+          </svg>
+        </button>
+
+        <Link href="/" className="bch-header__logo">
+          {logo}
+        </Link>
+
+        <nav className="bch-header__nav" aria-label="Main">
+          <ul>
+            {navItems.map((item) => {
+              const href = menuLinkHref(item.link);
+
+              return (
+                <li key={item.id}>
                   <Link
-                    href={menuLinkHref(cta.link)}
-                    className="atlas-header-cta btn text-capitalize d-none d-sm-flex"
+                    href={href}
+                    target={item.target || undefined}
+                    aria-current={isCurrent(href) ? "page" : undefined}
                   >
-                    {cta.label}
+                    {item.label}
                   </Link>
                 </li>
-              ) : null}
-              {/* Account icon returns with the patient-portal milestone. */}
-              <li>
-                <CartTrigger />
-              </li>
-            </ul>
-          </div>
+              );
+            })}
+          </ul>
+        </nav>
+
+        <div className="bch-header__actions">
+          {cta ? (
+            <Link href={menuLinkHref(cta.link)} className="bch-btn bch-btn--primary">
+              {cta.label}
+            </Link>
+          ) : null}
+          {showCart ? <CartTrigger /> : null}
         </div>
+      </div>
+
+      <div
+        id="bch-mobile-menu"
+        className="bch-mobile-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
+        hidden={!open}
+      >
+        <div className="bch-mobile-menu__top">
+          <Link href="/">{logo}</Link>
+          <button
+            type="button"
+            className="bch-header__toggle"
+            onClick={() => {
+              setOpen(false);
+              toggleRef.current?.focus();
+            }}
+          >
+            <span className="bch-visually-hidden">Close menu</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" strokeWidth="1.5" />
+            </svg>
+          </button>
+        </div>
+
+        <ul className="bch-mobile-menu__list">
+          {navItems.map((item) => (
+            <li key={item.id}>
+              <Link href={menuLinkHref(item.link)} target={item.target || undefined}>
+                {item.label}
+                <span className="bch-arrow" aria-hidden="true">
+                  →
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        {cta ? (
+          <div className="bch-mobile-menu__cta">
+            <Link href={menuLinkHref(cta.link)} className="bch-btn bch-btn--primary">
+              {cta.label}
+            </Link>
+          </div>
+        ) : null}
       </div>
     </header>
   );

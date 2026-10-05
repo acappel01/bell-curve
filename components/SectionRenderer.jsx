@@ -37,7 +37,6 @@ import PackageSliderSection from "@/components/sections/PackageSliderSection";
 import ProductSliderSection from "@/components/sections/ProductSliderSection";
 import QuizCtaSection from "@/components/sections/QuizCtaSection";
 import QuizSection from "@/components/sections/QuizSection";
-import HeroSection from "@/components/sections/HeroSection";
 import HowItWorksSection from "@/components/sections/HowItWorksSection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import TextBlockSection from "@/components/sections/TextBlockSection";
@@ -47,12 +46,22 @@ import FaqSection from "@/components/sections/FaqSection";
 import ItemFaqsSection from "@/components/sections/ItemFaqsSection";
 import ItemReviewsSection from "@/components/sections/ItemReviewsSection";
 import FinalCtaSection from "@/components/sections/FinalCtaSection";
-import ImageTextSplitSection from "@/components/sections/ImageTextSplitSection";
 import PhysiciansSection from "@/components/sections/PhysiciansSection";
 import ResultsStatsSection from "@/components/sections/ResultsStatsSection";
 import StatsMarqueeSection from "@/components/sections/StatsMarqueeSection";
 import StorySection from "@/components/sections/StorySection";
 import VideoEmbedSection from "@/components/sections/VideoEmbedSection";
+
+// Bell Curve Health template components.
+import ArticleRowSection from "@/components/bch/ArticleRowSection";
+import CtaBannerSection from "@/components/bch/CtaBannerSection";
+import FounderSection from "@/components/bch/FounderSection";
+import HealthMapTeaserSection from "@/components/bch/HealthMapTeaserSection";
+import HeroSection from "@/components/bch/HeroSection";
+import PathsSection from "@/components/bch/PathsSection";
+import SplitSection from "@/components/bch/SplitSection";
+import StatementSection from "@/components/bch/StatementSection";
+import TrustStripSection from "@/components/bch/TrustStripSection";
 
 const SECTION_COMPONENTS = {
   hero: HeroSection,
@@ -65,8 +74,8 @@ const SECTION_COMPONENTS = {
   "quiz-cta": QuizCtaSection,
   quiz: QuizSection,
   "html-block": HtmlBlockSection,
-  "cta-banner": FinalCtaSection,
-  "image-text-split": ImageTextSplitSection,
+  "cta-banner": CtaBannerSection,
+  "image-text-split": SplitSection,
   physicians: PhysiciansSection,
   "stats-marquee": StatsMarqueeSection,
   "results-stats": ResultsStatsSection,
@@ -89,6 +98,14 @@ const SECTION_COMPONENTS = {
   // Flexible (admin-defined) types can also be registered here by slug for
   // exact theme markup; unregistered ones fall through to FlexibleSection.
   "comparison-table": ComparisonTableSection,
+  // BCH flexible types. Their schemas live in fixtures/bch and are what the
+  // backend seeder registers as Custom Section Types.
+  "bch-trust-strip": TrustStripSection,
+  "bch-health-map-teaser": HealthMapTeaserSection,
+  "bch-statement": StatementSection,
+  "bch-paths": PathsSection,
+  "bch-article-row": ArticleRowSection,
+  "bch-founder": FounderSection,
 };
 
 /**

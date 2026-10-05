@@ -1,77 +1,12 @@
 import { getConfig, getLayout } from "@/lib/api";
-import { menuLinkHref } from "@/lib/routes";
+import { contrastColor } from "@/lib/color";
 import Header from "@/components/chrome/Header";
 import Footer from "@/components/chrome/Footer";
 import SectionRenderer from "@/components/SectionRenderer";
-import MobileMenu from "@/components/chrome/MobileMenu";
 import BootstrapClient from "@/components/chrome/BootstrapClient";
 import CartProvider from "@/components/cart/CartProvider";
 import CartDrawer from "@/components/cart/CartDrawer";
 
-/**
- * Black or white, whichever is readable on `color`. Null when the value cannot
- * be parsed.
- *
- * Relative luminance per WCAG, with the sRGB gamma expansion — the naive
- * `(r+g+b)/3` brightness test picks white on mid-greens and black on mid-blues,
- * both wrong, and a button label is exactly where that shows.
- *
- * The two candidate CONTRAST RATIOS are compared directly rather than testing
- * luminance against a midpoint. A 0.5 threshold is the intuitive version and
- * it is wrong: bronze (#B18D68) has luminance 0.29, so a midpoint test picks
- * white — but black gives 6.9:1 against it and white only 3.1:1. The crossover
- * is at luminance 0.1791, not 0.5, because the WCAG ratio is not linear in
- * luminance. Caught by testing the palette's own colours rather than trusting
- * the formula.
- *
- * Accepts the shapes the palette sanitizer in this file lets through: #rgb,
- * #rrggbb and rgb()/rgba(). Anything else returns null and the caller emits no
- * companion property, so the consuming rule falls back to its designed colour.
- */
-function contrastColor(color) {
-  const value = String(color).trim();
-  let r;
-  let g;
-  let b;
-
-  const hex = value.match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
-  if (hex) {
-    const digits =
-      hex[1].length === 3
-        ? hex[1]
-            .split("")
-            .map((d) => d + d)
-            .join("")
-        : hex[1];
-    r = parseInt(digits.slice(0, 2), 16);
-    g = parseInt(digits.slice(2, 4), 16);
-    b = parseInt(digits.slice(4, 6), 16);
-  } else {
-    const rgb = value.match(/^rgba?\(\s*([\d.]+)[\s,]+([\d.]+)[\s,]+([\d.]+)/i);
-    if (!rgb) {
-      return null;
-    }
-    [, r, g, b] = rgb.map(Number);
-  }
-
-  if (![r, g, b].every((channel) => Number.isFinite(channel))) {
-    return null;
-  }
-
-  const linear = (channel) => {
-    const c = channel / 255;
-
-    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
-  };
-
-  const luminance = 0.2126 * linear(r) + 0.7152 * linear(g) + 0.0722 * linear(b);
-
-  // WCAG contrast ratio is (lighter + 0.05) / (darker + 0.05).
-  const againstBlack = (luminance + 0.05) / 0.05;
-  const againstWhite = 1.05 / (luminance + 0.05);
-
-  return againstBlack >= againstWhite ? "#000000" : "#ffffff";
-}
 // Vendor CSS is imported here (webpack-inlined, order-guaranteed) instead of
 // via plain-CSS @import inside main.scss: webpack emits the app's css modules
 // in module-graph order, and any browser-level @import that ends up after
@@ -95,6 +30,7 @@ import "@tabler/icons-webfont/dist/tabler-icons.min.css";
 import "../public/scss/main.scss";
 import "rc-slider/assets/index.css";
 import "./globals.css";
+import "../public/scss/bch/bch.scss";
 
 export const revalidate = 300;
 
@@ -112,6 +48,37 @@ export async function generateMetadata() {
     icons: brand.favicon_url ? { icon: brand.favicon_url } : undefined,
     robots: seo.allow_indexing === false ? { index: false, follow: false } : undefined,
   };
+}
+
+/**
+ * Google Fonts stylesheet for the theme's display and body families.
+ *
+ * The families are admin settings (/config theme.font_display / font_body), so
+ * the stylesheet has to follow them: a hardcoded link loads one brand's fonts
+ * on every install and leaves the configured ones to fall back. A value that
+ * is already a CSS stack (contains a comma) or a generic family is not a
+ * Google family and is skipped. With nothing to load, the previous defaults
+ * are kept so the inherited theme reset still has its faces.
+ */
+const GOOGLE_FONT_AXES = {
+  display: "ital,wght@0,400;0,500;0,600;1,400;1,500",
+  body: "ital,wght@0,300;0,400;0,500;0,600;0,700;1,400",
+};
+
+function googleFontsHref(theme) {
+  const families = [
+    [theme.font_display, GOOGLE_FONT_AXES.display],
+    [theme.font_body, GOOGLE_FONT_AXES.body],
+  ]
+    .filter(([family]) => family && !family.includes(",") && !/^(serif|sans-serif|system-ui)$/i.test(family))
+    .filter(([family], index, list) => list.findIndex(([other]) => other === family) === index)
+    .map(([family, axes]) => `family=${encodeURIComponent(family.trim()).replace(/%20/g, "+")}:${axes}`);
+
+  if (!families.length) {
+    return "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap";
+  }
+
+  return `https://fonts.googleapis.com/css2?${families.join("&")}&display=swap`;
 }
 
 /** First menu mounted in a region's item list, or null. */
@@ -183,13 +150,9 @@ export default async function RootLayout({ children }) {
   const footerSections = regionSections(regions?.footer);
   const preFooterSections = regionSections(regions?.pre_footer);
 
-  // "Need Help?" link in the mobile menu: reuse the first contact-ish footer
-  // link if the admin mounted one; otherwise the block is omitted.
-  const contactHref =
-    footerMenus
-      .flatMap((menu) => menu.items)
-      .filter((item) => item.link?.type === "page" && item.link.slug.startsWith("contact"))
-      .map((item) => menuLinkHref(item.link))[0] ?? null;
+  // The bag icon only shows once retail checkout is live (client rule: no
+  // decorative account or bag icons).
+  const showCart = config?.services?.shop?.state === "live";
 
   // The install's named color palette. One admin-owned vocabulary feeding
   // two things: a --palette-{name} custom property that section Style knobs
@@ -253,7 +216,7 @@ export default async function RootLayout({ children }) {
         <link
           rel="stylesheet"
           precedence="default"
-          href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+          href={googleFontsHref(theme)}
         />
         {textClassCss ? <style dangerouslySetInnerHTML={{ __html: textClassCss }} /> : null}
         {theme.custom_css ? <style dangerouslySetInnerHTML={{ __html: theme.custom_css }} /> : null}
@@ -261,21 +224,18 @@ export default async function RootLayout({ children }) {
           <div dangerouslySetInnerHTML={{ __html: seo.custom_head_scripts }} />
         ) : null}
 
-        {brand.announcement ? (
-          <div className="tf-topbar text-center">
-            <div className="container">
-              <p className="top-bar-text">
-                {brand.announcement.emphasis ? (
-                  <span className="fw-medium">{brand.announcement.emphasis} </span>
-                ) : null}
-                {brand.announcement.text}
-              </p>
-            </div>
-          </div>
+        {brand.announcement?.text || brand.announcement?.emphasis ? (
+          <p className="bch-announcement">
+            {brand.announcement.emphasis ? <strong>{brand.announcement.emphasis} </strong> : null}
+            {brand.announcement.text}
+            <span className="bch-heart" aria-hidden="true">
+              ♥
+            </span>
+          </p>
         ) : null}
 
         <CartProvider>
-          <Header brand={brand} menu={headerMenu} />
+          <Header brand={brand} menu={headerMenu} showCart={showCart} />
 
           <main className="site-main">{children}</main>
 
@@ -294,12 +254,12 @@ export default async function RootLayout({ children }) {
           <Footer
             brand={brand}
             menus={footerMenus}
+            contact={config?.contact}
             sections={
               footerSections.length ? <SectionRenderer sections={footerSections} /> : null
             }
           />
 
-          <MobileMenu menu={headerMenu} contactHref={contactHref} />
           <CartDrawer />
         </CartProvider>
         <BootstrapClient />

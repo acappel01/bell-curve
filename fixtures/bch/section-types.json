@@ -1,0 +1,294 @@
+{
+  "_note": "Flexible section types for the BCH homepage, in the backend's FlexibleSectionType shape (name, slug, description, icon, schema.fields). Seeder input once Amy approves the layout. Code blueprint additions are listed under blueprint_additions.",
+  "types": [
+    {
+      "name": "BCH trust strip",
+      "slug": "bch-trust-strip",
+      "icon": "heroicon-o-check-badge",
+      "description": "Thin row of three service labels directly under the hero.",
+      "schema": {
+        "fields": [
+          {
+            "key": "items",
+            "label": "Items",
+            "kind": "repeater",
+            "max": 4,
+            "fields": [
+              {
+                "key": "label",
+                "label": "Label",
+                "kind": "text",
+                "required": true,
+                "max": 60
+              },
+              {
+                "key": "url",
+                "label": "Link URL",
+                "kind": "text"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "BCH Health Map teaser",
+      "slug": "bch-health-map-teaser",
+      "icon": "heroicon-o-map",
+      "description": "Health Map invitation: image, copy, CTA and a card of named pathways. No scores.",
+      "schema": {
+        "fields": [
+          {
+            "key": "heading",
+            "label": "Heading",
+            "kind": "text",
+            "required": true
+          },
+          {
+            "key": "emphasis",
+            "label": "Italic emphasis",
+            "kind": "text"
+          },
+          {
+            "key": "body",
+            "label": "Body",
+            "kind": "textarea"
+          },
+          {
+            "key": "cta",
+            "label": "CTA",
+            "kind": "cta"
+          },
+          {
+            "key": "image",
+            "label": "Image",
+            "kind": "image"
+          },
+          {
+            "key": "side_note",
+            "label": "Side note",
+            "kind": "textarea",
+            "help": "Short stacked note; each line on its own row."
+          },
+          {
+            "key": "card_title",
+            "label": "Card title",
+            "kind": "text"
+          },
+          {
+            "key": "card_caption",
+            "label": "Card caption",
+            "kind": "textarea"
+          },
+          {
+            "key": "categories",
+            "label": "Pathways",
+            "kind": "repeater",
+            "max": 6,
+            "fields": [
+              {
+                "key": "label",
+                "label": "Label",
+                "kind": "text",
+                "required": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "BCH statement band",
+      "slug": "bch-statement",
+      "icon": "heroicon-o-chat-bubble-bottom-center-text",
+      "description": "Charcoal band with one large statement and a side note.",
+      "schema": {
+        "fields": [
+          {
+            "key": "heading",
+            "label": "Heading",
+            "kind": "text",
+            "required": true
+          },
+          {
+            "key": "emphasis",
+            "label": "Italic emphasis",
+            "kind": "text"
+          },
+          {
+            "key": "side_note",
+            "label": "Side note",
+            "kind": "textarea"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BCH paths",
+      "slug": "bch-paths",
+      "icon": "heroicon-o-squares-2x2",
+      "description": "Three asymmetric cards (Care, Shop, Guidance) and one CTA.",
+      "schema": {
+        "fields": [
+          {
+            "key": "heading",
+            "label": "Heading",
+            "kind": "text",
+            "required": true
+          },
+          {
+            "key": "emphasis",
+            "label": "Italic emphasis",
+            "kind": "text"
+          },
+          {
+            "key": "items",
+            "label": "Cards",
+            "kind": "repeater",
+            "max": 3,
+            "fields": [
+              {
+                "key": "label",
+                "label": "Label",
+                "kind": "text",
+                "required": true
+              },
+              {
+                "key": "body",
+                "label": "Body",
+                "kind": "textarea"
+              },
+              {
+                "key": "url",
+                "label": "Link URL",
+                "kind": "text"
+              },
+              {
+                "key": "image",
+                "label": "Image",
+                "kind": "image"
+              }
+            ]
+          },
+          {
+            "key": "cta",
+            "label": "CTA",
+            "kind": "cta"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BCH article row",
+      "slug": "bch-article-row",
+      "icon": "heroicon-o-newspaper",
+      "description": "Featured article plus two. Posts render only when published.",
+      "schema": {
+        "fields": [
+          {
+            "key": "heading",
+            "label": "Heading",
+            "kind": "text"
+          },
+          {
+            "key": "link_label",
+            "label": "Library link label",
+            "kind": "text"
+          },
+          {
+            "key": "link_url",
+            "label": "Library link URL",
+            "kind": "text"
+          },
+          {
+            "key": "posts",
+            "label": "Posts",
+            "kind": "repeater",
+            "max": 3,
+            "fields": [
+              {
+                "key": "title",
+                "label": "Title",
+                "kind": "text",
+                "required": true
+              },
+              {
+                "key": "url",
+                "label": "Link URL",
+                "kind": "text"
+              },
+              {
+                "key": "published",
+                "label": "Published",
+                "kind": "boolean",
+                "default": false
+              },
+              {
+                "key": "image",
+                "label": "Image",
+                "kind": "image"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "BCH founder",
+      "slug": "bch-founder",
+      "icon": "heroicon-o-user",
+      "description": "Founder letter strip: contained portrait, excerpt, side note and link.",
+      "schema": {
+        "fields": [
+          {
+            "key": "heading",
+            "label": "Heading",
+            "kind": "text",
+            "required": true
+          },
+          {
+            "key": "emphasis",
+            "label": "Italic emphasis",
+            "kind": "text"
+          },
+          {
+            "key": "body",
+            "label": "Excerpt",
+            "kind": "textarea"
+          },
+          {
+            "key": "image",
+            "label": "Portrait",
+            "kind": "image",
+            "help": "Horizontal crop; never a tight headshot."
+          },
+          {
+            "key": "side_note",
+            "label": "Side note",
+            "kind": "textarea"
+          },
+          {
+            "key": "cta",
+            "label": "CTA",
+            "kind": "cta"
+          }
+        ]
+      }
+    }
+  ],
+  "blueprint_additions": {
+    "hero": [
+      "background_image_mobile (image)",
+      "background_video {url, type}",
+      "microcopy_link_label",
+      "microcopy_link_url"
+    ],
+    "image-text-split": [
+      "image_shape (select: none | organic | arch)",
+      "side_note (textarea)"
+    ],
+    "cta-banner": [
+      "emphasis (text)"
+    ]
+  }
+}
