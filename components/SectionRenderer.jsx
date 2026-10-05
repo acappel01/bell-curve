@@ -17,6 +17,13 @@
  * than carrying copies of them — so the envelope stays self-contained for
  * every other type and the payload is not duplicated.
  *
+ * `query` is the page's search params, for the few types whose content is a
+ * filtered listing (`catalog-listing`, `blog-listing`): filters live in the
+ * URL so a filtered view is a shareable, server-rendered page. Only the
+ * listing routes pass it (see CmsPageView's `cmsOverride`); null means "not a
+ * filterable page", and a listing then renders as a fixed collection. Every
+ * other type ignores it. Listings on one page share the query string.
+ *
  * The operator's presentation knobs live in lib/sectionKnobs.js, shared with
  * ChildBlockRenderer: a knob means the same thing on a typed sub-block as on
  * the section holding it, so the JS is one implementation. The CSS is not —
@@ -57,6 +64,9 @@ import ProseSection from "@/components/bch/ProseSection";
 import StepsSection from "@/components/bch/StepsSection";
 import TestimonialsSection from "@/components/bch/TestimonialsSection";
 import WaitlistSection from "@/components/bch/WaitlistSection";
+import FormSection from "@/components/bch/FormSection";
+import CatalogListingSection from "@/components/bch/catalog/CatalogListingSection";
+import BlogListingSection from "@/components/bch/blog/BlogListingSection";
 import CtaBannerSection from "@/components/bch/CtaBannerSection";
 import FounderSection from "@/components/bch/FounderSection";
 import HealthMapTeaserSection from "@/components/bch/HealthMapTeaserSection";
@@ -112,6 +122,10 @@ const SECTION_COMPONENTS = {
   "bch-article-row": ArticleRowSection,
   "bch-founder": FounderSection,
   "bch-waitlist": WaitlistSection,
+  "bch-form": FormSection,
+  // Listings as sections (code blueprint proposals; see each component).
+  "catalog-listing": CatalogListingSection,
+  "blog-listing": BlogListingSection,
 };
 
 /**
@@ -199,7 +213,7 @@ function isDroppedInProduction(Component, section) {
   return true;
 }
 
-export default function SectionRenderer({ sections, item = null }) {
+export default function SectionRenderer({ sections, item = null, query = null }) {
   if (!sections?.length) {
     return null;
   }
@@ -238,11 +252,11 @@ export default function SectionRenderer({ sections, item = null }) {
     if (className) {
       return (
         <div key={key} className={className} style={style}>
-          <Component section={section} item={item} />
+          <Component section={section} item={item} query={query} />
         </div>
       );
     }
 
-    return <Component key={key} section={section} item={item} />;
+    return <Component key={key} section={section} item={item} query={query} />;
   });
 }

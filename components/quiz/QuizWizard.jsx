@@ -1,14 +1,14 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import AgeSlider from "./AgeSlider";
 import ContactStep from "./ContactStep";
 import MeasurementSlider from "./MeasurementSlider";
 import OptionCards from "./OptionCards";
 import SexSelect from "./SexSelect";
-import { stepIsComplete, visibleSteps } from "@/lib/quizVisibility";
 import { submitQuiz } from "@/lib/quizClient";
+import useQuizFlow from "./useQuizFlow";
 
 /**
  * Walks an admin-authored quiz.
@@ -19,17 +19,8 @@ import { submitQuiz } from "@/lib/quizClient";
  * how to move between screens, which is what makes "add a question" an admin
  * job rather than a deploy.
  *
- * VISIBILITY IS RECOMPUTED FROM THE ANSWERS ON EVERY RENDER rather than being
- * tracked as its own state. A question that appears because of an earlier
- * answer must also DISAPPEAR when that answer changes, and the only way to be
- * sure of that is to derive the visible set rather than mutate it. It also
- * means the progress bar shrinks and grows honestly as the path changes.
- *
- * Answers are keyed by question slug — the same key the backend files them
- * under and the same one conditions reference. Answers to questions that later
- * become invisible are kept in state (so going back and forth does not lose
- * typing) but stripped before submit, because an answer to a question that was
- * never askable is not an answer.
+ * Visibility, answer keys and stripping unaskable answers are `useQuizFlow`'s
+ * rules; see that hook.
  *
  * State is local rather than in the URL, which is the opposite of the catalog
  * rule and deliberate: `?sex=female&age=62&flags=liver` is a health inference
@@ -38,58 +29,20 @@ import { submitQuiz } from "@/lib/quizClient";
 export default function QuizWizard({ quiz }) {
   const router = useRouter();
 
-  const [answers, setAnswers] = useState({});
-  const [index, setIndex] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
   const [fieldErrors, setFieldErrors] = useState({});
 
-  const steps = useMemo(() => visibleSteps(quiz?.steps, answers), [quiz, answers]);
-
-  // Sliders SHOW a value before anyone touches them, so that value has to BE
-  // the answer. Without this, a visitor lands on the height step, reads
-  // "5′ 10″", and finds Continue dead with nothing on screen explaining why —
-  // the question is required and unanswered even though it looks answered.
-  //
-  // Seeded in an effect rather than during render because it writes state, and
-  // only for questions currently visible: seeding a branch the visitor has not
-  // reached would file answers to questions they were never asked.
-  useEffect(() => {
-    const defaults = {};
-
-    for (const step of steps) {
-      for (const question of step.questions) {
-        if (answers[question.slug] !== undefined) {
-          continue;
-        }
-
-        const seed = defaultFor(question);
-
-        if (seed !== undefined) {
-          defaults[question.slug] = seed;
-        }
-      }
-    }
-
-    if (Object.keys(defaults).length > 0) {
-      setAnswers((prev) => ({ ...defaults, ...prev }));
-    }
-  }, [steps, answers]);
-
-  // The path can shorten under us — answering "no" to something may remove the
-  // step the visitor is standing on. Clamping rather than resetting keeps them
-  // as close to where they were as the new path allows.
-  const current = steps[Math.min(index, steps.length - 1)];
+  // Answers, the visible path and navigation are `useQuizFlow`'s, shared with
+  // the Bell Curve start-here flow. This component owns only the markup and
+  // what submitting means here (a lead, then the plan page).
+  const { answers, steps, current, index, isLast, complete, setAnswer, next, back } = useQuizFlow(quiz, {
+    defaultFor,
+  });
 
   if (!current) {
     return <p className="quiz-wizard__empty">This quiz has no questions yet.</p>;
   }
-
-  const setAnswer = (slug, value) =>
-    setAnswers((prev) => ({ ...prev, [slug]: value }));
-
-  const isLast = index >= steps.length - 1;
-  const complete = stepIsComplete(current, answers);
 
   async function submit() {
     setSubmitting(true);
@@ -176,7 +129,7 @@ export default function QuizWizard({ quiz }) {
 
         <div className="quiz-wizard__actions">
           {index > 0 ? (
-            <button type="button" className="tf-btn" onClick={() => setIndex(index - 1)}>
+            <button type="button" className="tf-btn" onClick={back}>
               Back
             </button>
           ) : null}
@@ -194,7 +147,7 @@ export default function QuizWizard({ quiz }) {
             <button
               type="button"
               className="tf-btn btn-fill"
-              onClick={() => setIndex(index + 1)}
+              onClick={next}
               disabled={!complete}
             >
               Continue

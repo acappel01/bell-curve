@@ -107,6 +107,29 @@ export function catalogCardPrice(item) {
   return price?.effective != null ? `${money(price.effective)}${price.suffix || ""}` : null;
 }
 
+/**
+ * What a plan saves against buying the item once per month of its term, as a
+ * whole percentage — or null when there is nothing honest to compare.
+ *
+ * Computed rather than read, because no such field exists: a plan carries a
+ * term and a total, and what a visitor wants to know is what the term saves
+ * them. No buy-once price, no term length, or no saving means null, never a
+ * "0% off". Shared by every term chooser (Atlas `DealGrid`, the Bell Curve
+ * purchase options) so a plan cannot read two different discounts.
+ */
+export function planSavingsPercent(plan, buyOncePrice) {
+  const months = plan?.billing?.term_months;
+  const effective = plan?.price?.effective;
+
+  if (!buyOncePrice || !months || effective == null) {
+    return null;
+  }
+
+  const pct = Math.round((1 - effective / (buyOncePrice * months)) * 100);
+
+  return pct > 0 ? pct : null;
+}
+
 /** "Dr. Jane Q. Smith" → "JS" for no-portrait fallback circles. */
 export function initials(name) {
   const parts = (name || "")

@@ -3,13 +3,19 @@ import CrossSlider from "@/components/catalog/CrossSlider";
 import ListingClient from "@/components/catalog/ListingClient";
 import { apiParamsFromSearch } from "@/components/catalog/query";
 import { redirectRenamedFilter } from "@/lib/slugRedirect";
+import CmsPageView, { cmsOverride } from "@/components/CmsPageView";
 import { getCatalogFacets, getCatalogPackages, getCatalogProducts } from "@/lib/api";
 
 export const revalidate = 300;
 
-export const metadata = {
-  title: "Stacks",
-};
+export async function generateMetadata() {
+  const page = await cmsOverride("stacks");
+
+  return {
+    title: page?.seo?.title || page?.title || "Stacks",
+    description: page?.seo?.description || undefined,
+  };
+}
 
 /**
  * Catalog package (stack) listing — the theme-reference
@@ -27,6 +33,15 @@ export const metadata = {
  */
 export default async function StacksPage({ searchParams }) {
   const params = await searchParams;
+
+  // An operator-built page with this slug takes the route over (see
+  // cmsOverride): the Bell Curve shop is composed that way, from a hero and a
+  // `catalog-listing` section. Without one, the default listing below renders.
+  const page = await cmsOverride("stacks");
+  if (page) {
+    return <CmsPageView page={page} slug="stacks" query={params} />;
+  }
+
   const [listing, facets, crossSell] = await Promise.all([
     getCatalogPackages(apiParamsFromSearch(params, "package")),
     getCatalogFacets(),

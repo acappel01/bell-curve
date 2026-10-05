@@ -108,6 +108,44 @@
   }
 }
 
+// `size: compact` — a short page header for listing pages, where the
+// content (the grid) is the point. Title left, copy and action right.
+.bch-hero-split--compact {
+  padding-block: clamp(2rem, 4vw, 3.25rem);
+
+  .bch-hero__title {
+    font-size: clamp(2.25rem, 4.2vw, 3.5rem);
+  }
+
+  &.bch-hero-split--type .bch-hero-split__inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .bch-hero-split__copy {
+    @media (min-width: $bch-lg) {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      column-gap: clamp(3rem, 6vw, 6rem);
+      align-items: end;
+
+      > .bch-eyebrow,
+      > .bch-hero__title {
+        grid-column: 1;
+      }
+
+      > :not(.bch-eyebrow):not(.bch-hero__title) {
+        grid-column: 2;
+      }
+
+      > .bch-hero__lead {
+        grid-row: 1 / span 2;
+        align-self: end;
+        margin-top: 0;
+      }
+    }
+  }
+}
+
 .bch-hero__status {
   max-width: 34rem;
   margin: 1rem 0 0;
@@ -725,103 +763,5 @@ a.bch-cards__card {
   }
 }
 
-.bch-waitlist__form {
-  display: grid;
-  gap: 1.1rem;
-  padding: clamp(1.5rem, 3vw, 2.25rem);
-  background: var(--bch-ivory);
-  border-radius: var(--bch-radius);
-
-  label {
-    display: grid;
-    gap: 0.4rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--bch-ink);
-  }
-
-  input:not([type="checkbox"]),
-  select {
-    width: 100%;
-    min-height: 48px;
-    padding: 0.7rem 0.9rem;
-    border: 1px solid var(--bch-line);
-    border-radius: var(--bch-radius);
-    background: var(--bch-white);
-    font: 400 1rem/1.4 var(--bch-font-body);
-    letter-spacing: 0;
-    text-transform: none;
-    color: var(--bch-ink);
-
-    &:focus-visible {
-      outline: 2px solid var(--bch-rose-600);
-      outline-offset: 1px;
-      border-color: transparent;
-    }
-  }
-}
-
-.bch-waitlist__row {
-  display: grid;
-  gap: 1.1rem;
-
-  @media (min-width: $bch-md) {
-    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
-  }
-}
-
-.bch-waitlist__optional {
-  font-weight: 500;
-  letter-spacing: 0;
-  text-transform: none;
-  color: var(--bch-muted);
-}
-
-.bch-waitlist__form .bch-waitlist__consent {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.6rem;
-  font-size: 0.875rem;
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: 1.5;
-  text-transform: none;
-
-  input {
-    flex: none;
-    width: 18px;
-    height: 18px;
-    margin-top: 0.1rem;
-    accent-color: var(--bch-rose-600);
-  }
-}
-
-.bch-waitlist__submit {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem 1.25rem;
-}
-
-.bch-waitlist__privacy {
-  margin: 0;
-  font-size: 0.8125rem;
-  color: var(--bch-muted);
-}
-
-.bch-waitlist__error,
-.bch-waitlist__preview,
-.bch-waitlist__done {
-  margin: 0;
-  padding: 0.75rem 1rem;
-  border-left: 2px solid var(--bch-rose-600);
-  background: var(--bch-white);
-  font-size: 0.875rem;
-}
-
-.bch-waitlist__done {
-  align-self: start;
-  font-size: 1rem;
-}
+// The form itself is `.bch-form` (components/bch/forms/LeadForm), shared
+// with the contact page; see _commerce.scss.

@@ -1,0 +1,276 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "title": "Why Your Body Feels Different in Midlife",
+      "slug": "why-your-body-feels-different",
+      "excerpt": "The changes many women notice in their 40s and 50s, and why they can show up long before periods stop.",
+      "content": "<p><em>Sample article for layout review. The final text comes from the BCH education register and is reviewed before it is published.</em></p><p>This opening paragraph sets up the question the article answers in plain language, and says what the reader will come away with.</p><h2>What is changing</h2><p>This section explains the main changes in plain terms.</p><p>A second paragraph gives a little more depth, keeps sentences short and links to related reading where it helps.</p><h2>Why it can feel sudden</h2><p>This section covers why symptoms can seem to appear all at once.</p><p>A second paragraph gives a little more depth, keeps sentences short and links to related reading where it helps.</p><h2>What you can track</h2><p>This section suggests simple things to notice and write down.</p><p>A second paragraph gives a little more depth, keeps sentences short and links to related reading where it helps.</p><blockquote><p>A pull quote or a key takeaway sits here, set larger so it is easy to find when skimming.</p></blockquote><h2>When to talk with a clinician</h2><p>Every article ends by saying when it makes sense to bring the topic to a clinician, and how Bell Curve Health can help.</p>",
+      "hero_image_url": "/images/bch/mh-friends-patio.webp",
+      "gallery": [],
+      "status": "published",
+      "featured": true,
+      "published_at": "2026-09-30T14:00:00.000Z",
+      "updated_at": "2026-09-30T14:00:00.000Z",
+      "read_time_minutes": 7,
+      "author": {
+        "id": 1,
+        "name": "Bell Curve Health Editorial"
+      },
+      "categories": [
+        {
+          "id": 1,
+          "name": "Hormonal Shifts",
+          "slug": "hormonal-shifts",
+          "description": null,
+          "hero_image_url": null,
+          "is_visible": true
+        }
+      ],
+      "tags": [],
+      "seo": {
+        "meta_title": null,
+        "meta_description": null,
+        "og_image_url": null
+      }
+    },
+    {
+      "id": 2,
+      "title": "Sleep Changed. Now What?",
+      "slug": "sleep-changed",
+      "excerpt": "Waking at 3 a.m., running hot at night, or never feeling rested. What's behind midlife sleep changes and where to start.",
+      "content": "<p><em>Sample article for layout review. The final text comes from the BCH education register and is reviewed before it is published.</em></p><p>This opening paragraph sets up the question the article answers in plain language, and says what the reader will come away with.</p><h2>Why sleep changes in midlife</h2><p>This section explains common reasons sleep shifts.</p><p>A second paragraph gives a little more depth, keeps sentences short and links to related reading where it helps.</p><h2>Habits worth trying first</h2><p>This section lists practical, low-risk changes.</p><p>A second paragraph gives a little more depth, keeps sentences short and links to related reading where it helps.</p><h2>When it's more than habits</h2><p>This section explains when to ask for help.</p><p>A second paragraph gives a little more depth, keeps sentences short and links to related reading where it helps.</p><blockquote><p>A pull quote or a key takeaway sits here, set larger so it is easy to find when skimming.</p></blockquote><h2>When to talk with a clinician</h2><p>Every article ends by saying when it makes sense to bring the topic to a clinician, and how Bell Curve Health can help.</p>",
+      "hero_image_url": "/images/bch/mh-coffee-header.webp",
+      "gallery": [],
+      "status": "published",
+      "featured": true,
+      "published_at": "2026-09-26T14:00:00.000Z",
+      "updated_at": "2026-09-26T14:00:00.000Z",
+      "read_time_minutes": 6,
+      "author": {
+        "id": 1,
+        "name": "Bell Curve Health Editorial"
+      },
+      "categories": [
+        {
+          "id": 3,
+          "name": "Energy + Resilience",
+          "slug": "energy-resilience",
+          "description": null,
+          "hero_image_url": null,
+          "is_visible": true
+        }
+      ],
+      "tags": [],
+      "seo": {
+        "meta_title": null,
+        "meta_description": null,
+        "og_image_url": null
+      }
+    },
+    {
+      "id": 3,
+      "title": "Is It Hormones, Metabolism, or Both?",
+      "slug": "hormones-or-metabolism",
+      "excerpt": "Weight, energy and appetite can all shift in midlife. How hormones and metabolism overlap, and what to ask about.",
+      "content": "<p><em>Sample article for layout review. The final text comes from the BCH education register and is reviewed before it is published.</em></p><p>This opening paragraph sets up the question the article answers in plain language, and says what the reader will come away with.</p><h2>Where they overlap</h2><p>This section explains how the two systems interact.</p><p>A second paragraph gives a little more depth, keeps sentences short and links to related reading where it helps.</p><h2>Signs worth noting</h2><p>This section lists changes to keep track of.</p><p>A second paragraph gives a little more depth, keeps sentences short and links to related reading where it helps.</p><h2>Questions for your appointment</h2><p>This section gives questions to bring to a visit.</p><p>A second paragraph gives a little more depth, keeps sentences short and links to related reading where it helps.</p><blockquote><p>A pull quote or a key takeaway sits here, set larger so it is easy to find when skimming.</p></blockquote><h2>When to talk with a clinician</h2><p>Every article ends by saying when it makes sense to bring the topic to a clinician, and how Bell Curve Health can help.</p>",
+      "hero_image_url": "/images/bch/article-water-bottle.webp",
+      "gallery": [],
+      "status": "published",
+      "featured": false,
+      "published_at": "2026-09-22T14:00:00.000Z",
+      "updated_at": "2026-09-22T14:00:00.000Z",
+      "read_time_minutes": 8,
+      "author": {
+        "id": 1,
+        "name": "Bell Curve Health Editorial"
+      },
+      "categories": [
+        {
+          "id": 2,
+          "name": "Metabolic Health",
+          "slug": "metabolic-health",
+          "description": null,
+          "hero_image_url": null,
+          "is_visible": true
+        }
+      ],
+      "tags": [],
+      "seo": {
+        "meta_title": null,
+        "meta_description": null,
+        "og_image_url": null
+      }
+    },
+    {
+      "id": 4,
+      "title": "Why Am I So Tired in My 40s?",
+      "slug": "why-am-i-so-tired",
+      "excerpt": "Tiredness has many causes. A calm look at the common ones and the questions that help narrow them down.",
+      "content": "<p><em>Sample article for layout review. The final text comes from the BCH education register and is reviewed before it is published.</em></p><p>This opening paragraph sets up the question the article answers in plain language, and says what the reader will come away with.</p><h2>The usual suspects</h2><p>This section covers common, everyday causes.</p><p>A second paragraph gives a little more depth, keeps sentences short and links to related reading where it helps.</p><h2>What labs can show</h2><p>This section explains which tests are often discussed.</p><p>A second paragraph gives a little more depth, keeps sentences short and links to related reading where it helps.</p><h2>Building energy back</h2><p>This section suggests realistic first steps.</p><p>A second paragraph gives a little more depth, keeps sentences short and links to related reading where it helps.</p><blockquote><p>A pull quote or a key takeaway sits here, set larger so it is easy to find when skimming.</p></blockquote><h2>When to talk with a clinician</h2><p>Every article ends by saying when it makes sense to bring the topic to a clinician, and how Bell Curve Health can help.</p>",
+      "hero_image_url": "/images/bch/mh-dog-walk.webp",
+      "gallery": [],
+      "status": "published",
+      "featured": false,
+      "published_at": "2026-09-18T14:00:00.000Z",
+      "updated_at": "2026-09-18T14:00:00.000Z",
+      "read_time_minutes": 5,
+      "author": {
+        "id": 1,
+        "name": "Bell Curve Health Editorial"
+      },
+      "categories": [
+        {
+          "id": 3,
+          "name": "Energy + Resilience",
+          "slug": "energy-resilience",
+          "description": null,
+          "hero_image_url": null,
+          "is_visible": true
+        }
+      ],
+      "tags": [],
+      "seo": {
+        "meta_title": null,
+        "meta_description": null,
+        "og_image_url": null
+      }
+    },
+    {
+      "id": 5,
+      "title": "What Is Insulin Resistance?",
+      "slug": "what-is-insulin-resistance",
+      "excerpt": "A plain-language explainer on insulin resistance, why it comes up in midlife, and how it is usually checked.",
+      "content": "<p><em>Sample article for layout review. The final text comes from the BCH education register and is reviewed before it is published.</em></p><p>This opening paragraph sets up the question the article answers in plain language, and says what the reader will come away with.</p><h2>The short version</h2><p>This section gives a one-paragraph explanation.</p><p>A second paragraph gives a little more depth, keeps sentences short and links to related reading where it helps.</p><h2>Why it matters in midlife</h2><p>This section explains why it comes up more often now.</p><p>A second paragraph gives a little more depth, keeps sentences short and links to related reading where it helps.</p><h2>How it is checked</h2><p>This section describes common tests.</p><p>A second paragraph gives a little more depth, keeps sentences short and links to related reading where it helps.</p><blockquote><p>A pull quote or a key takeaway sits here, set larger so it is easy to find when skimming.</p></blockquote><h2>When to talk with a clinician</h2><p>Every article ends by saying when it makes sense to bring the topic to a clinician, and how Bell Curve Health can help.</p>",
+      "hero_image_url": "/images/bch/mh-reading-still-life.webp",
+      "gallery": [],
+      "status": "published",
+      "featured": false,
+      "published_at": "2026-09-12T14:00:00.000Z",
+      "updated_at": "2026-09-12T14:00:00.000Z",
+      "read_time_minutes": 6,
+      "author": {
+        "id": 1,
+        "name": "Bell Curve Health Editorial"
+      },
+      "categories": [
+        {
+          "id": 2,
+          "name": "Metabolic Health",
+          "slug": "metabolic-health",
+          "description": null,
+          "hero_image_url": null,
+          "is_visible": true
+        }
+      ],
+      "tags": [],
+      "seo": {
+        "meta_title": null,
+        "meta_description": null,
+        "og_image_url": null
+      }
+    },
+    {
+      "id": 6,
+      "title": "How to Prepare for a Midlife Health Appointment",
+      "slug": "prepare-for-your-appointment",
+      "excerpt": "What to write down beforehand, what to ask, and how to make sure you leave with a plan.",
+      "content": "<p><em>Sample article for layout review. The final text comes from the BCH education register and is reviewed before it is published.</em></p><p>This opening paragraph sets up the question the article answers in plain language, and says what the reader will come away with.</p><h2>Before the visit</h2><p>This section is a short checklist to complete beforehand.</p><p>A second paragraph gives a little more depth, keeps sentences short and links to related reading where it helps.</p><h2>During the visit</h2><p>This section suggests questions and how to raise concerns.</p><p>A second paragraph gives a little more depth, keeps sentences short and links to related reading where it helps.</p><h2>After the visit</h2><p>This section covers follow-up and next steps.</p><p>A second paragraph gives a little more depth, keeps sentences short and links to related reading where it helps.</p><blockquote><p>A pull quote or a key takeaway sits here, set larger so it is easy to find when skimming.</p></blockquote><h2>When to talk with a clinician</h2><p>Every article ends by saying when it makes sense to bring the topic to a clinician, and how Bell Curve Health can help.</p>",
+      "hero_image_url": "/images/bch/health-map-writing.webp",
+      "gallery": [],
+      "status": "published",
+      "featured": true,
+      "published_at": "2026-09-05T14:00:00.000Z",
+      "updated_at": "2026-09-05T14:00:00.000Z",
+      "read_time_minutes": 4,
+      "author": {
+        "id": 1,
+        "name": "Bell Curve Health Editorial"
+      },
+      "categories": [
+        {
+          "id": 4,
+          "name": "Advocacy + Understanding",
+          "slug": "advocacy-understanding",
+          "description": null,
+          "hero_image_url": null,
+          "is_visible": true
+        }
+      ],
+      "tags": [],
+      "seo": {
+        "meta_title": null,
+        "meta_description": null,
+        "og_image_url": null
+      }
+    },
+    {
+      "id": 7,
+      "title": "Which Labs Are Worth Asking About?",
+      "slug": "which-labs-to-ask-about",
+      "excerpt": "An overview of the labs that often come up in midlife conversations, and what each one can and can't tell you.",
+      "content": "<p><em>Sample article for layout review. The final text comes from the BCH education register and is reviewed before it is published.</em></p><p>This opening paragraph sets up the question the article answers in plain language, and says what the reader will come away with.</p><h2>Common panels</h2><p>This section lists frequently discussed labs.</p><p>A second paragraph gives a little more depth, keeps sentences short and links to related reading where it helps.</p><h2>What results can't tell you</h2><p>This section explains the limits of single results.</p><p>A second paragraph gives a little more depth, keeps sentences short and links to related reading where it helps.</p><h2>Tracking over time</h2><p>This section explains why trends matter.</p><p>A second paragraph gives a little more depth, keeps sentences short and links to related reading where it helps.</p><blockquote><p>A pull quote or a key takeaway sits here, set larger so it is easy to find when skimming.</p></blockquote><h2>When to talk with a clinician</h2><p>Every article ends by saying when it makes sense to bring the topic to a clinician, and how Bell Curve Health can help.</p>",
+      "hero_image_url": "/images/bch/guidance-telehealth.webp",
+      "gallery": [],
+      "status": "published",
+      "featured": false,
+      "published_at": "2026-08-29T14:00:00.000Z",
+      "updated_at": "2026-08-29T14:00:00.000Z",
+      "read_time_minutes": 6,
+      "author": {
+        "id": 1,
+        "name": "Bell Curve Health Editorial"
+      },
+      "categories": [
+        {
+          "id": 5,
+          "name": "Labs + Your Data",
+          "slug": "labs-your-data",
+          "description": null,
+          "hero_image_url": null,
+          "is_visible": true
+        }
+      ],
+      "tags": [],
+      "seo": {
+        "meta_title": null,
+        "meta_description": null,
+        "og_image_url": null
+      }
+    },
+    {
+      "id": 8,
+      "title": "Strength After Forty",
+      "slug": "strength-after-forty",
+      "excerpt": "Why strength and bone health deserve attention in midlife, and simple ways to begin.",
+      "content": "<p><em>Sample article for layout review. The final text comes from the BCH education register and is reviewed before it is published.</em></p><p>This opening paragraph sets up the question the article answers in plain language, and says what the reader will come away with.</p><h2>Why it matters now</h2><p>This section explains the changes that make strength a priority.</p><p>A second paragraph gives a little more depth, keeps sentences short and links to related reading where it helps.</p><h2>Getting started</h2><p>This section gives approachable first steps.</p><p>A second paragraph gives a little more depth, keeps sentences short and links to related reading where it helps.</p><h2>Staying with it</h2><p>This section covers building a routine that lasts.</p><p>A second paragraph gives a little more depth, keeps sentences short and links to related reading where it helps.</p><blockquote><p>A pull quote or a key takeaway sits here, set larger so it is easy to find when skimming.</p></blockquote><h2>When to talk with a clinician</h2><p>Every article ends by saying when it makes sense to bring the topic to a clinician, and how Bell Curve Health can help.</p>",
+      "hero_image_url": "/images/bch/hiw-brunette-working.webp",
+      "gallery": [],
+      "status": "published",
+      "featured": false,
+      "published_at": "2026-08-21T14:00:00.000Z",
+      "updated_at": "2026-08-21T14:00:00.000Z",
+      "read_time_minutes": 5,
+      "author": {
+        "id": 1,
+        "name": "Bell Curve Health Editorial"
+      },
+      "categories": [
+        {
+          "id": 6,
+          "name": "Growing Well + Longevity",
+          "slug": "growing-well-longevity",
+          "description": null,
+          "hero_image_url": null,
+          "is_visible": true
+        }
+      ],
+      "tags": [],
+      "seo": {
+        "meta_title": null,
+        "meta_description": null,
+        "og_image_url": null
+      }
+    }
+  ]
+}

@@ -78,11 +78,11 @@
         "data": {
           "heading": "Featured stories",
           "link_label": "View all articles",
-          "link_url": "/midlife-health/articles",
+          "link_url": "/blog",
           "posts": [
             {
               "title": "Why Your Body Feels Different in Midlife",
-              "url": "/midlife-health/why-your-body-feels-different",
+              "url": "/blog/why-your-body-feels-different",
               "published": false,
               "image": {
                 "url": "/images/bch/mh-friends-patio.webp",
@@ -91,7 +91,7 @@
             },
             {
               "title": "Why Am I So Tired in My 40s?",
-              "url": "/midlife-health/energy-resilience/why-am-i-so-tired",
+              "url": "/blog/why-am-i-so-tired",
               "published": false,
               "image": {
                 "url": "/images/bch/mh-dog-walk.webp",
@@ -100,7 +100,7 @@
             },
             {
               "title": "What Is Insulin Resistance?",
-              "url": "/midlife-health/metabolic-health/what-is-insulin-resistance",
+              "url": "/blog/what-is-insulin-resistance",
               "published": false,
               "image": {
                 "url": "/images/bch/mh-reading-still-life.webp",

@@ -14,7 +14,7 @@
               { "id": 4, "label": "Health Map", "link": { "type": "page", "slug": "assessment" }, "children": [] },
               { "id": 5, "label": "Learn", "link": { "type": "page", "slug": "midlife-health" }, "children": [] },
               { "id": 6, "label": "About", "link": { "type": "page", "slug": "about" }, "children": [] },
-              { "id": 7, "label": "Start Here", "badge": "cta", "link": { "type": "page", "slug": "assessment" }, "children": [] }
+              { "id": 7, "label": "Start Here", "badge": "cta", "link": { "type": "url", "url": "/start-here" }, "children": [] }
             ]
           }
         }
@@ -31,6 +31,7 @@
               { "id": 13, "label": "Membership", "link": { "type": "page", "slug": "membership" } },
               { "id": 14, "label": "Health Map", "link": { "type": "page", "slug": "assessment" } },
               { "id": 15, "label": "Learn", "link": { "type": "page", "slug": "midlife-health" } },
+              { "id": 17, "label": "Library", "link": { "type": "url", "url": "/blog" } },
               { "id": 16, "label": "About", "link": { "type": "page", "slug": "about" } }
             ]
           }

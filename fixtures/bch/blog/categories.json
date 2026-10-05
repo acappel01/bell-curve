@@ -1,0 +1,52 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Hormonal Shifts",
+      "slug": "hormonal-shifts",
+      "description": null,
+      "hero_image_url": null,
+      "is_visible": true
+    },
+    {
+      "id": 2,
+      "name": "Metabolic Health",
+      "slug": "metabolic-health",
+      "description": null,
+      "hero_image_url": null,
+      "is_visible": true
+    },
+    {
+      "id": 3,
+      "name": "Energy + Resilience",
+      "slug": "energy-resilience",
+      "description": null,
+      "hero_image_url": null,
+      "is_visible": true
+    },
+    {
+      "id": 4,
+      "name": "Advocacy + Understanding",
+      "slug": "advocacy-understanding",
+      "description": null,
+      "hero_image_url": null,
+      "is_visible": true
+    },
+    {
+      "id": 5,
+      "name": "Labs + Your Data",
+      "slug": "labs-your-data",
+      "description": null,
+      "hero_image_url": null,
+      "is_visible": true
+    },
+    {
+      "id": 6,
+      "name": "Growing Well + Longevity",
+      "slug": "growing-well-longevity",
+      "description": null,
+      "hero_image_url": null,
+      "is_visible": true
+    }
+  ]
+}

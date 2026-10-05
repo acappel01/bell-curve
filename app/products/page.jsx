@@ -3,13 +3,19 @@ import CrossSlider from "@/components/catalog/CrossSlider";
 import ListingClient from "@/components/catalog/ListingClient";
 import { apiParamsFromSearch } from "@/components/catalog/query";
 import { redirectRenamedFilter } from "@/lib/slugRedirect";
+import CmsPageView, { cmsOverride } from "@/components/CmsPageView";
 import { getCatalogFacets, getCatalogPackages, getCatalogProducts } from "@/lib/api";
 
 export const revalidate = 300;
 
-export const metadata = {
-  title: "Products",
-};
+export async function generateMetadata() {
+  const page = await cmsOverride("products");
+
+  return {
+    title: page?.seo?.title || page?.title || "Products",
+    description: page?.seo?.description || undefined,
+  };
+}
 
 /**
  * Catalog product listing — application route (not a CMS page), a port of
@@ -19,6 +25,15 @@ export const metadata = {
  */
 export default async function ProductsPage({ searchParams }) {
   const params = await searchParams;
+
+  // An operator-built page with this slug takes the route over (see
+  // cmsOverride): the Bell Curve shop is composed that way, from a hero and a
+  // `catalog-listing` section. Without one, the default listing below renders.
+  const page = await cmsOverride("products");
+  if (page) {
+    return <CmsPageView page={page} slug="products" query={params} />;
+  }
+
   const [listing, facets, crossSell] = await Promise.all([
     getCatalogProducts(apiParamsFromSearch(params, "product")),
     getCatalogFacets(),

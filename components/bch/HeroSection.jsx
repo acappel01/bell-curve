@@ -83,7 +83,9 @@ function SplitHero({ data, anchor }) {
 
   return (
     <section
-      className={`bch-hero-split${hasImage ? "" : " bch-hero-split--type"}`}
+      className={`bch-hero-split${hasImage ? "" : " bch-hero-split--type"}${
+        data.size === "compact" ? " bch-hero-split--compact" : ""
+      }`}
       id={anchor || undefined}
     >
       <div className="bch-container bch-hero-split__inner">

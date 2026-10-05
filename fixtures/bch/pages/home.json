@@ -185,7 +185,7 @@
           "posts": [
             {
               "title": "Why Your Body Feels Different in Midlife",
-              "url": "/midlife-health/why-your-body-feels-different",
+              "url": "/blog/why-your-body-feels-different",
               "published": false,
               "image": {
                 "url": "/images/bch/article-water-bottle.webp",
@@ -194,13 +194,13 @@
             },
             {
               "title": "Sleep Changed. Now What?",
-              "url": "/midlife-health/sleep-changed",
+              "url": "/blog/sleep-changed",
               "published": false,
               "image": null
             },
             {
               "title": "Is It Hormones, Metabolism—or Both?",
-              "url": "/midlife-health/hormones-or-metabolism",
+              "url": "/blog/hormones-or-metabolism",
               "published": false,
               "image": null
             }
