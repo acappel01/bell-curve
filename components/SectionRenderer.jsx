@@ -37,12 +37,8 @@ import PackageSliderSection from "@/components/sections/PackageSliderSection";
 import ProductSliderSection from "@/components/sections/ProductSliderSection";
 import QuizCtaSection from "@/components/sections/QuizCtaSection";
 import QuizSection from "@/components/sections/QuizSection";
-import HowItWorksSection from "@/components/sections/HowItWorksSection";
-import TestimonialsSection from "@/components/sections/TestimonialsSection";
-import TextBlockSection from "@/components/sections/TextBlockSection";
 import TimelineSection from "@/components/sections/TimelineSection";
 import FaqCategoriesSection from "@/components/sections/FaqCategoriesSection";
-import FaqSection from "@/components/sections/FaqSection";
 import ItemFaqsSection from "@/components/sections/ItemFaqsSection";
 import ItemReviewsSection from "@/components/sections/ItemReviewsSection";
 import FinalCtaSection from "@/components/sections/FinalCtaSection";
@@ -54,6 +50,13 @@ import VideoEmbedSection from "@/components/sections/VideoEmbedSection";
 
 // Bell Curve Health template components.
 import ArticleRowSection from "@/components/bch/ArticleRowSection";
+import CardsSection from "@/components/bch/CardsSection";
+import FaqSection from "@/components/bch/FaqSection";
+import PricingSection from "@/components/bch/PricingSection";
+import ProseSection from "@/components/bch/ProseSection";
+import StepsSection from "@/components/bch/StepsSection";
+import TestimonialsSection from "@/components/bch/TestimonialsSection";
+import WaitlistSection from "@/components/bch/WaitlistSection";
 import CtaBannerSection from "@/components/bch/CtaBannerSection";
 import FounderSection from "@/components/bch/FounderSection";
 import HealthMapTeaserSection from "@/components/bch/HealthMapTeaserSection";
@@ -65,9 +68,11 @@ import TrustStripSection from "@/components/bch/TrustStripSection";
 
 const SECTION_COMPONENTS = {
   hero: HeroSection,
-  "how-it-works": HowItWorksSection,
+  "how-it-works": StepsSection,
+  "features-grid": CardsSection,
+  "pricing-tiers": PricingSection,
   testimonials: TestimonialsSection,
-  "text-block": TextBlockSection,
+  "text-block": ProseSection,
   faq: FaqSection,
   "faq-categories": FaqCategoriesSection,
   "final-cta": FinalCtaSection,
@@ -106,6 +111,7 @@ const SECTION_COMPONENTS = {
   "bch-paths": PathsSection,
   "bch-article-row": ArticleRowSection,
   "bch-founder": FounderSection,
+  "bch-waitlist": WaitlistSection,
 };
 
 /**
@@ -162,17 +168,18 @@ function PlaceholderSection({ section }) {
  *
  * THE CHECK CANNOT LIVE INSIDE PlaceholderSection, which is where it was first
  * written. Returning null from the component still leaves the knob wrapper
- * below, and every one of the six unregistered types carries a LayoutDefaults
+ * below, and every unregistered type carries a LayoutDefaults
  * entry, so the wrapper always renders: an operator who set `style_padding_top: lg`
  * and a background colour would get a padded, painted, entirely empty band in
  * the middle of the page. Dropping the whole entry here — above `knobs()` — is
  * the only place "renders nothing" is true of the DOM and not just of the
  * component. Caught by fable-review-gate before this shipped.
  *
- * Latent rather than live: as of 2026-08-25 none of the six (`features-grid`,
- * `package-pricing-comparison`, `pricing-tiers`, `product-callout`,
- * `product-grid`, `transformed`) is placed on any row of page_sections,
- * catalog_item_sections or global_sections. Gated now because placing one is a
+ * Latent rather than live: as of 2026-08-25 none of the then-unregistered six
+ * (`features-grid`, `package-pricing-comparison`, `pricing-tiers`,
+ * `product-callout`, `product-grid`, `transformed`) was placed on any row of
+ * page_sections, catalog_item_sections or global_sections. The Bell Curve
+ * template has since registered `features-grid` and `pricing-tiers`. Gated now because placing one is a
  * single click in the admin and the failure would be silent to whoever clicked.
  *
  * The warn is a trace, not a per-request alarm: on a statically prerendered

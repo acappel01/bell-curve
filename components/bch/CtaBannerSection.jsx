@@ -1,16 +1,20 @@
 import Heading from "@/components/sections/Heading";
 import Html from "@/components/Html";
 import CtaLink from "./CtaLink";
+import { withServiceCta } from "@/lib/services";
 
 /**
  * Compact type-led band (backend type `cta-banner`). On the homepage this is
  * the Membership bridge, which the client wants as "one concise ivory or
  * pale-blush band, not another large sales section", with no photograph.
  *
- * `theme`: "light" (ivory band) or "dark" (charcoal).
+ * `theme`: "light" (ivory band) or "dark" (charcoal). `service` swaps the
+ * primary CTA for that service's launch-state action (lib/services.js), so a
+ * closing "Join the waitlist" turns into "Check availability" at launch. The
+ * status line stays in the hero so the page says it once.
  */
-export default function CtaBannerSection({ section }) {
-  const data = section.data ?? {};
+export default async function CtaBannerSection({ section }) {
+  const data = await withServiceCta(section.data ?? {});
   const theme = data.theme === "dark" ? "dark" : "light";
 
   return (

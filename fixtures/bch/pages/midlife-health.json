@@ -1,0 +1,130 @@
+{
+  "data": {
+    "slug": "midlife-health",
+    "title": "Midlife Health",
+    "seo": {
+      "title": "Midlife Health Education for Women 40–58",
+      "description": "Evidence-informed stories about hormones, metabolism, sleep, energy, skin and aging.",
+      "noindex": true
+    },
+    "title_banner": null,
+    "sections": [
+      {
+        "type": "hero",
+        "origin": "code",
+        "anchor": "top",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "layout": "split",
+          "image_shape": "arch",
+          "eyebrow": "Midlife health",
+          "headline": "Midlife changed the questions.",
+          "headline_emphasis": "Here are clearer answers.",
+          "subhead": "Explore evidence-informed stories about hormones, metabolism, sleep, energy, skin and aging—and why the changes often overlap.",
+          "primary_cta_label": "Explore the library",
+          "primary_cta_url": "#library",
+          "trust_microcopy": "Not sure where to begin?",
+          "microcopy_link_label": "Start my Health Map",
+          "microcopy_link_url": "/assessment",
+          "background_image": {
+            "url": "/images/bch/mh-coffee-header.webp",
+            "alt": "A smiling woman pours coffee in a bright kitchen."
+          }
+        }
+      },
+      {
+        "type": "bch-trust-strip",
+        "origin": "flexible",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "heading": "Start with what you're noticing.",
+          "items": [
+            {
+              "label": "Hormonal Shifts",
+              "url": "/midlife-health/hormonal-shifts"
+            },
+            {
+              "label": "Metabolic Health",
+              "url": "/midlife-health/metabolic-health"
+            },
+            {
+              "label": "Energy + Resilience",
+              "url": "/midlife-health/energy-resilience"
+            },
+            {
+              "label": "Advocacy + Understanding",
+              "url": "/midlife-health/advocacy-understanding"
+            },
+            {
+              "label": "Labs + Your Data",
+              "url": "/midlife-health/labs-your-data"
+            },
+            {
+              "label": "Growing Well + Longevity",
+              "url": "/midlife-health/growing-well-longevity"
+            }
+          ]
+        }
+      },
+      {
+        "type": "bch-article-row",
+        "origin": "flexible",
+        "anchor": "library",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "heading": "Featured stories",
+          "link_label": "View all articles",
+          "link_url": "/midlife-health/articles",
+          "posts": [
+            {
+              "title": "Why Your Body Feels Different in Midlife",
+              "url": "/midlife-health/why-your-body-feels-different",
+              "published": false,
+              "image": {
+                "url": "/images/bch/mh-friends-patio.webp",
+                "alt": "Two friends talk and laugh on a sunny patio."
+              }
+            },
+            {
+              "title": "Why Am I So Tired in My 40s?",
+              "url": "/midlife-health/energy-resilience/why-am-i-so-tired",
+              "published": false,
+              "image": {
+                "url": "/images/bch/mh-dog-walk.webp",
+                "alt": "A woman crouches beside her golden retriever on a walk."
+              }
+            },
+            {
+              "title": "What Is Insulin Resistance?",
+              "url": "/midlife-health/metabolic-health/what-is-insulin-resistance",
+              "published": false,
+              "image": {
+                "url": "/images/bch/mh-reading-still-life.webp",
+                "alt": "An open book, coffee and flowers on a bright windowsill."
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "cta-banner",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "eyebrow": "BCH Health Map",
+          "heading": "Not sure which topic fits?",
+          "theme": "light",
+          "sub": "The free BCH Health Map can help organize what you're noticing and suggest a more useful place to begin.",
+          "primary_cta_label": "Start my Health Map",
+          "primary_cta_url": "/assessment"
+        }
+      }
+    ]
+  }
+}

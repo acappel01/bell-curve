@@ -5,14 +5,19 @@
       "name": "BCH trust strip",
       "slug": "bch-trust-strip",
       "icon": "heroicon-o-check-badge",
-      "description": "Thin row of three service labels directly under the hero.",
+      "description": "Row of linked labels: the three-part strip under the homepage hero, topic navigation (with a heading) or a closing set of routes.",
       "schema": {
         "fields": [
+          {
+            "key": "heading",
+            "label": "Heading (optional)",
+            "kind": "text"
+          },
           {
             "key": "items",
             "label": "Items",
             "kind": "repeater",
-            "max": 4,
+            "max": 6,
             "fields": [
               {
                 "key": "label",
@@ -274,10 +279,105 @@
           }
         ]
       }
+    },
+    {
+      "name": "BCH waitlist",
+      "slug": "bch-waitlist",
+      "icon": "heroicon-o-envelope",
+      "description": "Waitlist / notify-me form for a service that isn't live. Name, email, optional state and non-sensitive interest; no health information.",
+      "schema": {
+        "fields": [
+          {
+            "key": "eyebrow",
+            "label": "Eyebrow",
+            "kind": "text"
+          },
+          {
+            "key": "heading",
+            "label": "Heading",
+            "kind": "text",
+            "required": true
+          },
+          {
+            "key": "emphasis",
+            "label": "Italic emphasis",
+            "kind": "text"
+          },
+          {
+            "key": "body",
+            "label": "Intro",
+            "kind": "textarea"
+          },
+          {
+            "key": "service",
+            "label": "Service",
+            "kind": "select",
+            "options": [
+              {
+                "value": "care",
+                "label": "Care"
+              },
+              {
+                "value": "shop",
+                "label": "Shop"
+              },
+              {
+                "value": "membership",
+                "label": "Membership"
+              }
+            ],
+            "required": true
+          },
+          {
+            "key": "ask_state",
+            "label": "Ask for state",
+            "kind": "boolean",
+            "default": true
+          },
+          {
+            "key": "interest_options",
+            "label": "Interest options",
+            "kind": "repeater",
+            "simple": true,
+            "fields": [
+              {
+                "key": "option",
+                "label": "Option",
+                "kind": "text"
+              }
+            ],
+            "help": "Non-sensitive choices only. Never symptoms, diagnoses or medications."
+          },
+          {
+            "key": "consent_label",
+            "label": "Marketing consent label",
+            "kind": "text",
+            "help": "Rendered unticked and optional."
+          },
+          {
+            "key": "submit_label",
+            "label": "Button label",
+            "kind": "text"
+          },
+          {
+            "key": "success_message",
+            "label": "Success message",
+            "kind": "textarea"
+          },
+          {
+            "key": "privacy_note",
+            "label": "Privacy note",
+            "kind": "text"
+          }
+        ]
+      }
     }
   ],
   "blueprint_additions": {
     "hero": [
+      "layout option 'split' (contained image beside copy; type-led when no image)",
+      "image_shape (select: corner | arch | organic)",
+      "service (select: care | shop | membership): primary CTA and status line from config services",
       "background_image_mobile (image)",
       "background_video {url, type}",
       "microcopy_link_label",
@@ -288,7 +388,44 @@
       "side_note (textarea)"
     ],
     "cta-banner": [
-      "emphasis (text)"
+      "emphasis (text)",
+      "service (select): primary CTA from config services"
+    ],
+    "how-it-works": [
+      "image (image, optional, beside the steps)",
+      "theme (select: white | ivory)"
+    ],
+    "features-grid": [
+      "emphasis (text)",
+      "theme (select: white | ivory | blush)",
+      "features[].eyebrow",
+      "features[].cta_label",
+      "features[].cta_url",
+      "cta_label / cta_url (section CTA)"
+    ],
+    "text-block": [
+      "emphasis (text)",
+      "link_label",
+      "link_url"
+    ],
+    "pricing-tiers": [
+      "heading",
+      "emphasis",
+      "lead",
+      "service (select): card CTA when a card has none",
+      "footnote (richtext)"
+    ],
+    "faq": [
+      "(no change; rendered by the BCH FAQ component)"
+    ],
+    "testimonials": [
+      "(no change; stars, images and rating_stats are not rendered for BCH)"
     ]
+  },
+  "config_additions": {
+    "services": "{care|shop|membership}: { state: live|waitlist|coming_soon, actions: { <state>: { label, url, status? } } }. Admin flips state; every CTA for that service follows."
+  },
+  "endpoint_additions": {
+    "POST /api/v1/waitlist": "{ service, first_name, email, state?, interest?, marketing_consent } -> 201. No health data. Used by bch-waitlist."
   }
 }

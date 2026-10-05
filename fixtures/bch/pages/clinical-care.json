@@ -1,0 +1,153 @@
+{
+  "data": {
+    "slug": "clinical-care",
+    "title": "Clinical Care",
+    "seo": {
+      "title": "Clinical Care for Midlife Women",
+      "description": "Licensed telehealth evaluation for eligible midlife and metabolic concerns, opening by state.",
+      "noindex": true
+    },
+    "title_banner": null,
+    "sections": [
+      {
+        "type": "hero",
+        "origin": "code",
+        "anchor": "top",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "layout": "split",
+          "image_shape": "corner",
+          "eyebrow": "Women's midlife telehealth",
+          "headline": "Licensed care for the changes",
+          "headline_emphasis": "you're ready to address.",
+          "subhead": "Explore telehealth evaluation for eligible midlife and metabolic concerns with licensed providers.",
+          "service": "care",
+          "background_image": {
+            "url": "/images/bch/guidance-telehealth.webp",
+            "alt": "A woman talks with a provider on a video call from her living room."
+          }
+        }
+      },
+      {
+        "type": "bch-waitlist",
+        "origin": "flexible",
+        "anchor": "waitlist",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "eyebrow": "Care waitlist",
+          "heading": "Hear when care opens",
+          "emphasis": "in your state.",
+          "body": "Tell us where you live and we'll email you when licensed telehealth care is available there. Please don't include symptoms, diagnoses or medications.",
+          "service": "care",
+          "ask_state": true,
+          "interest_options": [
+            "Weight + metabolic health",
+            "Hormonal changes",
+            "General midlife care"
+          ],
+          "consent_label": "Also send me Bell Curve Health news and education. (Optional)",
+          "submit_label": "Join the telehealth waitlist",
+          "success_message": "You're on the list. We'll email you when care is available in your state.",
+          "privacy_note": "We use this only to tell you about care availability. See our Privacy Policy."
+        }
+      },
+      {
+        "type": "how-it-works",
+        "origin": "code",
+        "anchor": "availability",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "eyebrow": "How clinical care works",
+          "heading": "Availability first,",
+          "emphasis": "then a provider's review.",
+          "theme": "white",
+          "lead": "A licensed provider may need more information or a live visit. Treatment and prescriptions are never guaranteed.",
+          "steps": [
+            {
+              "title": "Check availability",
+              "body": "See whether clinical care is available in your state."
+            },
+            {
+              "title": "Complete the clinical intake",
+              "body": "If it is, complete the separate, secure medical intake the care provider requires."
+            },
+            {
+              "title": "Review your options",
+              "body": "A licensed provider reviews your information and determines what care, if any, may be appropriate. If it is, you'll see the recommended care and final costs before you proceed."
+            }
+          ]
+        }
+      },
+      {
+        "type": "text-block",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "eyebrow": "What care may address",
+          "heading": "Weight + metabolic health",
+          "body": "<p>Evaluation for changes in weight, appetite and metabolic health, including GLP-1 evaluation when clinically appropriate. Other categories appear here only when our clinical partner supports them.</p>",
+          "theme": "cream"
+        }
+      },
+      {
+        "type": "features-grid",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "heading": "Education and medical care",
+          "emphasis": "are separate.",
+          "columns": "2",
+          "theme": "white",
+          "features": [
+            {
+              "title": "Education and the Health Map",
+              "body": "The BCH Health Map and educational resources can help you organize what you're noticing. They are not medical evaluations.",
+              "cta_label": "Start my Health Map",
+              "cta_url": "/assessment"
+            },
+            {
+              "title": "Already have a doctor?",
+              "body": "BCH education and the Health Map can help you prepare for clearer conversations with your own providers.",
+              "cta_label": "Explore the library",
+              "cta_url": "/midlife-health"
+            }
+          ]
+        }
+      },
+      {
+        "type": "text-block",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "body": "<p>Clinical decisions are made separately by a licensed provider based on the provider's clinical intake and evaluation.</p>",
+          "alignment": "center",
+          "theme": "light",
+          "link_label": "Medical disclaimer",
+          "link_url": "/legal/medical-disclaimer"
+        }
+      },
+      {
+        "type": "cta-banner",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "heading": "Ready when care is available",
+          "emphasis": "where you live.",
+          "theme": "dark",
+          "service": "care"
+        }
+      }
+    ]
+  }
+}
