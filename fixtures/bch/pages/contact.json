@@ -1,0 +1,112 @@
+{
+  "data": {
+    "slug": "contact",
+    "title": "Contact",
+    "seo": {
+      "title": "Contact Bell Curve Health",
+      "description": "Questions about care, the shop or membership? Send us a note.",
+      "noindex": true
+    },
+    "title_banner": null,
+    "sections": [
+      {
+        "type": "bch-form",
+        "origin": "flexible",
+        "anchor": "message",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "eyebrow": "Contact",
+          "heading": "We're here",
+          "emphasis": "to help.",
+          "lead": "Questions about care, the shop, membership or your Health Map? Send us a note and we'll reply by email.",
+          "source": "contact",
+          "layout": "split",
+          "theme": "white",
+          "fields": [
+            {
+              "name": "first_name",
+              "label": "First name",
+              "kind": "text",
+              "required": true,
+              "width": "half"
+            },
+            {
+              "name": "last_name",
+              "label": "Last name",
+              "kind": "text",
+              "required": true,
+              "width": "half"
+            },
+            {
+              "name": "email",
+              "label": "Email",
+              "kind": "email",
+              "required": true,
+              "width": "half"
+            },
+            {
+              "name": "phone",
+              "label": "Phone",
+              "kind": "tel",
+              "required": false,
+              "width": "half"
+            },
+            {
+              "name": "topic",
+              "label": "What's this about?",
+              "kind": "select",
+              "required": true,
+              "options": [
+                "Telehealth care",
+                "The shop or an order",
+                "Membership",
+                "The Health Map",
+                "Press or partnerships",
+                "Something else"
+              ]
+            },
+            {
+              "name": "message",
+              "label": "Message",
+              "kind": "textarea",
+              "required": true,
+              "help": "Please don't include medical details. A clinician will ask for those securely during a visit."
+            }
+          ],
+          "consent_label": "Also send me Bell Curve Health news and education. (Optional)",
+          "submit_label": "Send message",
+          "success_message": "Thank you. We'll reply by email.",
+          "privacy_note": "We use your details only to answer your message.",
+          "aside_heading": "Other ways to reach us",
+          "show_contact": true,
+          "notice": "This form isn't for medical emergencies. If you need urgent help, call 911 or go to the nearest emergency room."
+        }
+      },
+      {
+        "type": "bch-trust-strip",
+        "origin": "flexible",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "heading": "Looking for something else?",
+          "items": [
+            {
+              "label": "How telehealth works",
+              "url": "/clinical-care"
+            },
+            {
+              "label": "Membership questions",
+              "url": "/membership"
+            },
+            {
+              "label": "Start here",
+              "url": "/start-here"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

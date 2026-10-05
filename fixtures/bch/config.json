@@ -1,0 +1,131 @@
+{
+  "data": {
+    "brand": {
+      "name": "Bell Curve Health",
+      "tagline": "Stay ahead of the curve.",
+      "logo_url": "/brand/bch-logo-circle.svg",
+      "logo_dark_url": "/brand/bch-logo-circle.svg",
+      "logo_light_url": "/brand/bch-logo-circle-light.svg",
+      "favicon_url": "/brand/favicon.ico",
+      "hero_image_url": null,
+      "announcement": {
+        "emphasis": null,
+        "text": "Stay ahead of the curve."
+      }
+    },
+    "theme": {
+      "primary_color": "#282828",
+      "accent_color": "#B17270",
+      "accent_secondary_color": "#D79592",
+      "background_color": "#FFFFFF",
+      "text_color": "#282828",
+      "font_display": "Playfair Display",
+      "font_body": "Montserrat",
+      "custom_css": null,
+      "frontend_template": "bell-curve",
+      "product_zoom_enabled": false,
+      "palette": [
+        {
+          "name": "white",
+          "color": "#FFFFFF"
+        },
+        {
+          "name": "ivory",
+          "color": "#FAF6F2"
+        },
+        {
+          "name": "cream",
+          "color": "#FBF9F6"
+        },
+        {
+          "name": "blush",
+          "color": "#F9F1F0"
+        },
+        {
+          "name": "rose-100",
+          "color": "#F4E6E4"
+        },
+        {
+          "name": "rose-300",
+          "color": "#D79592"
+        },
+        {
+          "name": "rose",
+          "color": "#B17270"
+        },
+        {
+          "name": "rose-600",
+          "color": "#965A58"
+        },
+        {
+          "name": "rose-700",
+          "color": "#864C4A"
+        },
+        {
+          "name": "neutral",
+          "color": "#E8E2DC"
+        },
+        {
+          "name": "ink",
+          "color": "#70635B"
+        },
+        {
+          "name": "charcoal",
+          "color": "#282828"
+        }
+      ]
+    },
+    "contact": {
+      "social": {}
+    },
+    "seo": {
+      "default_title": "Bell Curve Health | Women's Midlife Telehealth + Wellness",
+      "default_description": "Licensed telehealth care, personalized midlife guidance and a curated wellness shop for women, together in one modern place.",
+      "allow_indexing": false
+    },
+    "services": {
+      "care": {
+        "state": "waitlist",
+        "actions": {
+          "live": {
+            "label": "Check care availability",
+            "url": "/clinical-care#availability"
+          },
+          "waitlist": {
+            "label": "Join the telehealth waitlist",
+            "url": "/clinical-care#waitlist",
+            "status": "Clinical care is opening by state. Join the list to hear when it's available where you live."
+          }
+        }
+      },
+      "shop": {
+        "state": "coming_soon",
+        "actions": {
+          "live": {
+            "label": "Shop all wellness",
+            "url": "/shop#products"
+          },
+          "coming_soon": {
+            "label": "Shop coming soon",
+            "url": "/shop#notify",
+            "status": "Our first products are being finalised. Leave your email and we'll tell you when the shop opens."
+          }
+        }
+      },
+      "membership": {
+        "state": "waitlist",
+        "actions": {
+          "live": {
+            "label": "Join membership",
+            "url": "/membership#join"
+          },
+          "waitlist": {
+            "label": "Join the membership waitlist",
+            "url": "/membership#waitlist",
+            "status": "Membership opens soon. Joining the waitlist does not reserve a founding spot."
+          }
+        }
+      }
+    }
+  }
+}

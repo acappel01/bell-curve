@@ -9,6 +9,7 @@ import TrustBand from "@/components/productDetails/TrustBand";
 import SectionRenderer from "@/components/SectionRenderer";
 import { normalizePresentation } from "@/components/productDetails/presentation";
 import { getConfig, getCatalogProduct } from "@/lib/api";
+import { templateView } from "@/components/templates";
 
 export const revalidate = 300;
 
@@ -51,6 +52,11 @@ export default async function ProductDetailPage({ params }) {
     // whether this slug is one the record used to answer to.
     await redirectRenamedSlug("product", slug);
     notFound();
+  }
+
+  const View = await templateView("productDetail");
+  if (View) {
+    return <View item={product} kind="product" />;
   }
 
   const pres = normalizePresentation(product.detail_layout);

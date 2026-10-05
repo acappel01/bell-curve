@@ -1,0 +1,70 @@
+{
+  "data": {
+    "slug": "blog-layouts",
+    "title": "Library layouts",
+    "seo": {
+      "title": "Library layouts",
+      "description": "Other ways the article listing can look.",
+      "noindex": true
+    },
+    "title_banner": null,
+    "sections": [
+      {
+        "type": "blog-listing",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "eyebrow": "Option A",
+          "heading": "Tiles,",
+          "emphasis": "three across.",
+          "lead": "The default grid. Works for any number of articles.",
+          "layout": "tiles",
+          "columns": 3,
+          "per_page": 3,
+          "link_label": "View all articles",
+          "link_url": "/blog"
+        }
+      },
+      {
+        "type": "blog-listing",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "eyebrow": "Option B",
+          "heading": "Rows,",
+          "emphasis": "for scanning.",
+          "lead": "Image beside the text. Good for a topic page or search results.",
+          "layout": "rows",
+          "per_page": 3,
+          "show_category": true,
+          "link_label": "View all articles",
+          "link_url": "/blog"
+        }
+      },
+      {
+        "type": "blog-listing",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "eyebrow": "Option C",
+          "heading": "One topic,",
+          "emphasis": "two across.",
+          "lead": "A listing preset to one topic, for a pathway page such as Metabolic Health.",
+          "layout": "tiles",
+          "columns": 2,
+          "preset_category": "metabolic-health",
+          "per_page": 2,
+          "show_excerpt": false,
+          "link_label": "All Metabolic Health articles",
+          "link_url": "/blog?category=metabolic-health"
+        }
+      }
+    ]
+  }
+}

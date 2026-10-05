@@ -1,0 +1,767 @@
+// Interior-page sections: split hero, steps, cards, prose, quotes, FAQ,
+// pricing and waitlist. Mobile first; min-width breakpoints only.
+
+@use "tokens" as *;
+
+// ─── Shared section header ─────────────────────────────────────────────
+.bch-head {
+  max-width: 44rem;
+  margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
+
+  .bch-eyebrow {
+    margin-bottom: 0.75rem;
+  }
+}
+
+.bch-head--center {
+  margin-inline: auto;
+  text-align: center;
+
+  .bch-head__lead {
+    margin-inline: auto;
+  }
+}
+
+.bch-head__lead {
+  margin-top: 1rem;
+}
+
+// Image shapes, shared by the split hero and anything else that masks a photo.
+.bch-shape--corner img {
+  border-radius: var(--bch-radius);
+  border-top-right-radius: 48% 30%;
+}
+
+.bch-shape--arch img {
+  border-radius: 999px 999px var(--bch-radius) var(--bch-radius);
+}
+
+.bch-shape--organic img {
+  border-radius: 46% 54% 42% 58% / 52% 44% 56% 48%;
+}
+
+// ─── Split hero (interior pages) ───────────────────────────────────────
+.bch-hero-split {
+  background: var(--bch-ivory);
+  padding-block: 2rem 3rem;
+
+  @media (min-width: $bch-lg) {
+    padding-block: clamp(3rem, 5vw, 4.5rem);
+  }
+}
+
+.bch-hero-split__inner {
+  display: grid;
+  gap: 2rem;
+
+  @media (min-width: $bch-lg) {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    align-items: center;
+    gap: clamp(3rem, 6vw, 6rem);
+  }
+}
+
+// Photo first on phones keeps the page recognisable, but short, so the
+// headline and primary action still land in the first screen.
+.bch-hero-split__picture {
+  order: -1;
+  display: block;
+
+  img {
+    display: block;
+    width: 100%;
+    height: clamp(220px, 58vw, 320px);
+    object-fit: cover;
+    object-position: center 30%;
+  }
+
+  @media (min-width: $bch-lg) {
+    order: 0;
+
+    img {
+      height: auto;
+      aspect-ratio: 4 / 4.4;
+      max-height: 600px;
+    }
+  }
+}
+
+.bch-hero-split__copy {
+  .bch-eyebrow {
+    margin-bottom: 1rem;
+  }
+
+  .bch-hero__lead {
+    margin-top: 1.25rem;
+  }
+
+  .bch-hero__actions {
+    margin-top: 1.75rem;
+  }
+}
+
+.bch-hero-split--type {
+  padding-block: clamp(3rem, 7vw, 6rem);
+
+  .bch-hero-split__inner {
+    grid-template-columns: minmax(0, 52rem);
+  }
+}
+
+// `size: compact` — a short page header for listing pages, where the
+// content (the grid) is the point. Title left, copy and action right.
+.bch-hero-split--compact {
+  padding-block: clamp(2rem, 4vw, 3.25rem);
+
+  .bch-hero__title {
+    font-size: clamp(2.25rem, 4.2vw, 3.5rem);
+  }
+
+  &.bch-hero-split--type .bch-hero-split__inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .bch-hero-split__copy {
+    @media (min-width: $bch-lg) {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      column-gap: clamp(3rem, 6vw, 6rem);
+      align-items: end;
+
+      > .bch-eyebrow,
+      > .bch-hero__title {
+        grid-column: 1;
+      }
+
+      > :not(.bch-eyebrow):not(.bch-hero__title) {
+        grid-column: 2;
+      }
+
+      > .bch-hero__lead {
+        grid-row: 1 / span 2;
+        align-self: end;
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+.bch-hero__status {
+  max-width: 34rem;
+  margin: 1rem 0 0;
+  padding-left: 0.85rem;
+  border-left: 2px solid var(--bch-rose);
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--bch-ink);
+}
+
+// ─── Headed trust strip (topic nav, closing routes) ────────────────────
+.bch-trust--headed {
+  padding-top: clamp(2.5rem, 5vw, 3.5rem);
+  border-top: 0;
+
+  .bch-trust__heading {
+    margin-bottom: 1.25rem;
+    text-align: center;
+  }
+}
+
+.bch-trust__list {
+  grid-template-columns: repeat(var(--bch-trust-cols-sm, 3), 1fr);
+
+  @media (min-width: $bch-lg) {
+    grid-template-columns: repeat(var(--bch-trust-cols, 3), 1fr);
+  }
+}
+
+// Six topics wrap to two rows of three on phones; the row border needs a reset.
+.bch-trust--headed .bch-trust__list li {
+  border-top: 1px solid var(--bch-line);
+
+  @media (min-width: $bch-lg) {
+    border-top: 0;
+  }
+}
+
+// ─── Steps (a real sequence) ───────────────────────────────────────────
+.bch-steps {
+  padding-block: var(--bch-section-y);
+}
+
+.bch-steps--ivory {
+  background: var(--bch-ivory);
+}
+
+.bch-steps--white {
+  background: var(--bch-white);
+}
+
+.bch-steps__inner {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.bch-steps--media .bch-steps__inner {
+  @media (min-width: $bch-lg) {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: center;
+    gap: clamp(3rem, 6vw, 6rem);
+  }
+}
+
+.bch-steps__picture img {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: var(--bch-radius);
+}
+
+.bch-steps__list {
+  display: grid;
+  gap: 1.5rem;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  list-style: none;
+  counter-reset: none;
+
+  @media (min-width: $bch-md) {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+  }
+}
+
+.bch-steps--media .bch-steps__list {
+  @media (min-width: $bch-md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.bch-steps__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--bch-line);
+}
+
+.bch-steps__number {
+  font-family: var(--bch-font-display);
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--bch-rose);
+}
+
+.bch-steps__meta {
+  margin: 0 0 0.25rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bch-rose-600);
+}
+
+.bch-steps__title {
+  margin: 0 0 0.4rem;
+  font-family: var(--bch-font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--bch-ink);
+}
+
+.bch-steps__text {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+
+  p {
+    margin: 0;
+  }
+}
+
+// ─── Cards (unordered set) ─────────────────────────────────────────────
+.bch-cards {
+  padding-block: var(--bch-section-y);
+}
+
+.bch-cards--white {
+  background: var(--bch-white);
+}
+
+.bch-cards--ivory {
+  background: var(--bch-ivory);
+}
+
+.bch-cards--blush {
+  background: var(--bch-blush);
+}
+
+.bch-cards__grid {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @media (min-width: $bch-md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+.bch-cards__grid--3 {
+  @media (min-width: $bch-lg) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.bch-cards__grid--4 {
+  @media (min-width: $bch-lg) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.bch-cards__item {
+  display: flex;
+}
+
+.bch-cards__card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: clamp(1.5rem, 2.5vw, 2rem);
+  background: var(--bch-white);
+  border: 1px solid var(--bch-line);
+  border-radius: var(--bch-radius);
+  color: var(--bch-ink);
+  text-decoration: none;
+  transition:
+    border-color 0.2s var(--bch-ease),
+    transform 0.2s var(--bch-ease);
+
+  .bch-eyebrow {
+    margin-bottom: 0.6rem;
+  }
+}
+
+.bch-cards--white .bch-cards__card {
+  background: var(--bch-ivory);
+  border-color: transparent;
+}
+
+a.bch-cards__card {
+  &:hover {
+    border-color: var(--bch-rose);
+    color: var(--bch-ink);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--bch-rose-600);
+    outline-offset: 3px;
+  }
+}
+
+.bch-cards__title {
+  margin: 0 0 0.6rem;
+  font-family: var(--bch-font-display);
+  font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.bch-cards__text {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+
+  p {
+    margin: 0;
+  }
+}
+
+// Pinned to the bottom so CTAs line up across a row of uneven cards.
+.bch-cards__cta {
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.bch-cards__footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+// ─── Prose / boundary band ─────────────────────────────────────────────
+.bch-prose {
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+}
+
+.bch-prose--light {
+  background: var(--bch-white);
+}
+
+.bch-prose--cream {
+  background: var(--bch-ivory);
+}
+
+.bch-prose--dark {
+  background: var(--bch-charcoal);
+  color: var(--bch-ivory);
+
+  .bch-display {
+    color: var(--bch-ivory);
+  }
+}
+
+.bch-prose__inner {
+  max-width: calc(48rem + 2 * var(--bch-gutter));
+}
+
+.bch-prose--center {
+  text-align: center;
+
+  .bch-head {
+    margin-inline: auto;
+  }
+}
+
+.bch-prose__body {
+  font-size: 1rem;
+  line-height: 1.7;
+
+  p {
+    margin: 0 0 1rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.bch-prose .bch-link {
+  margin-top: 0.75rem;
+}
+
+// A one-sentence boundary reads as a quiet note, not a section.
+.bch-prose--light.bch-prose--center:not(:has(.bch-head)) {
+  padding-block: 2rem;
+  border-block: 1px solid var(--bch-line);
+
+  .bch-prose__body {
+    font-size: 0.9375rem;
+    color: var(--bch-ink);
+  }
+}
+
+// ─── Testimonials ──────────────────────────────────────────────────────
+.bch-quotes {
+  padding-block: var(--bch-section-y);
+  background: var(--bch-white);
+}
+
+.bch-quotes__grid {
+  display: grid;
+  gap: 1.25rem;
+
+  @media (min-width: $bch-lg) {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.bch-quotes__item {
+  margin: 0;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  background: var(--bch-ivory);
+  border-radius: var(--bch-radius);
+
+  blockquote {
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+
+  figcaption {
+    margin-top: 1.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--bch-ink);
+
+    span {
+      font-weight: 500;
+      color: var(--bch-muted);
+    }
+  }
+}
+
+.bch-quotes__item--featured p {
+  font-family: var(--bch-font-display);
+  font-size: clamp(1.1rem, 1rem + 0.4vw, 1.3rem);
+  line-height: 1.6;
+}
+
+// ─── FAQ ───────────────────────────────────────────────────────────────
+.bch-faq {
+  padding-block: var(--bch-section-y);
+  background: var(--bch-white);
+}
+
+.bch-faq__inner {
+  display: grid;
+  gap: 1rem;
+
+  @media (min-width: $bch-lg) {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 4rem;
+  }
+}
+
+.bch-faq__item {
+  border-bottom: 1px solid var(--bch-line);
+
+  &:first-child {
+    border-top: 1px solid var(--bch-line);
+  }
+
+  summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    min-height: 60px;
+    padding-block: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--bch-ink);
+    cursor: pointer;
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--bch-rose-600);
+      outline-offset: 2px;
+    }
+  }
+
+  &[open] .bch-faq__icon::after {
+    transform: rotate(90deg);
+    opacity: 0;
+  }
+}
+
+// Plus that becomes a minus.
+.bch-faq__icon {
+  position: relative;
+  flex: none;
+  width: 14px;
+  height: 14px;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    background: var(--bch-rose-600);
+    transition:
+      transform 0.2s var(--bch-ease),
+      opacity 0.2s var(--bch-ease);
+  }
+
+  &::before {
+    top: 6px;
+    left: 0;
+    width: 14px;
+    height: 2px;
+  }
+
+  &::after {
+    top: 0;
+    left: 6px;
+    width: 2px;
+    height: 14px;
+  }
+}
+
+.bch-faq__answer {
+  padding-bottom: 1.25rem;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+
+  p {
+    margin: 0;
+  }
+}
+
+// ─── Pricing ───────────────────────────────────────────────────────────
+.bch-pricing {
+  padding-block: var(--bch-section-y);
+  background: var(--bch-white);
+}
+
+.bch-pricing__grid {
+  display: grid;
+  gap: 1.25rem;
+  max-width: 920px;
+  margin-inline: auto;
+
+  @media (min-width: $bch-md) {
+    &--2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+}
+
+.bch-pricing__card {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  background: var(--bch-ivory);
+  border-radius: var(--bch-radius);
+}
+
+.bch-pricing__name {
+  margin: 0;
+  font-family: var(--bch-font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bch-rose-600);
+}
+
+.bch-pricing__sub {
+  margin: 0.4rem 0 0;
+  font-size: 0.875rem;
+}
+
+.bch-pricing__price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  margin: 1rem 0 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.bch-pricing__amount {
+  font-family: var(--bch-font-display);
+  font-size: clamp(2.5rem, 2rem + 2vw, 3.25rem);
+  line-height: 1;
+  color: var(--bch-ink);
+}
+
+.bch-pricing__suffix {
+  font-size: 0.9375rem;
+  color: var(--bch-muted);
+}
+
+.bch-pricing__note {
+  margin: 0.6rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--bch-ink);
+}
+
+.bch-pricing__features {
+  display: grid;
+  gap: 0.6rem;
+  margin: 1.5rem 0 0;
+  padding: 1.5rem 0 0;
+  border-top: 1px solid var(--bch-line);
+  list-style: none;
+
+  li {
+    position: relative;
+    padding-left: 1.4rem;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.45em;
+      width: 0.6rem;
+      height: 0.35rem;
+      border-left: 1.5px solid var(--bch-rose-600);
+      border-bottom: 1.5px solid var(--bch-rose-600);
+      transform: rotate(-45deg);
+    }
+  }
+}
+
+.bch-pricing__callout {
+  margin-top: 1.5rem;
+  padding: 1rem 1.1rem;
+  background: var(--bch-white);
+  border-radius: var(--bch-radius);
+
+  .bch-eyebrow {
+    margin-bottom: 0.4rem;
+  }
+}
+
+.bch-pricing__callout-body p {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+// Pinned to the bottom so both cards' buttons line up.
+.bch-pricing__action {
+  margin-top: auto;
+  padding-top: 1.75rem;
+
+  .bch-btn {
+    width: 100%;
+  }
+}
+
+.bch-pricing__micro {
+  margin: 0.75rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--bch-ink);
+}
+
+.bch-pricing__footnote {
+  max-width: 920px;
+  margin: 1.25rem auto 0;
+  font-size: 0.8125rem;
+  text-align: center;
+  color: var(--bch-muted);
+
+  p {
+    margin: 0;
+  }
+}
+
+// ─── Waitlist form ─────────────────────────────────────────────────────
+.bch-waitlist {
+  padding-block: var(--bch-section-y);
+  background: var(--bch-white);
+}
+
+.bch-waitlist__inner {
+  display: grid;
+  gap: 1rem;
+
+  @media (min-width: $bch-lg) {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    align-items: start;
+    gap: 4rem;
+  }
+}
+
+// The form itself is `.bch-form` (components/bch/forms/LeadForm), shared
+// with the contact page; see _commerce.scss.

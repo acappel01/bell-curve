@@ -1,6 +1,6 @@
 "use client";
 
-import { money } from "@/components/sections/support";
+import { money, planSavingsPercent } from "@/components/sections/support";
 
 /**
  * The term chooser: a radio group of plans plus the "or buy once" line.
@@ -22,11 +22,8 @@ import { money } from "@/components/sections/support";
  * and plans are the separate recurring commitment alongside it. The buy-once
  * line is part of the same radio group for exactly that reason.
  *
- * The discount is computed against the buy-once price rather than read from a
- * field, because no such field exists: a plan carries a term and a total, and
- * what a visitor wants to know is what the term saves them. It renders only
- * when there is something honest to compare — no buy-once price, no term
- * length, or no saving means no badge, never a "0% off".
+ * The discount is `planSavingsPercent`, shared with the Bell Curve purchase
+ * options: no buy-once price, no term length, or no saving means no badge.
  */
 export default function DealGrid({
   plans,
@@ -40,18 +37,7 @@ export default function DealGrid({
     return null;
   }
 
-  const percentOff = (plan) => {
-    const months = plan.billing?.term_months;
-    const effective = plan.price?.effective;
-
-    if (!buyOncePrice || !months || effective == null) {
-      return null;
-    }
-
-    const pct = Math.round((1 - effective / (buyOncePrice * months)) * 100);
-
-    return pct > 0 ? pct : null;
-  };
+  const percentOff = (plan) => planSavingsPercent(plan, buyOncePrice);
 
   return (
     <div className="pd-dealSection" id={id} role="radiogroup" aria-label={label}>

@@ -8,6 +8,7 @@ import RailStack from "@/components/productDetails/RailStack";
 import SectionRenderer from "@/components/SectionRenderer";
 import { normalizePresentation } from "@/components/productDetails/presentation";
 import { getConfig, getCatalogPackage } from "@/lib/api";
+import { templateView } from "@/components/templates";
 
 export const revalidate = 300;
 
@@ -41,6 +42,11 @@ export default async function StackDetailPage({ params }) {
   if (!pkg) {
     await redirectRenamedSlug("package", slug);
     notFound();
+  }
+
+  const View = await templateView("packageDetail");
+  if (View) {
+    return <View item={pkg} kind="package" />;
   }
 
   const pres = normalizePresentation(pkg.detail_layout);

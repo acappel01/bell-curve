@@ -1,0 +1,681 @@
+{
+  "_note": "Flexible section types for the BCH site, in the backend's FlexibleSectionType shape (name, slug, description, icon, schema.fields). Seeder input once Amy approves the layout. Code blueprint additions are listed under blueprint_additions.",
+  "types": [
+    {
+      "name": "BCH trust strip",
+      "slug": "bch-trust-strip",
+      "icon": "heroicon-o-check-badge",
+      "description": "Row of linked labels: the three-part strip under the homepage hero, topic navigation (with a heading) or a closing set of routes.",
+      "schema": {
+        "fields": [
+          {
+            "key": "heading",
+            "label": "Heading (optional)",
+            "kind": "text"
+          },
+          {
+            "key": "items",
+            "label": "Items",
+            "kind": "repeater",
+            "max": 6,
+            "fields": [
+              {
+                "key": "label",
+                "label": "Label",
+                "kind": "text",
+                "required": true,
+                "max": 60
+              },
+              {
+                "key": "url",
+                "label": "Link URL",
+                "kind": "text"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "BCH Health Map teaser",
+      "slug": "bch-health-map-teaser",
+      "icon": "heroicon-o-map",
+      "description": "Health Map invitation: image, copy, CTA and a card of named pathways. No scores.",
+      "schema": {
+        "fields": [
+          {
+            "key": "heading",
+            "label": "Heading",
+            "kind": "text",
+            "required": true
+          },
+          {
+            "key": "emphasis",
+            "label": "Italic emphasis",
+            "kind": "text"
+          },
+          {
+            "key": "body",
+            "label": "Body",
+            "kind": "textarea"
+          },
+          {
+            "key": "cta",
+            "label": "CTA",
+            "kind": "cta"
+          },
+          {
+            "key": "image",
+            "label": "Image",
+            "kind": "image"
+          },
+          {
+            "key": "side_note",
+            "label": "Side note",
+            "kind": "textarea",
+            "help": "Short stacked note; each line on its own row."
+          },
+          {
+            "key": "card_title",
+            "label": "Card title",
+            "kind": "text"
+          },
+          {
+            "key": "card_caption",
+            "label": "Card caption",
+            "kind": "textarea"
+          },
+          {
+            "key": "categories",
+            "label": "Pathways",
+            "kind": "repeater",
+            "max": 6,
+            "fields": [
+              {
+                "key": "label",
+                "label": "Label",
+                "kind": "text",
+                "required": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "BCH statement band",
+      "slug": "bch-statement",
+      "icon": "heroicon-o-chat-bubble-bottom-center-text",
+      "description": "Charcoal band with one large statement and a side note.",
+      "schema": {
+        "fields": [
+          {
+            "key": "heading",
+            "label": "Heading",
+            "kind": "text",
+            "required": true
+          },
+          {
+            "key": "emphasis",
+            "label": "Italic emphasis",
+            "kind": "text"
+          },
+          {
+            "key": "side_note",
+            "label": "Side note",
+            "kind": "textarea"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BCH paths",
+      "slug": "bch-paths",
+      "icon": "heroicon-o-squares-2x2",
+      "description": "Three asymmetric cards (Care, Shop, Guidance) and one CTA.",
+      "schema": {
+        "fields": [
+          {
+            "key": "heading",
+            "label": "Heading",
+            "kind": "text",
+            "required": true
+          },
+          {
+            "key": "emphasis",
+            "label": "Italic emphasis",
+            "kind": "text"
+          },
+          {
+            "key": "items",
+            "label": "Cards",
+            "kind": "repeater",
+            "max": 3,
+            "fields": [
+              {
+                "key": "label",
+                "label": "Label",
+                "kind": "text",
+                "required": true
+              },
+              {
+                "key": "body",
+                "label": "Body",
+                "kind": "textarea"
+              },
+              {
+                "key": "url",
+                "label": "Link URL",
+                "kind": "text"
+              },
+              {
+                "key": "image",
+                "label": "Image",
+                "kind": "image"
+              }
+            ]
+          },
+          {
+            "key": "cta",
+            "label": "CTA",
+            "kind": "cta"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BCH article row",
+      "slug": "bch-article-row",
+      "icon": "heroicon-o-newspaper",
+      "description": "Featured article plus two. Posts render only when published.",
+      "schema": {
+        "fields": [
+          {
+            "key": "heading",
+            "label": "Heading",
+            "kind": "text"
+          },
+          {
+            "key": "link_label",
+            "label": "Library link label",
+            "kind": "text"
+          },
+          {
+            "key": "link_url",
+            "label": "Library link URL",
+            "kind": "text"
+          },
+          {
+            "key": "posts",
+            "label": "Posts",
+            "kind": "repeater",
+            "max": 3,
+            "fields": [
+              {
+                "key": "title",
+                "label": "Title",
+                "kind": "text",
+                "required": true
+              },
+              {
+                "key": "url",
+                "label": "Link URL",
+                "kind": "text"
+              },
+              {
+                "key": "published",
+                "label": "Published",
+                "kind": "boolean",
+                "default": false
+              },
+              {
+                "key": "image",
+                "label": "Image",
+                "kind": "image"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "BCH founder",
+      "slug": "bch-founder",
+      "icon": "heroicon-o-user",
+      "description": "Founder letter strip: contained portrait, excerpt, side note and link.",
+      "schema": {
+        "fields": [
+          {
+            "key": "heading",
+            "label": "Heading",
+            "kind": "text",
+            "required": true
+          },
+          {
+            "key": "emphasis",
+            "label": "Italic emphasis",
+            "kind": "text"
+          },
+          {
+            "key": "body",
+            "label": "Excerpt",
+            "kind": "textarea"
+          },
+          {
+            "key": "image",
+            "label": "Portrait",
+            "kind": "image",
+            "help": "Horizontal crop; never a tight headshot."
+          },
+          {
+            "key": "side_note",
+            "label": "Side note",
+            "kind": "textarea"
+          },
+          {
+            "key": "cta",
+            "label": "CTA",
+            "kind": "cta"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BCH waitlist",
+      "slug": "bch-waitlist",
+      "icon": "heroicon-o-envelope",
+      "description": "Waitlist / notify-me form for a service that isn't live. Name, email, optional state and non-sensitive interest; no health information.",
+      "schema": {
+        "fields": [
+          {
+            "key": "eyebrow",
+            "label": "Eyebrow",
+            "kind": "text"
+          },
+          {
+            "key": "heading",
+            "label": "Heading",
+            "kind": "text",
+            "required": true
+          },
+          {
+            "key": "emphasis",
+            "label": "Italic emphasis",
+            "kind": "text"
+          },
+          {
+            "key": "body",
+            "label": "Intro",
+            "kind": "textarea"
+          },
+          {
+            "key": "service",
+            "label": "Service",
+            "kind": "select",
+            "options": [
+              {
+                "value": "care",
+                "label": "Care"
+              },
+              {
+                "value": "shop",
+                "label": "Shop"
+              },
+              {
+                "value": "membership",
+                "label": "Membership"
+              }
+            ],
+            "required": true
+          },
+          {
+            "key": "ask_state",
+            "label": "Ask for state",
+            "kind": "boolean",
+            "default": true
+          },
+          {
+            "key": "interest_options",
+            "label": "Interest options",
+            "kind": "repeater",
+            "simple": true,
+            "fields": [
+              {
+                "key": "option",
+                "label": "Option",
+                "kind": "text"
+              }
+            ],
+            "help": "Non-sensitive choices only. Never symptoms, diagnoses or medications."
+          },
+          {
+            "key": "consent_label",
+            "label": "Marketing consent label",
+            "kind": "text",
+            "help": "Rendered unticked and optional."
+          },
+          {
+            "key": "submit_label",
+            "label": "Button label",
+            "kind": "text"
+          },
+          {
+            "key": "success_message",
+            "label": "Success message",
+            "kind": "textarea"
+          },
+          {
+            "key": "privacy_note",
+            "label": "Privacy note",
+            "kind": "text"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BCH form",
+      "slug": "bch-form",
+      "icon": "heroicon-o-chat-bubble-left-right",
+      "description": "A form an operator builds (contact today). Every submission files a lead with this section's source.",
+      "schema": {
+        "fields": [
+          {
+            "key": "eyebrow",
+            "label": "Eyebrow",
+            "kind": "text"
+          },
+          {
+            "key": "heading",
+            "label": "Heading",
+            "kind": "text",
+            "required": true
+          },
+          {
+            "key": "emphasis",
+            "label": "Italic emphasis",
+            "kind": "text"
+          },
+          {
+            "key": "lead",
+            "label": "Intro",
+            "kind": "textarea"
+          },
+          {
+            "key": "source",
+            "label": "Lead source",
+            "kind": "text",
+            "default": "contact",
+            "help": "Stored on the lead, e.g. contact, press, partnerships."
+          },
+          {
+            "key": "fields",
+            "label": "Fields",
+            "kind": "repeater",
+            "fields": [
+              {
+                "key": "name",
+                "label": "Field name",
+                "kind": "text",
+                "required": true,
+                "help": "first_name, last_name, email and phone map to lead columns; anything else is stored in form_fields."
+              },
+              {
+                "key": "label",
+                "label": "Label",
+                "kind": "text",
+                "required": true
+              },
+              {
+                "key": "kind",
+                "label": "Kind",
+                "kind": "select",
+                "options": [
+                  {
+                    "value": "text",
+                    "label": "Text"
+                  },
+                  {
+                    "value": "email",
+                    "label": "Email"
+                  },
+                  {
+                    "value": "tel",
+                    "label": "Phone"
+                  },
+                  {
+                    "value": "textarea",
+                    "label": "Long text"
+                  },
+                  {
+                    "value": "select",
+                    "label": "Choice"
+                  },
+                  {
+                    "value": "state",
+                    "label": "US state"
+                  },
+                  {
+                    "value": "checkbox",
+                    "label": "Checkbox"
+                  }
+                ]
+              },
+              {
+                "key": "required",
+                "label": "Required",
+                "kind": "boolean"
+              },
+              {
+                "key": "width",
+                "label": "Width",
+                "kind": "select",
+                "options": [
+                  {
+                    "value": "full",
+                    "label": "Full"
+                  },
+                  {
+                    "value": "half",
+                    "label": "Half"
+                  }
+                ]
+              },
+              {
+                "key": "options",
+                "label": "Choices",
+                "kind": "repeater",
+                "simple": true,
+                "fields": [
+                  {
+                    "key": "option",
+                    "label": "Choice",
+                    "kind": "text"
+                  }
+                ]
+              },
+              {
+                "key": "placeholder",
+                "label": "Placeholder",
+                "kind": "text"
+              },
+              {
+                "key": "help",
+                "label": "Help text",
+                "kind": "text"
+              }
+            ]
+          },
+          {
+            "key": "consent_label",
+            "label": "Marketing consent label",
+            "kind": "text",
+            "help": "Rendered unticked and optional."
+          },
+          {
+            "key": "submit_label",
+            "label": "Button label",
+            "kind": "text"
+          },
+          {
+            "key": "success_message",
+            "label": "Success message",
+            "kind": "text"
+          },
+          {
+            "key": "privacy_note",
+            "label": "Privacy note",
+            "kind": "text"
+          },
+          {
+            "key": "layout",
+            "label": "Layout",
+            "kind": "select",
+            "options": [
+              {
+                "value": "split",
+                "label": "Intro beside form"
+              },
+              {
+                "value": "stacked",
+                "label": "Intro above form"
+              }
+            ]
+          },
+          {
+            "key": "theme",
+            "label": "Background",
+            "kind": "select",
+            "options": [
+              {
+                "value": "white",
+                "label": "White"
+              },
+              {
+                "value": "ivory",
+                "label": "Ivory"
+              }
+            ]
+          },
+          {
+            "key": "aside_heading",
+            "label": "Aside heading",
+            "kind": "text"
+          },
+          {
+            "key": "aside_body",
+            "label": "Aside text",
+            "kind": "richtext"
+          },
+          {
+            "key": "show_contact",
+            "label": "Show contact details from settings",
+            "kind": "boolean"
+          },
+          {
+            "key": "notice",
+            "label": "Boxed notice",
+            "kind": "textarea",
+            "help": "E.g. not for medical emergencies."
+          }
+        ]
+      }
+    }
+  ],
+  "blueprint_additions": {
+    "hero": [
+      "layout option 'split' (contained image beside copy; type-led when no image)",
+      "image_shape (select: corner | arch | organic)",
+      "service (select: care | shop | membership): primary CTA and status line from config services",
+      "background_image_mobile (image)",
+      "background_video {url, type}",
+      "microcopy_link_label",
+      "microcopy_link_url",
+      "size (select: default | compact): compact is a short page header for listing pages"
+    ],
+    "image-text-split": [
+      "image_shape (select: none | organic | arch)",
+      "side_note (textarea)"
+    ],
+    "cta-banner": [
+      "emphasis (text)",
+      "service (select): primary CTA from config services"
+    ],
+    "how-it-works": [
+      "image (image, optional, beside the steps)",
+      "theme (select: white | ivory)"
+    ],
+    "features-grid": [
+      "emphasis (text)",
+      "theme (select: white | ivory | blush)",
+      "features[].eyebrow",
+      "features[].cta_label",
+      "features[].cta_url",
+      "cta_label / cta_url (section CTA)"
+    ],
+    "text-block": [
+      "emphasis (text)",
+      "link_label",
+      "link_url"
+    ],
+    "pricing-tiers": [
+      "heading",
+      "emphasis",
+      "lead",
+      "service (select): card CTA when a card has none",
+      "footnote (richtext)"
+    ],
+    "faq": [
+      "(no change; rendered by the BCH FAQ component)"
+    ],
+    "testimonials": [
+      "(no change; stars, images and rating_stats are not rendered for BCH)"
+    ]
+  },
+  "config_additions": {
+    "services": "{care|shop|membership}: { state: live|waitlist|coming_soon, actions: { <state>: { label, url, status? } } }. Admin flips state; every CTA for that service follows."
+  },
+  "endpoint_additions": {
+    "POST /api/v1/leads (extend)": "Accept source (contact | waitlist | quiz | checkout) and form_fields {…}; require last_name only for checkout and quiz. Replaces the separate waitlist endpoint: bch-waitlist and bch-form both post here.",
+    "POST /api/v1/quiz/{slug}/resolve": "{ answers } -> { primary, alternatives[], goals[] } scored from option outcome weights. Stores nothing. Used by /start-here."
+  },
+  "blueprint_proposals": {
+    "_note": "New code blueprints (not flexible types) because they query the API and read the page URL. Both are filterable only on the listing routes (/products, /stacks, /blog) and the CMS pages that take those routes over; anywhere else they render a fixed collection.",
+    "catalog-listing": [
+      "kind (select: product | package)",
+      "layout (select: grid | rows)",
+      "columns (select: 2 | 3 | 4)",
+      "filter_style (select: sidebar | top | drawer | none)",
+      "filters (checkbox list: goal, category, price, availability)",
+      "labels {goal, category, price} (renamed chip and group names)",
+      "show_sort, show_count, show_search (boolean)",
+      "per_page (number)",
+      "preset_goal, preset_category (a fixed scope)",
+      "kind_tabs (repeater: label, url)",
+      "empty_message",
+      "eyebrow, heading, emphasis, lead"
+    ],
+    "blog-listing": [
+      "layout (select: tiles | rows | magazine)",
+      "columns (select: 2 | 3)",
+      "filter_style (select: chips | sidebar | none)",
+      "sidebar_blocks (checkbox list: search, categories, featured, cta)",
+      "sidebar_cta_heading, sidebar_cta_body, sidebar_cta_label, sidebar_cta_url",
+      "per_page, preset_category, featured_only",
+      "show_excerpt, show_meta, show_category (boolean)",
+      "link_label, link_url (fixed collections)",
+      "base_path (default /blog)",
+      "eyebrow, heading, emphasis, lead"
+    ]
+  },
+  "cms_conventions": {
+    "route takeover": "A CMS page whose slug matches an application route (products, stacks, blog) renders in place of the code default.",
+    "blog-post": "The sections of the CMS page slugged blog-post render under every article (disclaimer, banners)."
+  },
+  "quiz_additions": {
+    "option.outcomes": "{ outcome_key: points } per option",
+    "quiz.outcomes": "{ key: { title, short_title, body, summary, service | cta_label + cta_url } }",
+    "quiz.outcome_order": "tie-break order, most important first",
+    "quiz.fallback_outcome": "used when nothing scores",
+    "quiz.intro / quiz.results": "copy for the first and last screens"
+  }
+}

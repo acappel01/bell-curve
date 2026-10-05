@@ -1,0 +1,153 @@
+{
+  "data": {
+    "slug": "about",
+    "title": "About",
+    "seo": {
+      "title": "About Amy Bell, Founder",
+      "description": "Bell Curve Health brings midlife education, personalized guidance, wellness resources and access to licensed telehealth care into one place.",
+      "noindex": true
+    },
+    "title_banner": null,
+    "sections": [
+      {
+        "type": "hero",
+        "origin": "code",
+        "anchor": "top",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "layout": "split",
+          "image_shape": "corner",
+          "eyebrow": "About Bell Curve Health",
+          "headline": "Built for women who know",
+          "headline_emphasis": "something has changed.",
+          "subhead": "Bell Curve Health brings midlife education, personalized guidance, wellness resources and access to licensed telehealth care into one place—so it's easier to understand what may be changing and what you want to explore next.",
+          "primary_cta_label": "Explore how BCH works",
+          "primary_cta_url": "/how-it-works",
+          "background_image": {
+            "url": "/images/bch/about-amy-horse-dog.webp",
+            "alt": "Amy Bell, founder of Bell Curve Health, walks with her bay horse and cream Labrador at the stable."
+          }
+        }
+      },
+      {
+        "type": "text-block",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "eyebrow": "A note from Amy",
+          "heading": "I built what I wish I'd had sooner.",
+          "body": "<p>My turning point came when I learned that insulin resistance—not a lack of effort—was changing how my body responded.</p><p>Better information helped me ask better questions, work with the right clinicians and finally understand why the things that had always worked for me weren't working the same way anymore.</p><p>I created Bell Curve Health so more women could find that kind of clarity sooner.</p>",
+          "theme": "cream",
+          "link_label": "Read my full letter",
+          "link_url": "/about/letter"
+        }
+      },
+      {
+        "type": "features-grid",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "eyebrow": "What BCH stands for",
+          "heading": "A better place to start—and keep going.",
+          "columns": "4",
+          "theme": "white",
+          "features": [
+            {
+              "title": "Clarity before overwhelm",
+              "body": "Make complicated midlife health information easier to understand."
+            },
+            {
+              "title": "Evidence + context",
+              "body": "Ground education in credible information while being clear about what is established, evolving or still uncertain."
+            },
+            {
+              "title": "Better healthcare conversations",
+              "body": "Help women organize what they're noticing and ask better questions while respecting the role of their existing physicians."
+            },
+            {
+              "title": "Choice without pressure",
+              "body": "Education, the Health Map, Shop and Clinical Care are distinct pathways. Women can use what is useful to them without being pushed through a treatment funnel."
+            }
+          ]
+        }
+      },
+      {
+        "type": "testimonials",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "eyebrow": "Why trust matters",
+          "heading": "Built from experience.",
+          "emphasis": "Grounded in trust.",
+          "quotes": [
+            {
+              "name": "Ellen S.",
+              "title": "Dallas, TX",
+              "quote": "I've known Amy for a long time, and she is one of those people I trust because she really knows what she's doing. She has spent 30 years in the compounding industry, so her knowledge comes from decades of actual experience—not from recently discovering this space because it's become popular. That's one of the reasons I'm so excited about Bell Curve Health. Amy understands this industry from the inside, she cares deeply about doing things well, and she has the experience to know the difference between what's simply trending and what actually matters. There are so many new companies popping up in this space, but when it comes to something as personal as your health, I want to know who is behind the company. With Bell Curve Health, I do. And I can't think of anyone I would trust more to build it."
+            },
+            {
+              "name": "Michelle C.",
+              "title": "Reno, NV",
+              "quote": "I can't say enough about how grateful I am for the guidance and expertise I've received from this team. When others were ready to give up or couldn't find answers, they took the time to listen, dig deeper, and find solutions. Their knowledge, professionalism, and commitment to my well-being have made such a meaningful difference. I finally feel like I'm being heard, supported, and guided in the right direction. I'm so thankful to have found a team that truly cares and doesn't give up when things aren't straightforward. They have helped me achieve goals I once wasn't sure were possible, and I couldn't be more grateful for their support."
+            }
+          ]
+        }
+      },
+      {
+        "type": "features-grid",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "heading": "Start where it makes sense",
+          "emphasis": "for you.",
+          "columns": "3",
+          "theme": "ivory",
+          "features": [
+            {
+              "title": "Understand what's changing",
+              "body": "Start with the BCH Health Map and education.",
+              "cta_label": "Start my Health Map",
+              "cta_url": "/assessment"
+            },
+            {
+              "title": "Explore clinical care",
+              "body": "See how licensed telehealth care works and check availability.",
+              "cta_label": "Explore care",
+              "cta_url": "/clinical-care"
+            },
+            {
+              "title": "Shop wellness",
+              "body": "Explore approved wellness products and resources.",
+              "cta_label": "Shop wellness",
+              "cta_url": "/shop"
+            }
+          ]
+        }
+      },
+      {
+        "type": "cta-banner",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "heading": "You don't need to have it all figured out",
+          "emphasis": "to begin.",
+          "theme": "dark",
+          "sub": "Start with the BCH Health Map and get a clearer view of what you may want to understand next.",
+          "primary_cta_label": "Start my Health Map",
+          "primary_cta_url": "/assessment"
+        }
+      }
+    ]
+  }
+}
