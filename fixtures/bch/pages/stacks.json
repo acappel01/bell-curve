@@ -1,0 +1,77 @@
+{
+  "data": {
+    "slug": "stacks",
+    "title": "Bundles + plans",
+    "seo": {
+      "title": "Bundles and plans",
+      "description": "Wellness bundles you can buy once or on a plan.",
+      "noindex": true
+    },
+    "title_banner": null,
+    "sections": [
+      {
+        "type": "hero",
+        "origin": "code",
+        "anchor": "top",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "layout": "split",
+          "size": "compact",
+          "eyebrow": "The BCH Wellness Shop",
+          "headline": "Bundles",
+          "headline_emphasis": "+ plans.",
+          "subhead": "Products that work as one routine. Buy a bundle once, or choose a monthly or three-month plan.",
+          "service": "shop"
+        }
+      },
+      {
+        "type": "catalog-listing",
+        "origin": "code",
+        "anchor": "bundles",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "kind": "package",
+          "layout": "rows",
+          "filter_style": "top",
+          "filters": [
+            "goal",
+            "price"
+          ],
+          "labels": {
+            "goal": "Concern"
+          },
+          "show_sort": true,
+          "show_count": true,
+          "per_page": 6,
+          "kind_tabs": [
+            {
+              "label": "All products",
+              "url": "/products"
+            },
+            {
+              "label": "Bundles + plans",
+              "url": "/stacks"
+            }
+          ]
+        }
+      },
+      {
+        "type": "cta-banner",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "eyebrow": "Prescription care",
+          "heading": "Looking for prescription care?",
+          "theme": "light",
+          "sub": "Clinical treatments require a separate licensed-provider evaluation and aren't purchased in this shop.",
+          "primary_cta_label": "Explore telehealth care",
+          "primary_cta_url": "/clinical-care"
+        }
+      }
+    ]
+  }
+}

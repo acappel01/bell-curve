@@ -1,0 +1,9 @@
+// Bell Curve Health template. Imported by app/layout.js after the inherited
+// theme SCSS and globals.css, so these rules win ties.
+@use "tokens";
+@use "base";
+@use "chrome";
+@use "sections";
+@use "style-tile";
+@use "pages";
+@use "commerce";

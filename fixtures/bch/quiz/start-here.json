@@ -1,0 +1,462 @@
+{
+  "data": {
+    "slug": "start-here",
+    "name": "Start here",
+    "steps": [
+      {
+        "slug": "reason",
+        "name": "Reason",
+        "heading": "What brings you here today?",
+        "description": null,
+        "visible_when": [],
+        "questions": [
+          {
+            "slug": "reason",
+            "kind": "single_select",
+            "prompt": "What brings you here today?",
+            "help": null,
+            "is_required": true,
+            "visible_when": [],
+            "config": {},
+            "options": [
+              {
+                "value": "symptoms",
+                "label": "I have symptoms I'd like help with",
+                "description": null,
+                "icon": null,
+                "is_exclusive": false,
+                "price_from": null,
+                "image_url": null,
+                "outcomes": {
+                  "care": 3
+                }
+              },
+              {
+                "value": "understand",
+                "label": "I want to understand what's changing",
+                "description": null,
+                "icon": null,
+                "is_exclusive": false,
+                "price_from": null,
+                "image_url": null,
+                "outcomes": {
+                  "health_map": 3,
+                  "learn": 1
+                }
+              },
+              {
+                "value": "products",
+                "label": "I'm looking for wellness products",
+                "description": null,
+                "icon": null,
+                "is_exclusive": false,
+                "price_from": null,
+                "image_url": null,
+                "outcomes": {
+                  "shop": 3
+                }
+              },
+              {
+                "value": "ongoing",
+                "label": "I want steady support over time",
+                "description": null,
+                "icon": null,
+                "is_exclusive": false,
+                "price_from": null,
+                "image_url": null,
+                "outcomes": {
+                  "membership": 3,
+                  "care": 1
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "slug": "areas",
+        "name": "Areas",
+        "heading": "Which areas feel most relevant right now?",
+        "description": null,
+        "visible_when": [],
+        "questions": [
+          {
+            "slug": "areas",
+            "kind": "health_goals",
+            "prompt": "Which areas feel most relevant right now?",
+            "help": null,
+            "is_required": true,
+            "visible_when": [],
+            "config": {},
+            "options": [
+              {
+                "value": "sleep",
+                "label": "Sleep",
+                "description": null,
+                "icon": null,
+                "is_exclusive": false,
+                "price_from": null,
+                "image_url": null,
+                "outcomes": {
+                  "shop": 1
+                }
+              },
+              {
+                "value": "energy",
+                "label": "Energy",
+                "description": null,
+                "icon": null,
+                "is_exclusive": false,
+                "price_from": null,
+                "image_url": null,
+                "outcomes": {
+                  "health_map": 1
+                }
+              },
+              {
+                "value": "hormonal-shifts",
+                "label": "Hot flashes and night sweats",
+                "description": null,
+                "icon": null,
+                "is_exclusive": false,
+                "price_from": null,
+                "image_url": null,
+                "outcomes": {
+                  "care": 1
+                }
+              },
+              {
+                "value": "metabolic-health",
+                "label": "Weight and metabolism",
+                "description": null,
+                "icon": null,
+                "is_exclusive": false,
+                "price_from": null,
+                "image_url": null,
+                "outcomes": {
+                  "health_map": 1
+                }
+              },
+              {
+                "value": "mood-focus",
+                "label": "Mood and focus",
+                "description": null,
+                "icon": null,
+                "is_exclusive": false,
+                "price_from": null,
+                "image_url": null,
+                "outcomes": {
+                  "care": 1
+                }
+              },
+              {
+                "value": "skin-hair",
+                "label": "Skin and hair",
+                "description": null,
+                "icon": null,
+                "is_exclusive": false,
+                "price_from": null,
+                "image_url": null,
+                "outcomes": {
+                  "shop": 1
+                }
+              },
+              {
+                "value": "bone-muscle",
+                "label": "Strength and bones",
+                "description": null,
+                "icon": null,
+                "is_exclusive": false,
+                "price_from": null,
+                "image_url": null,
+                "outcomes": {
+                  "shop": 1
+                }
+              },
+              {
+                "value": "intimate-wellness",
+                "label": "Intimacy and comfort",
+                "description": null,
+                "icon": null,
+                "is_exclusive": false,
+                "price_from": null,
+                "image_url": null,
+                "outcomes": {
+                  "care": 1
+                }
+              },
+              {
+                "value": "not-sure",
+                "label": "I'm not sure yet",
+                "description": null,
+                "icon": null,
+                "is_exclusive": true,
+                "price_from": null,
+                "image_url": null,
+                "outcomes": {
+                  "health_map": 2
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "slug": "product-type",
+        "name": "Products",
+        "heading": "What would you like to start with?",
+        "description": null,
+        "visible_when": [
+          {
+            "field": "reason",
+            "operator": "equals",
+            "value": "products"
+          }
+        ],
+        "questions": [
+          {
+            "slug": "product_type",
+            "kind": "single_select",
+            "prompt": "What would you like to start with?",
+            "help": null,
+            "is_required": true,
+            "visible_when": [],
+            "config": {},
+            "options": [
+              {
+                "value": "supplements",
+                "label": "Daily supplements",
+                "description": null,
+                "icon": null,
+                "is_exclusive": false,
+                "price_from": null,
+                "image_url": null,
+                "outcomes": {
+                  "shop": 2
+                }
+              },
+              {
+                "value": "skin-body",
+                "label": "Skin and body care",
+                "description": null,
+                "icon": null,
+                "is_exclusive": false,
+                "price_from": null,
+                "image_url": null,
+                "outcomes": {
+                  "shop": 2
+                }
+              },
+              {
+                "value": "prescription",
+                "label": "Something prescription",
+                "description": "Prescription treatments start with a clinician visit.",
+                "icon": null,
+                "is_exclusive": false,
+                "price_from": null,
+                "image_url": null,
+                "outcomes": {
+                  "care": 4
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "slug": "clinician",
+        "name": "Clinician",
+        "heading": "Have you talked with a clinician about these changes?",
+        "description": null,
+        "visible_when": [],
+        "questions": [
+          {
+            "slug": "clinician",
+            "kind": "single_select",
+            "prompt": "Have you talked with a clinician about these changes?",
+            "help": null,
+            "is_required": true,
+            "visible_when": [],
+            "config": {},
+            "options": [
+              {
+                "value": "plan",
+                "label": "Yes, and I have a plan",
+                "description": null,
+                "icon": null,
+                "is_exclusive": false,
+                "price_from": null,
+                "image_url": null,
+                "outcomes": {
+                  "shop": 1,
+                  "membership": 1
+                }
+              },
+              {
+                "value": "questions",
+                "label": "Yes, but I still have questions",
+                "description": null,
+                "icon": null,
+                "is_exclusive": false,
+                "price_from": null,
+                "image_url": null,
+                "outcomes": {
+                  "care": 2
+                }
+              },
+              {
+                "value": "not-yet",
+                "label": "Not yet",
+                "description": null,
+                "icon": null,
+                "is_exclusive": false,
+                "price_from": null,
+                "image_url": null,
+                "outcomes": {
+                  "care": 1,
+                  "health_map": 2
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "slug": "support",
+        "name": "Support",
+        "heading": "What kind of support sounds best?",
+        "description": null,
+        "visible_when": [],
+        "questions": [
+          {
+            "slug": "support",
+            "kind": "single_select",
+            "prompt": "What kind of support sounds best?",
+            "help": null,
+            "is_required": true,
+            "visible_when": [],
+            "config": {},
+            "options": [
+              {
+                "value": "visit",
+                "label": "A visit with a licensed clinician",
+                "description": null,
+                "icon": null,
+                "is_exclusive": false,
+                "price_from": null,
+                "image_url": null,
+                "outcomes": {
+                  "care": 3
+                }
+              },
+              {
+                "value": "diy",
+                "label": "Products I can start on my own",
+                "description": null,
+                "icon": null,
+                "is_exclusive": false,
+                "price_from": null,
+                "image_url": null,
+                "outcomes": {
+                  "shop": 2
+                }
+              },
+              {
+                "value": "learn",
+                "label": "Learning at my own pace",
+                "description": null,
+                "icon": null,
+                "is_exclusive": false,
+                "price_from": null,
+                "image_url": null,
+                "outcomes": {
+                  "learn": 2,
+                  "health_map": 1
+                }
+              },
+              {
+                "value": "guidance",
+                "label": "Steady guidance over time",
+                "description": null,
+                "icon": null,
+                "is_exclusive": false,
+                "price_from": null,
+                "image_url": null,
+                "outcomes": {
+                  "membership": 3
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "required_slugs": [
+      "reason",
+      "areas",
+      "product_type",
+      "clinician",
+      "support"
+    ],
+    "intro": {
+      "eyebrow": "Start here",
+      "heading": "Let's find your best next step.",
+      "body": "Five quick questions about what you're noticing and the kind of support you want. We'll suggest where to begin: care, the shop, membership, your Health Map or the library.",
+      "cta_label": "Begin",
+      "note": "Takes about a minute. Your answers stay on this page and aren't saved."
+    },
+    "outcome_order": [
+      "care",
+      "health_map",
+      "membership",
+      "shop",
+      "learn"
+    ],
+    "fallback_outcome": "health_map",
+    "outcomes": {
+      "care": {
+        "title": "Talk with a licensed clinician.",
+        "short_title": "Telehealth care",
+        "body": "Your answers point to a telehealth visit. A clinician can review your symptoms and history and talk through your options, including prescription care when it's appropriate.",
+        "summary": "A visit to review symptoms and options.",
+        "service": "care"
+      },
+      "health_map": {
+        "title": "Begin with your Health Map.",
+        "short_title": "Your Health Map",
+        "body": "Nine questions that organize what you're noticing into clear pathways, so your next conversation, purchase or read is better informed. Free, and educational.",
+        "summary": "Nine questions, free, educational.",
+        "cta_label": "Start my Health Map",
+        "cta_url": "/assessment"
+      },
+      "membership": {
+        "title": "Steady support could suit you.",
+        "short_title": "BCH Membership",
+        "body": "Membership brings your Health Map, personalized education and quarterly check-ins into one ongoing experience.",
+        "summary": "Ongoing guidance and quarterly check-ins.",
+        "service": "membership"
+      },
+      "shop": {
+        "title": "Start with the wellness shop.",
+        "short_title": "Wellness shop",
+        "body": "Non-prescription products chosen for everyday midlife wellbeing, with clear information about what each one is and how to use it.",
+        "summary": "Non-prescription products, clearly labeled.",
+        "service": "shop"
+      },
+      "learn": {
+        "title": "Start by reading.",
+        "short_title": "The BCH Library",
+        "body": "Plain-language articles on what changes in midlife and why, written to help you ask better questions.",
+        "summary": "Plain-language articles by topic.",
+        "cta_label": "Explore the library",
+        "cta_url": "/blog"
+      }
+    },
+    "results": {
+      "eyebrow": "Your next step",
+      "alternatives_heading": "Also worth a look",
+      "products_heading": "You might start with",
+      "footnote": "This guide suggests where to start. It isn't medical advice. If you have severe or sudden symptoms, contact your doctor or call 911."
+    }
+  }
+}

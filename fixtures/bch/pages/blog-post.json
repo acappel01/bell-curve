@@ -1,0 +1,28 @@
+{
+  "data": {
+    "slug": "blog-post",
+    "title": "Blog post template",
+    "seo": {
+      "title": "Blog post template",
+      "description": "Sections shown under every article.",
+      "noindex": true
+    },
+    "title_banner": null,
+    "sections": [
+      {
+        "type": "text-block",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "body": "<p>This article is educational and isn't medical advice. Talk with a licensed clinician about your own health.</p>",
+          "alignment": "center",
+          "theme": "light",
+          "link_label": "Explore telehealth care",
+          "link_url": "/clinical-care"
+        }
+      }
+    ]
+  }
+}

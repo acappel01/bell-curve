@@ -1,0 +1,246 @@
+// Base typography and primitives shared by every BCH section.
+//
+// The Atlas reset this repo was forked from styles bare elements (Spectral
+// 14px body, 60px h2 ...). BCH components never rely on element defaults:
+// each one sets its type through the classes below, so the reset can stay in
+// place for the inherited catalog pages until they are restyled.
+
+@use "tokens" as *;
+
+html[data-template="bell-curve"] body {
+  font-family: var(--bch-font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--bch-ink);
+  background: var(--bch-white);
+  -webkit-font-smoothing: antialiased;
+}
+
+// BCH sections own their horizontal rhythm (.bch-container), so the Atlas
+// frame's page gutter would inset every full-bleed band by up to 64px.
+html[data-template="bell-curve"] {
+  --page-gutter: 0px;
+}
+
+.bch-container {
+  width: 100%;
+  max-width: calc(var(--bch-max) + 2 * var(--bch-gutter));
+  margin-inline: auto;
+  padding-inline: var(--bch-gutter);
+}
+
+.bch-section {
+  padding-block: var(--bch-section-y);
+}
+
+// Display type. `em` is the brand's italic emphasis ("like yourself?").
+.bch-display {
+  font-family: var(--bch-font-display);
+  font-weight: 400;
+  color: var(--sx-text, var(--bch-ink));
+  letter-spacing: -0.01em;
+  margin: 0;
+
+  em {
+    font-style: italic;
+  }
+}
+
+.bch-display--xl {
+  font-size: clamp(2.15rem, 1.4rem + 3.1vw, 4.1rem);
+  line-height: 1.07;
+}
+
+.bch-display--lg {
+  font-size: clamp(1.9rem, 1.3rem + 2.3vw, 3.25rem);
+  line-height: 1.1;
+}
+
+.bch-display--md {
+  font-size: clamp(1.55rem, 1.2rem + 1.3vw, 2.35rem);
+  line-height: 1.15;
+}
+
+.bch-display--sm {
+  font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.6rem);
+  line-height: 1.2;
+}
+
+// Small caps label: eyebrows, nav, card titles.
+.bch-eyebrow {
+  display: block;
+  font-family: var(--bch-font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--bch-rose-600);
+  margin: 0 0 1rem;
+}
+
+.bch-lead {
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  line-height: 1.65;
+  color: var(--bch-ink);
+  max-width: 34rem;
+  margin: 0;
+}
+
+// Uppercase stacked note with a short rose rule ("REAL SCIENCE. CLEARER ANSWERS.").
+.bch-side-note {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1.7;
+  text-transform: uppercase;
+  color: var(--bch-ink);
+  margin: 0;
+
+  &::after {
+    content: "";
+    display: block;
+    width: 2rem;
+    height: 1px;
+    margin-top: 0.85rem;
+    background: var(--bch-rose);
+  }
+}
+
+// Buttons. Pills, uppercase, generous tap targets (min 48px).
+.bch-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 48px;
+  padding: 0.85rem 1.7rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-family: var(--bch-font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.2s var(--bch-ease),
+    color 0.2s var(--bch-ease),
+    border-color 0.2s var(--bch-ease),
+    transform 0.2s var(--bch-ease);
+
+  &:focus-visible {
+    outline: 2px solid var(--bch-rose-600);
+    outline-offset: 3px;
+  }
+}
+
+.bch-btn--primary {
+  background: var(--bch-rose-600);
+  color: var(--bch-white);
+
+  &:hover {
+    background: var(--bch-rose-700);
+    color: var(--bch-white);
+  }
+}
+
+.bch-btn--outline {
+  background: var(--bch-white);
+  border-color: var(--bch-ink);
+  color: var(--bch-ink);
+
+  &:hover {
+    background: var(--bch-ink);
+    color: var(--bch-white);
+  }
+}
+
+.bch-btn--light {
+  background: var(--bch-ivory);
+  color: var(--bch-ink);
+
+  &:hover {
+    background: var(--bch-white);
+    color: var(--bch-ink);
+  }
+}
+
+// Text link with arrow: "SEE WHAT MAY BE CHANGING →".
+.bch-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  font-family: var(--bch-font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--bch-rose-600);
+  border-bottom: 1px solid transparent;
+
+  &:hover {
+    color: var(--bch-rose-700);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--bch-rose-600);
+    outline-offset: 3px;
+  }
+}
+
+.bch-arrow {
+  display: inline-block;
+  transition: transform 0.2s var(--bch-ease);
+
+  a:hover > &,
+  button:hover > & {
+    transform: translateX(3px);
+  }
+}
+
+// Round outlined arrow button used on cards.
+.bch-circle-arrow {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--bch-rose);
+  border-radius: 50%;
+  color: var(--bch-rose-600);
+  font-size: 1rem;
+  transition:
+    background-color 0.2s var(--bch-ease),
+    color 0.2s var(--bch-ease);
+
+  a:hover & {
+    background: var(--bch-rose-600);
+    border-color: var(--bch-rose-600);
+    color: var(--bch-white);
+  }
+}
+
+.bch-visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-template="bell-curve"] * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

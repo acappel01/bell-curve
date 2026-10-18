@@ -1,0 +1,44 @@
+{
+  "data": [
+    {
+      "name": "Sleep",
+      "slug": "sleep",
+      "badge_color": null
+    },
+    {
+      "name": "Energy",
+      "slug": "energy",
+      "badge_color": null
+    },
+    {
+      "name": "Hormonal shifts",
+      "slug": "hormonal-shifts",
+      "badge_color": null
+    },
+    {
+      "name": "Metabolic health",
+      "slug": "metabolic-health",
+      "badge_color": null
+    },
+    {
+      "name": "Skin + hair",
+      "slug": "skin-hair",
+      "badge_color": null
+    },
+    {
+      "name": "Bone + muscle",
+      "slug": "bone-muscle",
+      "badge_color": null
+    },
+    {
+      "name": "Intimate wellness",
+      "slug": "intimate-wellness",
+      "badge_color": null
+    },
+    {
+      "name": "Mood + focus",
+      "slug": "mood-focus",
+      "badge_color": null
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "data": {
+    "slug": "how-it-works",
+    "title": "How It Works",
+    "seo": {
+      "title": "How Bell Curve Health Works",
+      "description": "Explore licensed telehealth care, shop curated wellness support, or begin with the free BCH Health Map. Each path is yours to choose.",
+      "noindex": true
+    },
+    "title_banner": null,
+    "sections": [
+      {
+        "type": "hero",
+        "origin": "code",
+        "anchor": "top",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "layout": "split",
+          "image_shape": "arch",
+          "eyebrow": "How Bell Curve Health works",
+          "headline": "One place to understand your options—and",
+          "headline_emphasis": "choose what comes next.",
+          "subhead": "Explore licensed telehealth care, shop curated wellness support, or begin with the free BCH Health Map. Each path is yours to choose.",
+          "primary_cta_label": "Choose my next step",
+          "primary_cta_url": "#paths",
+          "background_image": {
+            "url": "/images/bch/hiw-brunette-working.webp",
+            "alt": "A woman in glasses works at her kitchen table with a laptop and notebook."
+          }
+        }
+      },
+      {
+        "type": "features-grid",
+        "origin": "code",
+        "anchor": "paths",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "heading": "Three paths.",
+          "emphasis": "Start with any of them.",
+          "columns": "3",
+          "theme": "white",
+          "features": [
+            {
+              "eyebrow": "Care",
+              "title": "Licensed telehealth care",
+              "body": "Connect with licensed providers when care is available in your state.",
+              "cta_label": "Explore care",
+              "cta_url": "/clinical-care"
+            },
+            {
+              "eyebrow": "Shop",
+              "title": "Curated wellness shop",
+              "body": "Shop available wellness products and explore prescription care options through a separate clinical pathway.",
+              "cta_label": "Shop wellness",
+              "cta_url": "/shop"
+            },
+            {
+              "eyebrow": "Guidance",
+              "title": "The free BCH Health Map",
+              "body": "Use a short educational Health Map to organize your next step.",
+              "cta_label": "Start my Health Map",
+              "cta_url": "/assessment"
+            }
+          ]
+        }
+      },
+      {
+        "type": "how-it-works",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "eyebrow": "A simple way to use BCH",
+          "heading": "Return as often",
+          "emphasis": "as you need.",
+          "theme": "ivory",
+          "image": {
+            "url": "/images/bch/hiw-workspace-detail.webp",
+            "alt": "A laptop, phone, rose notebook and coffee on a bright desk."
+          },
+          "steps": [
+            {
+              "title": "Notice what's changing",
+              "body": "Energy, sleep, weight or mood feel different, and you want to understand why."
+            },
+            {
+              "title": "Explore your options",
+              "body": "Read, take the Health Map, or look at care and the shop. None of them requires the others."
+            },
+            {
+              "title": "Choose what fits",
+              "body": "Care, shop, Health Map or membership, based on what you need right now."
+            },
+            {
+              "title": "Return as your needs change",
+              "body": "Come back when something shifts. Your next step can change with you."
+            }
+          ]
+        }
+      },
+      {
+        "type": "cta-banner",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "eyebrow": "BCH Membership",
+          "heading": "Want ongoing support?",
+          "theme": "light",
+          "sub": "Membership adds personalized learning and quarterly check-ins for $129 per month. Clinical visits, labs, medications and products are separate unless a specific offer says otherwise.",
+          "primary_cta_label": "Explore membership",
+          "primary_cta_url": "/membership"
+        }
+      },
+      {
+        "type": "text-block",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "body": "<p>The BCH Health Map is educational. Licensed providers use a separate clinical intake for medical decisions.</p>",
+          "alignment": "center",
+          "theme": "light",
+          "link_label": "How telehealth works",
+          "link_url": "/clinical-care"
+        }
+      },
+      {
+        "type": "bch-trust-strip",
+        "origin": "flexible",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "heading": "Choose your next step.",
+          "items": [
+            {
+              "label": "Explore care",
+              "url": "/clinical-care"
+            },
+            {
+              "label": "Shop wellness",
+              "url": "/shop"
+            },
+            {
+              "label": "Start my Health Map",
+              "url": "/assessment"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import { redirectRenamedSlug } from "@/lib/slugRedirect";
-import PageHeader from "@/components/PageHeader";
-import SectionRenderer from "@/components/SectionRenderer";
+import CmsPageView from "@/components/CmsPageView";
 import { getPage } from "@/lib/api";
 
 export const revalidate = 300;
@@ -34,10 +33,9 @@ export default async function CmsPage({ params }) {
     notFound();
   }
 
-  return (
-    <>
-      <PageHeader banner={page.title_banner} slug={slug} />
-      <SectionRenderer sections={page.sections} />
-    </>
-  );
+  // No `query`: reading searchParams would make every CMS page dynamic. A
+  // listing section placed on an ordinary page renders as a fixed collection
+  // (its preset filters, no filter controls); the filterable listings are the
+  // application routes and the CMS pages that take them over.
+  return <CmsPageView page={page} slug={slug} />;
 }

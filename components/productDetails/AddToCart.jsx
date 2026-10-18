@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import DealGrid from "./DealGrid";
 import ProductHighlights from "./ProductHighlights";
-import { useCart } from "@/components/cart/CartProvider";
+import useBuyBox from "./useBuyBox";
 
 /**
  * Detail-page buy box — the interactive half of the Figma V1 info column.
@@ -24,34 +23,15 @@ import { useCart } from "@/components/cart/CartProvider";
  * because the modal must not emit a second element carrying it.
  */
 export default function AddToCart({ item, kind, buyOncePrice = null, highlightsPosition = "above" }) {
-  const { addItem, busy } = useCart();
   const plans = item.plans ?? [];
 
-  // NOTHING IS PRESELECTED FOR A PACKAGE ANY MORE.
-  //
-  // A package used to arrive with its default plan chosen, and the API required
-  // `plan_id` for packages — so a stack could only ever be bought as a
-  // subscription and there was no way to buy the thing itself. A package IS a
-  // product, or a group of them, with its own price; plans are the separate
-  // recurring offer alongside it.
-  //
-  // So the item itself is the default for both kinds, and choosing a plan is a
-  // deliberate act. `null` means "the package or product, once, at its own
-  // price" — which is exactly what the cart endpoint now accepts.
-  const [planId, setPlanId] = useState(null);
-  const [quantity, setQuantity] = useState(1);
-  const [error, setError] = useState(null);
-
-  // QUANTITY BELONGS TO THE ITEM, NOT THE SUBSCRIPTION. A plan already says how
-  // much arrives and how often, so a quantity stepper beside it invites "2 x
-  // monthly plan", which means nothing an operator could fulfil. Hidden rather
-  // than disabled: a control you cannot use still asks to be understood.
-  const showQuantity = planId === null;
-
-  const add = () => {
-    setError(null);
-    addItem({ type: kind, id: item.id, planId, quantity: showQuantity ? quantity : 1 }).catch((e) => setError(e.message));
-  };
+  // State and the add itself live in `useBuyBox`, shared with the Bell Curve
+  // purchase options; see that hook for why nothing is preselected and why
+  // quantity is hidden on a plan.
+  const { planId, setPlanId, quantity, setQuantity, showQuantity, busy, error, add } = useBuyBox({
+    item,
+    kind,
+  });
 
   return (
     <div className="pd-buyBox">

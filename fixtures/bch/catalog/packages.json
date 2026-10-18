@@ -1,0 +1,1066 @@
+{
+  "data": [
+    {
+      "id": 101,
+      "name": "Sleep Reset Bundle",
+      "slug": "sleep-reset-bundle",
+      "subtitle": "3 products",
+      "short_description": "An evening routine in one box: magnesium, a pillow mist and a cooling mist for warm nights.",
+      "description": "<p><em>Sample listing for layout review. Final names, labels, directions and photography come from the supplier.</em></p><p>An evening routine in one box: magnesium, a pillow mist and a cooling mist for warm nights.</p>",
+      "hero_image_url": null,
+      "banner_image_url": null,
+      "gallery": [],
+      "status": "published",
+      "tier": "bundle",
+      "badge_text": null,
+      "highlights": [],
+      "health_goals": [
+        {
+          "name": "Sleep",
+          "slug": "sleep",
+          "badge_color": null
+        },
+        {
+          "name": "Hormonal shifts",
+          "slug": "hormonal-shifts",
+          "badge_color": null
+        }
+      ],
+      "is_featured": false,
+      "is_in_stock": true,
+      "is_on_sale": false,
+      "requires_lab": false,
+      "sort_order": 1,
+      "price": {
+        "retail": 92,
+        "sale": 78,
+        "effective": 78,
+        "suffix": null,
+        "currency": "USD"
+      },
+      "price_range": {
+        "from": 70.2,
+        "to": 199,
+        "currency": "USD"
+      },
+      "price_from": {
+        "amount": 70.2,
+        "suffix": "/mo",
+        "plan_id": 117,
+        "currency": "USD"
+      },
+      "detail_sections": [
+        {
+          "title": "Why these together",
+          "placement": "tab",
+          "content": "<p>A short note on how the products in this bundle fit into one routine. Sample text for layout review.</p>"
+        }
+      ],
+      "detail_layout": null,
+      "sections": [
+        {
+          "type": "cta-banner",
+          "origin": "code",
+          "anchor": null,
+          "global": null,
+          "has_content": true,
+          "data": {
+            "eyebrow": "Not sure what fits?",
+            "heading": "Start with a few questions.",
+            "theme": "light",
+            "sub": "We'll point you to the right next step, whether that's the shop, a clinician or the library.",
+            "primary_cta_label": "Start here",
+            "primary_cta_url": "/start-here"
+          }
+        }
+      ],
+      "seo": {
+        "meta_title": null,
+        "meta_description": null,
+        "og_image_url": null
+      },
+      "provider": {
+        "package_id": null,
+        "package_sku": null,
+        "encounter_type_id": null
+      },
+      "products": [
+        {
+          "id": 1,
+          "name": "Magnesium Glycinate",
+          "slug": "magnesium-glycinate-night",
+          "subtitle": "Evening formula",
+          "short_description": "A gentle, well-absorbed form of magnesium many women add to an evening routine.",
+          "hero_image_url": null,
+          "price": {
+            "retail": 38,
+            "sale": null,
+            "effective": 38,
+            "suffix": null,
+            "currency": "USD"
+          },
+          "health_goals": [
+            {
+              "name": "Sleep",
+              "slug": "sleep",
+              "badge_color": null
+            },
+            {
+              "name": "Mood + focus",
+              "slug": "mood-focus",
+              "badge_color": null
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "name": "Lavender Pillow Mist",
+          "slug": "sleep-pillow-mist",
+          "subtitle": "Evening ritual",
+          "short_description": "A light lavender mist for your pillow as part of a wind-down routine.",
+          "hero_image_url": null,
+          "price": {
+            "retail": 26,
+            "sale": null,
+            "effective": 26,
+            "suffix": null,
+            "currency": "USD"
+          },
+          "health_goals": [
+            {
+              "name": "Sleep",
+              "slug": "sleep",
+              "badge_color": null
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "name": "Cooling Body Mist",
+          "slug": "cooling-body-mist",
+          "subtitle": "For warm moments",
+          "short_description": "A light, fragrance-free mist to keep in your bag or by the bed.",
+          "hero_image_url": null,
+          "price": {
+            "retail": 28,
+            "sale": null,
+            "effective": 28,
+            "suffix": null,
+            "currency": "USD"
+          },
+          "health_goals": [
+            {
+              "name": "Hormonal shifts",
+              "slug": "hormonal-shifts",
+              "badge_color": null
+            },
+            {
+              "name": "Sleep",
+              "slug": "sleep",
+              "badge_color": null
+            }
+          ]
+        }
+      ],
+      "plans": [
+        {
+          "id": 117,
+          "name": "Monthly delivery",
+          "slug": "monthly-delivery",
+          "subtitle": null,
+          "short_description": "Ships every month. Change or pause before your next order.",
+          "badge_text": null,
+          "status": "published",
+          "is_default": false,
+          "sort_order": 0,
+          "price": {
+            "retail": 70.2,
+            "sale": null,
+            "intro": null,
+            "effective": 70.2,
+            "suffix": "/mo",
+            "currency": "USD"
+          },
+          "billing": {
+            "period": "monthly",
+            "period_label": "Monthly",
+            "mode": "recurring",
+            "mode_label": "Recurring",
+            "term_months": 1,
+            "is_recurring": true,
+            "rebill_strategy": null,
+            "rebill_strategy_label": null,
+            "trial_days": null
+          },
+          "requires_lab": false,
+          "provider": {
+            "plan_id": null,
+            "plan_sku": null,
+            "product_ids": []
+          }
+        },
+        {
+          "id": 118,
+          "name": "3-month supply",
+          "slug": "3-month-supply",
+          "subtitle": null,
+          "short_description": "Three months in one order, billed every three months.",
+          "badge_text": "Best value",
+          "status": "published",
+          "is_default": true,
+          "sort_order": 0,
+          "price": {
+            "retail": 199,
+            "sale": null,
+            "intro": null,
+            "effective": 199,
+            "suffix": "/3 mo",
+            "currency": "USD"
+          },
+          "billing": {
+            "period": "quarterly",
+            "period_label": "Quarterly",
+            "mode": "prepaid_term",
+            "mode_label": "Prepaid term",
+            "term_months": 3,
+            "is_recurring": true,
+            "rebill_strategy": null,
+            "rebill_strategy_label": null,
+            "trial_days": null
+          },
+          "requires_lab": false,
+          "provider": {
+            "plan_id": null,
+            "plan_sku": null,
+            "product_ids": []
+          }
+        }
+      ],
+      "faqs": [],
+      "rating": null,
+      "reviews": [],
+      "categories": [
+        {
+          "id": 1,
+          "name": "Sleep + Rest",
+          "slug": "sleep-rest",
+          "description": null,
+          "hero_image_url": null,
+          "icon": null,
+          "provider_encounter_type_id": null,
+          "sort_order": 0
+        }
+      ],
+      "tags": [],
+      "related_refs": [
+        {
+          "type": "product",
+          "slug": "magnesium-glycinate-night"
+        },
+        {
+          "type": "package",
+          "slug": "comfort-care-bundle"
+        }
+      ]
+    },
+    {
+      "id": 102,
+      "name": "Strong Foundations Bundle",
+      "slug": "strong-foundations-bundle",
+      "subtitle": "3 products",
+      "short_description": "Creatine, vitamin D3 + K2 and collagen for a daily strength routine.",
+      "description": "<p><em>Sample listing for layout review. Final names, labels, directions and photography come from the supplier.</em></p><p>Creatine, vitamin D3 + K2 and collagen for a daily strength routine.</p>",
+      "hero_image_url": null,
+      "banner_image_url": null,
+      "gallery": [],
+      "status": "published",
+      "tier": "bundle",
+      "badge_text": null,
+      "highlights": [],
+      "health_goals": [
+        {
+          "name": "Bone + muscle",
+          "slug": "bone-muscle",
+          "badge_color": null
+        },
+        {
+          "name": "Energy",
+          "slug": "energy",
+          "badge_color": null
+        }
+      ],
+      "is_featured": false,
+      "is_in_stock": true,
+      "is_on_sale": false,
+      "requires_lab": false,
+      "sort_order": 2,
+      "price": {
+        "retail": 120,
+        "sale": 108,
+        "effective": 108,
+        "suffix": null,
+        "currency": "USD"
+      },
+      "price_range": {
+        "from": 97.2,
+        "to": 275,
+        "currency": "USD"
+      },
+      "price_from": {
+        "amount": 97.2,
+        "suffix": "/mo",
+        "plan_id": 119,
+        "currency": "USD"
+      },
+      "detail_sections": [
+        {
+          "title": "Why these together",
+          "placement": "tab",
+          "content": "<p>A short note on how the products in this bundle fit into one routine. Sample text for layout review.</p>"
+        }
+      ],
+      "detail_layout": null,
+      "sections": [
+        {
+          "type": "cta-banner",
+          "origin": "code",
+          "anchor": null,
+          "global": null,
+          "has_content": true,
+          "data": {
+            "eyebrow": "Not sure what fits?",
+            "heading": "Start with a few questions.",
+            "theme": "light",
+            "sub": "We'll point you to the right next step, whether that's the shop, a clinician or the library.",
+            "primary_cta_label": "Start here",
+            "primary_cta_url": "/start-here"
+          }
+        }
+      ],
+      "seo": {
+        "meta_title": null,
+        "meta_description": null,
+        "og_image_url": null
+      },
+      "provider": {
+        "package_id": null,
+        "package_sku": null,
+        "encounter_type_id": null
+      },
+      "products": [
+        {
+          "id": 2,
+          "name": "Creatine Monohydrate",
+          "slug": "creatine-for-women",
+          "subtitle": "Unflavored daily powder",
+          "short_description": "A single-ingredient creatine powder that mixes into water, coffee or a smoothie.",
+          "hero_image_url": null,
+          "price": {
+            "retail": 42,
+            "sale": null,
+            "effective": 42,
+            "suffix": null,
+            "currency": "USD"
+          },
+          "health_goals": [
+            {
+              "name": "Bone + muscle",
+              "slug": "bone-muscle",
+              "badge_color": null
+            },
+            {
+              "name": "Energy",
+              "slug": "energy",
+              "badge_color": null
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "name": "Vitamin D3 + K2",
+          "slug": "vitamin-d3-k2",
+          "subtitle": "Daily drops",
+          "short_description": "Vitamin D3 with K2 in a small daily liquid dose.",
+          "hero_image_url": null,
+          "price": {
+            "retail": 24,
+            "sale": null,
+            "effective": 24,
+            "suffix": null,
+            "currency": "USD"
+          },
+          "health_goals": [
+            {
+              "name": "Bone + muscle",
+              "slug": "bone-muscle",
+              "badge_color": null
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Collagen + Vitamin C",
+          "slug": "collagen-vitamin-c",
+          "subtitle": "Unflavored powder",
+          "short_description": "Hydrolyzed collagen peptides with vitamin C, for a daily drink.",
+          "hero_image_url": null,
+          "price": {
+            "retail": 54,
+            "sale": null,
+            "effective": 54,
+            "suffix": null,
+            "currency": "USD"
+          },
+          "health_goals": [
+            {
+              "name": "Skin + hair",
+              "slug": "skin-hair",
+              "badge_color": null
+            },
+            {
+              "name": "Bone + muscle",
+              "slug": "bone-muscle",
+              "badge_color": null
+            }
+          ]
+        }
+      ],
+      "plans": [
+        {
+          "id": 119,
+          "name": "Monthly delivery",
+          "slug": "monthly-delivery",
+          "subtitle": null,
+          "short_description": "Ships every month. Change or pause before your next order.",
+          "badge_text": null,
+          "status": "published",
+          "is_default": false,
+          "sort_order": 0,
+          "price": {
+            "retail": 97.2,
+            "sale": null,
+            "intro": null,
+            "effective": 97.2,
+            "suffix": "/mo",
+            "currency": "USD"
+          },
+          "billing": {
+            "period": "monthly",
+            "period_label": "Monthly",
+            "mode": "recurring",
+            "mode_label": "Recurring",
+            "term_months": 1,
+            "is_recurring": true,
+            "rebill_strategy": null,
+            "rebill_strategy_label": null,
+            "trial_days": null
+          },
+          "requires_lab": false,
+          "provider": {
+            "plan_id": null,
+            "plan_sku": null,
+            "product_ids": []
+          }
+        },
+        {
+          "id": 120,
+          "name": "3-month supply",
+          "slug": "3-month-supply",
+          "subtitle": null,
+          "short_description": "Three months in one order, billed every three months.",
+          "badge_text": "Best value",
+          "status": "published",
+          "is_default": true,
+          "sort_order": 0,
+          "price": {
+            "retail": 275,
+            "sale": null,
+            "intro": null,
+            "effective": 275,
+            "suffix": "/3 mo",
+            "currency": "USD"
+          },
+          "billing": {
+            "period": "quarterly",
+            "period_label": "Quarterly",
+            "mode": "prepaid_term",
+            "mode_label": "Prepaid term",
+            "term_months": 3,
+            "is_recurring": true,
+            "rebill_strategy": null,
+            "rebill_strategy_label": null,
+            "trial_days": null
+          },
+          "requires_lab": false,
+          "provider": {
+            "plan_id": null,
+            "plan_sku": null,
+            "product_ids": []
+          }
+        }
+      ],
+      "faqs": [],
+      "rating": null,
+      "reviews": [],
+      "categories": [
+        {
+          "id": 1,
+          "name": "Supplements",
+          "slug": "supplements",
+          "description": null,
+          "hero_image_url": null,
+          "icon": null,
+          "provider_encounter_type_id": null,
+          "sort_order": 0
+        }
+      ],
+      "tags": [],
+      "related_refs": [
+        {
+          "type": "product",
+          "slug": "creatine-for-women"
+        },
+        {
+          "type": "package",
+          "slug": "metabolic-basics-bundle"
+        }
+      ]
+    },
+    {
+      "id": 103,
+      "name": "Metabolic Basics Bundle",
+      "slug": "metabolic-basics-bundle",
+      "subtitle": "3 products",
+      "short_description": "Fiber, omega-3 and creatine to build daily habits around.",
+      "description": "<p><em>Sample listing for layout review. Final names, labels, directions and photography come from the supplier.</em></p><p>Fiber, omega-3 and creatine to build daily habits around.</p>",
+      "hero_image_url": null,
+      "banner_image_url": null,
+      "gallery": [],
+      "status": "published",
+      "tier": "bundle",
+      "badge_text": null,
+      "highlights": [],
+      "health_goals": [
+        {
+          "name": "Metabolic health",
+          "slug": "metabolic-health",
+          "badge_color": null
+        },
+        {
+          "name": "Energy",
+          "slug": "energy",
+          "badge_color": null
+        }
+      ],
+      "is_featured": false,
+      "is_in_stock": true,
+      "is_on_sale": false,
+      "requires_lab": false,
+      "sort_order": 3,
+      "price": {
+        "retail": 110,
+        "sale": 98,
+        "effective": 98,
+        "suffix": null,
+        "currency": "USD"
+      },
+      "price_range": {
+        "from": 88.2,
+        "to": 250,
+        "currency": "USD"
+      },
+      "price_from": {
+        "amount": 88.2,
+        "suffix": "/mo",
+        "plan_id": 121,
+        "currency": "USD"
+      },
+      "detail_sections": [
+        {
+          "title": "Why these together",
+          "placement": "tab",
+          "content": "<p>A short note on how the products in this bundle fit into one routine. Sample text for layout review.</p>"
+        }
+      ],
+      "detail_layout": null,
+      "sections": [
+        {
+          "type": "cta-banner",
+          "origin": "code",
+          "anchor": null,
+          "global": null,
+          "has_content": true,
+          "data": {
+            "eyebrow": "Not sure what fits?",
+            "heading": "Start with a few questions.",
+            "theme": "light",
+            "sub": "We'll point you to the right next step, whether that's the shop, a clinician or the library.",
+            "primary_cta_label": "Start here",
+            "primary_cta_url": "/start-here"
+          }
+        }
+      ],
+      "seo": {
+        "meta_title": null,
+        "meta_description": null,
+        "og_image_url": null
+      },
+      "provider": {
+        "package_id": null,
+        "package_sku": null,
+        "encounter_type_id": null
+      },
+      "products": [
+        {
+          "id": 5,
+          "name": "Fiber + Prebiotic Blend",
+          "slug": "fiber-prebiotic-blend",
+          "subtitle": "Daily powder",
+          "short_description": "A mixed soluble fiber powder for an easier way to reach your daily fiber.",
+          "hero_image_url": null,
+          "price": {
+            "retail": 32,
+            "sale": null,
+            "effective": 32,
+            "suffix": null,
+            "currency": "USD"
+          },
+          "health_goals": [
+            {
+              "name": "Metabolic health",
+              "slug": "metabolic-health",
+              "badge_color": null
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "Omega-3 Softgels",
+          "slug": "omega-3-softgels",
+          "subtitle": "Triglyceride form",
+          "short_description": "Fish oil softgels in the triglyceride form, with the EPA and DHA amounts on the label.",
+          "hero_image_url": null,
+          "price": {
+            "retail": 36,
+            "sale": null,
+            "effective": 36,
+            "suffix": null,
+            "currency": "USD"
+          },
+          "health_goals": [
+            {
+              "name": "Metabolic health",
+              "slug": "metabolic-health",
+              "badge_color": null
+            },
+            {
+              "name": "Mood + focus",
+              "slug": "mood-focus",
+              "badge_color": null
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Creatine Monohydrate",
+          "slug": "creatine-for-women",
+          "subtitle": "Unflavored daily powder",
+          "short_description": "A single-ingredient creatine powder that mixes into water, coffee or a smoothie.",
+          "hero_image_url": null,
+          "price": {
+            "retail": 42,
+            "sale": null,
+            "effective": 42,
+            "suffix": null,
+            "currency": "USD"
+          },
+          "health_goals": [
+            {
+              "name": "Bone + muscle",
+              "slug": "bone-muscle",
+              "badge_color": null
+            },
+            {
+              "name": "Energy",
+              "slug": "energy",
+              "badge_color": null
+            }
+          ]
+        }
+      ],
+      "plans": [
+        {
+          "id": 121,
+          "name": "Monthly delivery",
+          "slug": "monthly-delivery",
+          "subtitle": null,
+          "short_description": "Ships every month. Change or pause before your next order.",
+          "badge_text": null,
+          "status": "published",
+          "is_default": false,
+          "sort_order": 0,
+          "price": {
+            "retail": 88.2,
+            "sale": null,
+            "intro": null,
+            "effective": 88.2,
+            "suffix": "/mo",
+            "currency": "USD"
+          },
+          "billing": {
+            "period": "monthly",
+            "period_label": "Monthly",
+            "mode": "recurring",
+            "mode_label": "Recurring",
+            "term_months": 1,
+            "is_recurring": true,
+            "rebill_strategy": null,
+            "rebill_strategy_label": null,
+            "trial_days": null
+          },
+          "requires_lab": false,
+          "provider": {
+            "plan_id": null,
+            "plan_sku": null,
+            "product_ids": []
+          }
+        },
+        {
+          "id": 122,
+          "name": "3-month supply",
+          "slug": "3-month-supply",
+          "subtitle": null,
+          "short_description": "Three months in one order, billed every three months.",
+          "badge_text": "Best value",
+          "status": "published",
+          "is_default": true,
+          "sort_order": 0,
+          "price": {
+            "retail": 250,
+            "sale": null,
+            "intro": null,
+            "effective": 250,
+            "suffix": "/3 mo",
+            "currency": "USD"
+          },
+          "billing": {
+            "period": "quarterly",
+            "period_label": "Quarterly",
+            "mode": "prepaid_term",
+            "mode_label": "Prepaid term",
+            "term_months": 3,
+            "is_recurring": true,
+            "rebill_strategy": null,
+            "rebill_strategy_label": null,
+            "trial_days": null
+          },
+          "requires_lab": false,
+          "provider": {
+            "plan_id": null,
+            "plan_sku": null,
+            "product_ids": []
+          }
+        }
+      ],
+      "faqs": [],
+      "rating": null,
+      "reviews": [],
+      "categories": [
+        {
+          "id": 1,
+          "name": "Supplements",
+          "slug": "supplements",
+          "description": null,
+          "hero_image_url": null,
+          "icon": null,
+          "provider_encounter_type_id": null,
+          "sort_order": 0
+        }
+      ],
+      "tags": [],
+      "related_refs": [
+        {
+          "type": "product",
+          "slug": "fiber-prebiotic-blend"
+        },
+        {
+          "type": "package",
+          "slug": "strong-foundations-bundle"
+        }
+      ]
+    },
+    {
+      "id": 104,
+      "name": "Comfort + Care Bundle",
+      "slug": "comfort-care-bundle",
+      "subtitle": "3 products",
+      "short_description": "Moisturizer, barrier cream and a cooling mist for skin and comfort changes.",
+      "description": "<p><em>Sample listing for layout review. Final names, labels, directions and photography come from the supplier.</em></p><p>Moisturizer, barrier cream and a cooling mist for skin and comfort changes.</p>",
+      "hero_image_url": null,
+      "banner_image_url": null,
+      "gallery": [],
+      "status": "published",
+      "tier": "bundle",
+      "badge_text": null,
+      "highlights": [],
+      "health_goals": [
+        {
+          "name": "Intimate wellness",
+          "slug": "intimate-wellness",
+          "badge_color": null
+        },
+        {
+          "name": "Skin + hair",
+          "slug": "skin-hair",
+          "badge_color": null
+        },
+        {
+          "name": "Hormonal shifts",
+          "slug": "hormonal-shifts",
+          "badge_color": null
+        }
+      ],
+      "is_featured": false,
+      "is_in_stock": true,
+      "is_on_sale": false,
+      "requires_lab": false,
+      "sort_order": 4,
+      "price": {
+        "retail": 128,
+        "sale": 112,
+        "effective": 112,
+        "suffix": null,
+        "currency": "USD"
+      },
+      "price_range": {
+        "from": 100.8,
+        "to": 286,
+        "currency": "USD"
+      },
+      "price_from": {
+        "amount": 100.8,
+        "suffix": "/mo",
+        "plan_id": 123,
+        "currency": "USD"
+      },
+      "detail_sections": [
+        {
+          "title": "Why these together",
+          "placement": "tab",
+          "content": "<p>A short note on how the products in this bundle fit into one routine. Sample text for layout review.</p>"
+        }
+      ],
+      "detail_layout": null,
+      "sections": [
+        {
+          "type": "cta-banner",
+          "origin": "code",
+          "anchor": null,
+          "global": null,
+          "has_content": true,
+          "data": {
+            "eyebrow": "Not sure what fits?",
+            "heading": "Start with a few questions.",
+            "theme": "light",
+            "sub": "We'll point you to the right next step, whether that's the shop, a clinician or the library.",
+            "primary_cta_label": "Start here",
+            "primary_cta_url": "/start-here"
+          }
+        }
+      ],
+      "seo": {
+        "meta_title": null,
+        "meta_description": null,
+        "og_image_url": null
+      },
+      "provider": {
+        "package_id": null,
+        "package_sku": null,
+        "encounter_type_id": null
+      },
+      "products": [
+        {
+          "id": 9,
+          "name": "Intimate Moisturizer",
+          "slug": "hyaluronic-intimate-moisturizer",
+          "subtitle": "Hormone-free",
+          "short_description": "A hormone-free vaginal moisturizer for everyday comfort.",
+          "hero_image_url": null,
+          "price": {
+            "retail": 36,
+            "sale": null,
+            "effective": 36,
+            "suffix": null,
+            "currency": "USD"
+          },
+          "health_goals": [
+            {
+              "name": "Intimate wellness",
+              "slug": "intimate-wellness",
+              "badge_color": null
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "name": "Barrier Repair Cream",
+          "slug": "barrier-repair-cream",
+          "subtitle": "Face and neck",
+          "short_description": "A rich, fragrance-free moisturizer for skin that feels drier than it used to.",
+          "hero_image_url": null,
+          "price": {
+            "retail": 64,
+            "sale": null,
+            "effective": 64,
+            "suffix": null,
+            "currency": "USD"
+          },
+          "health_goals": [
+            {
+              "name": "Skin + hair",
+              "slug": "skin-hair",
+              "badge_color": null
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "name": "Cooling Body Mist",
+          "slug": "cooling-body-mist",
+          "subtitle": "For warm moments",
+          "short_description": "A light, fragrance-free mist to keep in your bag or by the bed.",
+          "hero_image_url": null,
+          "price": {
+            "retail": 28,
+            "sale": null,
+            "effective": 28,
+            "suffix": null,
+            "currency": "USD"
+          },
+          "health_goals": [
+            {
+              "name": "Hormonal shifts",
+              "slug": "hormonal-shifts",
+              "badge_color": null
+            },
+            {
+              "name": "Sleep",
+              "slug": "sleep",
+              "badge_color": null
+            }
+          ]
+        }
+      ],
+      "plans": [
+        {
+          "id": 123,
+          "name": "Monthly delivery",
+          "slug": "monthly-delivery",
+          "subtitle": null,
+          "short_description": "Ships every month. Change or pause before your next order.",
+          "badge_text": null,
+          "status": "published",
+          "is_default": false,
+          "sort_order": 0,
+          "price": {
+            "retail": 100.8,
+            "sale": null,
+            "intro": null,
+            "effective": 100.8,
+            "suffix": "/mo",
+            "currency": "USD"
+          },
+          "billing": {
+            "period": "monthly",
+            "period_label": "Monthly",
+            "mode": "recurring",
+            "mode_label": "Recurring",
+            "term_months": 1,
+            "is_recurring": true,
+            "rebill_strategy": null,
+            "rebill_strategy_label": null,
+            "trial_days": null
+          },
+          "requires_lab": false,
+          "provider": {
+            "plan_id": null,
+            "plan_sku": null,
+            "product_ids": []
+          }
+        },
+        {
+          "id": 124,
+          "name": "3-month supply",
+          "slug": "3-month-supply",
+          "subtitle": null,
+          "short_description": "Three months in one order, billed every three months.",
+          "badge_text": "Best value",
+          "status": "published",
+          "is_default": true,
+          "sort_order": 0,
+          "price": {
+            "retail": 286,
+            "sale": null,
+            "intro": null,
+            "effective": 286,
+            "suffix": "/3 mo",
+            "currency": "USD"
+          },
+          "billing": {
+            "period": "quarterly",
+            "period_label": "Quarterly",
+            "mode": "prepaid_term",
+            "mode_label": "Prepaid term",
+            "term_months": 3,
+            "is_recurring": true,
+            "rebill_strategy": null,
+            "rebill_strategy_label": null,
+            "trial_days": null
+          },
+          "requires_lab": false,
+          "provider": {
+            "plan_id": null,
+            "plan_sku": null,
+            "product_ids": []
+          }
+        }
+      ],
+      "faqs": [],
+      "rating": null,
+      "reviews": [],
+      "categories": [
+        {
+          "id": 1,
+          "name": "Skin + Body",
+          "slug": "skin-body",
+          "description": null,
+          "hero_image_url": null,
+          "icon": null,
+          "provider_encounter_type_id": null,
+          "sort_order": 0
+        },
+        {
+          "id": 2,
+          "name": "Intimate Care",
+          "slug": "intimate-care",
+          "description": null,
+          "hero_image_url": null,
+          "icon": null,
+          "provider_encounter_type_id": null,
+          "sort_order": 1
+        }
+      ],
+      "tags": [],
+      "related_refs": [
+        {
+          "type": "product",
+          "slug": "barrier-repair-cream"
+        },
+        {
+          "type": "package",
+          "slug": "sleep-reset-bundle"
+        }
+      ]
+    }
+  ]
+}

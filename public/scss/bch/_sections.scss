@@ -1,0 +1,820 @@
+// BCH section components. Mobile first; min-width breakpoints only.
+
+@use "tokens" as *;
+
+// ─── Hero ──────────────────────────────────────────────────────────────
+.bch-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--bch-ivory);
+  overflow: hidden;
+
+  @media (min-width: $bch-md) {
+    min-height: clamp(520px, 68vh, 700px);
+    justify-content: center;
+  }
+}
+
+.bch-hero__media {
+  position: relative;
+  height: 34vh;
+  min-height: 210px;
+  max-height: 300px;
+
+  @media (min-width: $bch-md) {
+    position: absolute;
+    inset: 0;
+    height: auto;
+    max-height: none;
+  }
+
+  img,
+  .bch-hero__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 62% 30%;
+    display: block;
+  }
+
+  .bch-hero__video {
+    position: absolute;
+    inset: 0;
+  }
+
+  // Wash on the copy side so text stays readable over the photograph.
+  @media (min-width: $bch-md) {
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        90deg,
+        rgb(255 255 255 / 0.94) 0%,
+        rgb(255 255 255 / 0.86) 30%,
+        rgb(255 255 255 / 0.35) 52%,
+        rgb(255 255 255 / 0) 64%
+      );
+      pointer-events: none;
+    }
+  }
+}
+
+.bch-hero__picture {
+  display: contents;
+}
+
+.bch-hero__inner {
+  position: relative;
+  z-index: 1;
+  padding-block: 1.75rem 2.25rem;
+
+  @media (min-width: $bch-md) {
+    padding-block: 4rem;
+  }
+}
+
+.bch-hero__copy {
+  max-width: 36rem;
+
+  @media (min-width: $bch-lg) {
+    max-width: 40rem;
+  }
+}
+
+.bch-hero__title {
+  margin-bottom: 1.25rem;
+}
+
+.bch-hero__lead {
+  margin-bottom: 1.75rem;
+  max-width: 30rem;
+}
+
+.bch-hero__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  .bch-btn {
+    width: 100%;
+  }
+
+  @media (min-width: 480px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .bch-btn {
+      width: auto;
+    }
+  }
+}
+
+.bch-hero__micro {
+  margin: 1.1rem 0 0;
+  font-size: 0.875rem;
+  color: var(--bch-ink);
+}
+
+.bch-hero__micro-link {
+  min-height: 0;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  font-family: var(--bch-font-display);
+}
+
+.bch-hero__pause {
+  position: absolute;
+  z-index: 2;
+  right: var(--bch-gutter);
+  bottom: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 44px;
+  padding: 0.4rem 0.9rem 0.4rem 0.4rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.85);
+  color: var(--bch-ink);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid var(--bch-rose-600);
+    outline-offset: 2px;
+  }
+}
+
+.bch-hero__pause-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bch-charcoal);
+  color: var(--bch-white);
+  font-size: 0.6rem;
+  letter-spacing: 0;
+}
+
+// ─── Trust strip ───────────────────────────────────────────────────────
+.bch-trust {
+  background: var(--bch-white);
+  border-block: 1px solid var(--bch-line);
+}
+
+.bch-trust__list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  list-style: none;
+  margin-block: 0;
+
+  li {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+
+    & + li {
+      border-left: 1px solid var(--bch-line);
+    }
+  }
+
+  a,
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 56px;
+    padding: 0.6rem 0.5rem;
+    font-size: 0.5625rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+    text-transform: uppercase;
+    color: var(--bch-ink);
+    text-decoration: none;
+
+    @media (min-width: $bch-md) {
+      min-height: 60px;
+      font-size: 0.6875rem;
+      letter-spacing: 0.16em;
+    }
+  }
+
+  a:hover {
+    color: var(--bch-rose-600);
+  }
+}
+
+// ─── Split (image + copy) ──────────────────────────────────────────────
+.bch-split {
+  display: grid;
+  gap: 2.25rem;
+  padding-block: var(--bch-section-y);
+  background: var(--bch-white);
+  overflow: hidden;
+
+  @media (min-width: $bch-lg) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    align-items: center;
+    gap: clamp(2.5rem, 5vw, 5rem);
+    padding-block: clamp(4rem, 6vw, 6rem);
+  }
+}
+
+.bch-split__copy {
+  padding-inline: var(--bch-gutter);
+
+  .bch-display {
+    margin-bottom: 1.25rem;
+  }
+
+  .bch-lead {
+    margin-bottom: 1.25rem;
+  }
+
+  @media (min-width: $bch-lg) {
+    padding-inline: max(var(--bch-gutter), calc((100vw - var(--bch-max)) / 2)) 0;
+  }
+}
+
+.bch-split__body {
+  margin-bottom: 1.25rem;
+}
+
+.bch-split__media {
+  position: relative;
+  height: clamp(280px, 70vw, 420px);
+
+  @media (min-width: $bch-lg) {
+    height: clamp(460px, 42vw, 600px);
+  }
+}
+
+.bch-split__picture {
+  display: contents;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+// Organic mask: the inner edge curves, the outer edge bleeds off the page.
+.bch-split--organic.bch-split--right .bch-split__media img {
+  border-radius: 46% 0 0 46% / 60% 0 0 60%;
+  margin-left: var(--bch-gutter);
+  width: calc(100% - var(--bch-gutter));
+
+  @media (min-width: $bch-lg) {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+.bch-split--organic.bch-split--left .bch-split__media img {
+  border-radius: 0 46% 46% 0 / 0 60% 60% 0;
+  width: calc(100% - var(--bch-gutter));
+}
+
+.bch-split--left .bch-split__media {
+  @media (min-width: $bch-lg) {
+    order: -1;
+  }
+}
+
+.bch-split--arch .bch-split__media img {
+  border-radius: 999px 999px 0 0;
+}
+
+.bch-split__note {
+  padding-inline: var(--bch-gutter);
+
+  @media (min-width: $bch-lg) {
+    position: absolute;
+    right: max(var(--bch-gutter), calc((100vw - var(--bch-max)) / 2));
+    bottom: 3rem;
+    padding: 1rem 1.25rem;
+    background: rgb(255 255 255 / 0.9);
+    border-radius: var(--bch-radius);
+  }
+}
+
+.bch-split {
+  @media (min-width: $bch-lg) {
+    position: relative;
+  }
+}
+
+// ─── Health Map teaser ─────────────────────────────────────────────────
+.bch-map {
+  display: grid;
+  gap: 2.25rem;
+  padding-bottom: var(--bch-section-y);
+  background: var(--bch-white);
+
+  @media (min-width: $bch-lg) {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(2.5rem, 5vw, 5rem);
+    padding-bottom: clamp(4rem, 6vw, 6rem);
+  }
+}
+
+.bch-map__media {
+  position: relative;
+}
+
+.bch-map__picture {
+  display: contents;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+.bch-map__note {
+  display: none;
+
+  @media (min-width: $bch-lg) {
+    display: block;
+    position: absolute;
+    left: max(var(--bch-gutter), calc((100vw - var(--bch-max)) / 2));
+    bottom: 2.5rem;
+    padding: 1rem 1.25rem;
+    background: rgb(255 255 255 / 0.9);
+    border-radius: var(--bch-radius);
+  }
+}
+
+.bch-map__copy {
+  padding-inline: var(--bch-gutter);
+
+  .bch-display {
+    margin-bottom: 1.25rem;
+  }
+
+  .bch-lead {
+    margin-bottom: 1.75rem;
+  }
+
+  @media (min-width: $bch-lg) {
+    padding-inline: 0 max(var(--bch-gutter), calc((100vw - var(--bch-max)) / 2));
+  }
+}
+
+.bch-map__card {
+  margin-top: 2.25rem;
+  padding: 1.5rem;
+  background: var(--bch-white);
+  border: 1px solid var(--bch-line);
+  border-radius: var(--bch-radius);
+  box-shadow: var(--bch-shadow);
+  max-width: 32rem;
+
+  .bch-eyebrow {
+    margin-bottom: 1rem;
+  }
+}
+
+.bch-map__list {
+  display: grid;
+  gap: 0.7rem 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  @media (min-width: 480px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.875rem;
+    color: var(--bch-ink);
+  }
+}
+
+.bch-map__check {
+  color: var(--bch-rose);
+  line-height: 0;
+}
+
+.bch-map__caption {
+  margin: 1.1rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--bch-line);
+  font-size: 0.8125rem;
+  color: var(--bch-muted);
+}
+
+// ─── Charcoal statement ────────────────────────────────────────────────
+.bch-statement {
+  position: relative;
+  overflow: hidden;
+  background: var(--bch-charcoal);
+  color: var(--bch-ivory);
+  padding-block: clamp(4rem, 8vw, 6.5rem);
+}
+
+.bch-statement__curve {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 70%;
+  color: var(--bch-rose);
+  opacity: 0.55;
+}
+
+.bch-statement__inner {
+  position: relative;
+  display: grid;
+  gap: 2rem;
+
+  @media (min-width: $bch-lg) {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 4rem;
+  }
+}
+
+.bch-statement__title {
+  color: var(--bch-ivory);
+
+  em {
+    color: var(--bch-rose-300);
+  }
+}
+
+.bch-statement__note {
+  color: var(--bch-ivory);
+
+  @media (min-width: $bch-lg) {
+    padding-left: 2.5rem;
+    border-left: 1px solid rgb(250 246 242 / 0.3);
+  }
+}
+
+// ─── Three paths ───────────────────────────────────────────────────────
+.bch-paths {
+  padding-block: var(--bch-section-y);
+  background: var(--bch-ivory);
+}
+
+.bch-paths__title {
+  text-align: center;
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+
+.bch-paths__list {
+  display: grid;
+  gap: 2.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  @media (min-width: $bch-md) {
+    grid-template-columns: 1.25fr 0.8fr 1.25fr;
+    align-items: end;
+    gap: clamp(1.25rem, 2.5vw, 2.5rem);
+  }
+}
+
+.bch-paths__card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem 1.25rem;
+  align-items: end;
+  color: var(--bch-ink);
+  text-decoration: none;
+
+  &:focus-visible {
+    outline: 2px solid var(--bch-rose-600);
+    outline-offset: 4px;
+  }
+}
+
+.bch-paths__picture {
+  grid-column: 1 / -1;
+  display: block;
+  overflow: hidden;
+
+  img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    transition: transform 0.6s var(--bch-ease);
+  }
+
+  .bch-paths__card:hover & img {
+    transform: scale(1.03);
+  }
+}
+
+// Opposing curves on the outer cards, an arch in the middle.
+.bch-paths__item:nth-child(1) .bch-paths__picture {
+  border-radius: 0 0 0 0;
+  border-top-right-radius: 55% 35%;
+}
+
+.bch-paths__item:nth-child(2) .bch-paths__picture {
+  border-radius: 999px 999px 0 0;
+
+  // The tall arch is a desktop rhythm; stacked on mobile it would dwarf
+  // the other two cards.
+  @media (min-width: $bch-md) {
+    img {
+      aspect-ratio: 3 / 4;
+    }
+  }
+}
+
+.bch-paths__item:nth-child(3) .bch-paths__picture {
+  border-top-left-radius: 55% 35%;
+}
+
+.bch-paths__text {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.bch-paths__label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.bch-paths__body {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--bch-ink);
+  max-width: 22rem;
+}
+
+.bch-paths__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(2.25rem, 4vw, 3.5rem);
+}
+
+// ─── Type-led banner (Membership bridge) ───────────────────────────────
+.bch-banner {
+  padding-block: clamp(2.75rem, 5vw, 3.75rem);
+}
+
+.bch-banner--light {
+  background: var(--bch-blush);
+}
+
+.bch-banner--dark {
+  background: var(--bch-charcoal);
+  color: var(--bch-ivory);
+
+  .bch-display {
+    color: var(--bch-ivory);
+  }
+
+  .bch-eyebrow {
+    color: var(--bch-rose-300);
+  }
+}
+
+.bch-banner__inner {
+  display: grid;
+  gap: 1.5rem;
+
+  @media (min-width: $bch-lg) {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 4rem;
+  }
+}
+
+.bch-banner__copy {
+  .bch-eyebrow {
+    margin-bottom: 0.6rem;
+  }
+
+  .bch-display {
+    margin-bottom: 0.75rem;
+  }
+}
+
+.bch-banner__sub {
+  margin: 0;
+  max-width: 44rem;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+
+.bch-banner__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+// ─── Article row ───────────────────────────────────────────────────────
+.bch-articles {
+  padding-block: var(--bch-section-y) calc(var(--bch-section-y) * 0.6);
+  background: var(--bch-white);
+}
+
+.bch-articles__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem 1.5rem;
+  margin-bottom: 1.5rem;
+
+  .bch-eyebrow {
+    margin: 0;
+    color: var(--bch-ink);
+    font-size: 0.8125rem;
+  }
+}
+
+.bch-articles__grid {
+  display: grid;
+  gap: 1rem;
+
+  @media (min-width: $bch-lg) {
+    grid-template-columns: 1.15fr 1fr;
+  }
+}
+
+.bch-articles__featured {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 240px;
+  overflow: hidden;
+  border-radius: var(--bch-radius);
+  text-decoration: none;
+  color: var(--bch-ivory);
+  background: var(--bch-charcoal);
+
+  &:focus-visible {
+    outline: 2px solid var(--bch-rose-600);
+    outline-offset: 3px;
+  }
+}
+
+.bch-articles__picture {
+  display: block;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 25%;
+  }
+}
+
+.bch-articles__panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+
+  .bch-display {
+    color: var(--bch-ivory);
+  }
+}
+
+.bch-circle-arrow--light {
+  border-color: var(--bch-rose-300);
+  color: var(--bch-ivory);
+}
+
+.bch-articles__list {
+  display: grid;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bch-articles__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  height: 100%;
+  min-height: 112px;
+  padding: 1.25rem 1.5rem;
+  background: var(--bch-ivory);
+  border-radius: var(--bch-radius);
+  color: var(--bch-ink);
+  text-decoration: none;
+
+  &:focus-visible {
+    outline: 2px solid var(--bch-rose-600);
+    outline-offset: 3px;
+  }
+}
+
+.bch-articles__draft {
+  display: block;
+  width: fit-content;
+  margin-bottom: 0.5rem;
+  padding: 0.2rem 0.55rem;
+  border: 1px dashed currentColor;
+  border-radius: 4px;
+  font-family: var(--bch-font-body);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+// ─── Founder strip ─────────────────────────────────────────────────────
+.bch-founder {
+  padding-bottom: var(--bch-section-y);
+  background: var(--bch-white);
+}
+
+.bch-founder__card {
+  display: grid;
+  gap: 1.5rem;
+  padding: 1rem 1rem 1.75rem;
+  background: var(--bch-ivory);
+  border-radius: var(--bch-radius);
+
+  @media (min-width: $bch-lg) {
+    grid-template-columns: 220px 1fr auto auto;
+    align-items: center;
+    gap: 2.5rem;
+    padding: 1rem 2.5rem 1rem 1rem;
+  }
+}
+
+.bch-founder__picture {
+  display: block;
+
+  img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: center 20%;
+    border-radius: 4px;
+  }
+}
+
+.bch-founder__copy {
+  padding-inline: 0.5rem;
+
+  .bch-display {
+    margin-bottom: 0.6rem;
+  }
+
+  @media (min-width: $bch-lg) {
+    padding-inline: 0;
+  }
+}
+
+.bch-founder__body {
+  margin: 0;
+  max-width: 34rem;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.bch-founder__note {
+  padding-inline: 0.5rem;
+
+  @media (min-width: $bch-lg) {
+    padding: 0 0 0 2.5rem;
+    border-left: 1px solid var(--bch-line);
+  }
+}
+
+.bch-founder__cta {
+  padding-inline: 0.5rem;
+
+  @media (min-width: $bch-lg) {
+    padding-inline: 0;
+  }
+}

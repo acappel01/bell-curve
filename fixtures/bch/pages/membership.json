@@ -1,0 +1,172 @@
+{
+  "data": {
+    "slug": "membership",
+    "title": "Membership",
+    "seo": {
+      "title": "Membership & Pricing",
+      "description": "One ongoing-support membership: personalized education and four check-ins a year, $129/month.",
+      "noindex": true
+    },
+    "title_banner": null,
+    "sections": [
+      {
+        "type": "hero",
+        "origin": "code",
+        "anchor": "top",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "layout": "split",
+          "image_shape": "organic",
+          "eyebrow": "BCH Membership",
+          "headline": "Ongoing guidance for the years when your health",
+          "headline_emphasis": "stops fitting into neat categories.",
+          "subhead": "BCH Membership brings your Health Map, personalized education and quarterly check-ins into one ongoing experience designed to evolve with you. $129/month.",
+          "service": "membership",
+          "background_image": {
+            "url": "/images/bch/care-two-women.webp",
+            "alt": "Two women laugh together on a sofa with coffee."
+          }
+        }
+      },
+      {
+        "type": "pricing-tiers",
+        "origin": "code",
+        "anchor": "join",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "eyebrow": "One membership",
+          "heading": "One membership.",
+          "emphasis": "Ongoing support.",
+          "service": "membership",
+          "main_tiers": [
+            {
+              "title": "Monthly",
+              "price": "$129",
+              "price_suffix": "/month",
+              "features": [
+                "Personalized BCH Health Map",
+                "Recommended education based on what you're noticing",
+                "Member guides and resources",
+                "Four structured check-ins per membership year"
+              ],
+              "callout_heading": "Founding member rate",
+              "callout_body": "<p>The first 50 eligible activated members pay $99/month while their membership stays continuously active. If it lapses, the founding rate ends.</p>"
+            },
+            {
+              "title": "Annual",
+              "price": "$1,199",
+              "price_suffix": "/year",
+              "price_note_micro": "Save $349 compared with 12 standard $129 monthly payments.",
+              "features": [
+                "Personalized BCH Health Map",
+                "Recommended education based on what you're noticing",
+                "Member guides and resources",
+                "Four structured check-ins per membership year"
+              ]
+            }
+          ],
+          "footnote": "<p>Joining the waitlist does not reserve a founding-member spot. Full terms are shown at checkout.</p>"
+        }
+      },
+      {
+        "type": "text-block",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "eyebrow": "What's separate",
+          "heading": "Membership is not medical care.",
+          "body": "<p>Clinical visits, laboratory testing, medications, devices and Shop purchases are separate unless a specific checkout offer explicitly states otherwise. Membership does not replace evaluation by a licensed provider. Any applicable clinical review and product costs are shown with the specific care offer before you proceed.</p>",
+          "theme": "cream"
+        }
+      },
+      {
+        "type": "how-it-works",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "eyebrow": "What the year looks like",
+          "heading": "After you join",
+          "theme": "white",
+          "steps": [
+            {
+              "title": "Create your account",
+              "body": "Set up your member account."
+            },
+            {
+              "title": "Complete your Health Map",
+              "body": "Your baseline: what you're noticing and where to begin."
+            },
+            {
+              "title": "See recommended education",
+              "body": "Guides and resources matched to your Health Map."
+            },
+            {
+              "title": "Quarterly check-ins",
+              "body": "Four structured check-ins a year, each updating your next steps."
+            },
+            {
+              "title": "Explore care or shop when useful",
+              "body": "Both stay available on their own, whenever they help."
+            }
+          ]
+        }
+      },
+      {
+        "type": "faq",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "heading": "Membership",
+          "emphasis": "questions.",
+          "faqs": [
+            {
+              "q": "How do I cancel?",
+              "a": "<p>The cancellation steps and when your last billing period ends are set out in the membership terms and repeated at checkout before you pay.</p>"
+            },
+            {
+              "q": "When does my membership renew?",
+              "a": "<p>Monthly memberships renew monthly and annual memberships yearly. Checkout shows your renewal date and cadence before you pay.</p>"
+            },
+            {
+              "q": "Who gets the founding-member rate?",
+              "a": "<p>The first 50 eligible activated members pay $99/month while their membership stays continuously active. If it is cancelled or lapses, the rate ends and can't be restored. Joining the waitlist does not reserve a spot.</p>"
+            },
+            {
+              "q": "How does annual billing work?",
+              "a": "<p>Annual membership is $1,199, billed once a year. That is $349 less than 12 standard monthly payments of $129.</p>"
+            },
+            {
+              "q": "Does membership include clinical care, labs or products?",
+              "a": "<p>No. Clinical visits, labs, medications, devices and shop purchases are separate unless a specific offer says otherwise.</p>"
+            },
+            {
+              "q": "Do I need membership to use care or the shop?",
+              "a": "<p>No. Care, the shop and the free Health Map are each available on their own.</p>"
+            }
+          ]
+        }
+      },
+      {
+        "type": "cta-banner",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "heading": "Stay ahead",
+          "emphasis": "of the curve.",
+          "theme": "dark",
+          "service": "membership"
+        }
+      }
+    ]
+  }
+}

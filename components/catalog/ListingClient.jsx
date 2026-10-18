@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import LayoutHandler from "./LayoutHandler";
 import Sidebar from "./Sidebar";
 import FilterModal from "./FilterModal";
 import { PackageListingCard, ProductListingCard } from "./cards";
-import { SORT_OPTIONS, slugFilterKeys, sortLabel } from "./query";
+import { SORT_OPTIONS, sortLabel } from "./query";
+import useListingFilters from "./useListingFilters";
 
 /**
  * Client shell for the catalog listing pages — a port of theme-reference
@@ -15,141 +15,35 @@ import { SORT_OPTIONS, slugFilterKeys, sortLabel } from "./query";
  * desktop sidebar, mobile #filterShop offcanvas, grid/list layouts,
  * pagination).
  *
- * All filter state lives in the URL: widgets call router.replace with new
- * query params and the parent server component refetches from the API. The
- * theme's in-memory reducer filtering over demo data is replaced by that
- * round trip; markup and classNames are unchanged.
+ * All filter state lives in the URL (see `useListingFilters`, shared with the
+ * Bell Curve listing): widgets rewrite the query params and the parent server
+ * component refetches from the API. Markup and classNames are the theme's.
  */
 export default function ListingClient({ kind, items, meta, facets }) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
   const [activeLayout, setActiveLayout] = useState(3);
 
-  const priceBounds = facets?.price ?? null;
-  const defaultPrice = useMemo(
-    () => [priceBounds?.min ?? 0, priceBounds?.max ?? 0],
-    [priceBounds],
-  );
-
-  const filters = useMemo(() => {
-    const value = {};
-    for (const key of [...slugFilterKeys(kind), "in_stock", "price_min", "price_max", "sort"]) {
-      value[key] = searchParams.get(key) ?? "";
-    }
-    return value;
-  }, [searchParams, kind]);
-
-  const urlPrice = [
-    filters.price_min !== "" ? Number(filters.price_min) : defaultPrice[0],
-    filters.price_max !== "" ? Number(filters.price_max) : defaultPrice[1],
-  ];
-
-  // Slider position while dragging; committed to the URL on release.
-  const [price, setPrice] = useState(urlPrice);
-  useEffect(() => {
-    setPrice(urlPrice);
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- resync when the URL-derived range changes
-  }, [filters.price_min, filters.price_max, defaultPrice[0], defaultPrice[1]]);
-
-  /** Apply query-param mutations ({key: value|null}) and reset pagination. */
-  const updateParams = (mutations) => {
-    const next = new URLSearchParams(searchParams.toString());
-    for (const [key, value] of Object.entries(mutations)) {
-      if (value === null || value === "") {
-        next.delete(key);
-      } else {
-        next.set(key, value);
-      }
-    }
-    next.delete("page");
-    const query = next.toString();
-    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
-  };
-
-  const priceActive =
-    priceBounds && (filters.price_min !== "" || filters.price_max !== "");
+  const {
+    filters,
+    price,
+    appliedTags,
+    updateParams,
+    clearAll,
+    pageHref,
+    onPriceChange,
+    onPriceCommit,
+    onToggleFilter,
+    onSetAvailability,
+  } = useListingFilters({ kind, facets });
 
   const widgetProps = {
     kind,
     facets,
     filters,
     price,
-    onPriceChange: (value) => setPrice(value),
-    onPriceCommit: (value) =>
-      updateParams({
-        price_min: value[0] > defaultPrice[0] ? String(value[0]) : null,
-        price_max: value[1] < defaultPrice[1] ? String(value[1]) : null,
-      }),
-    onToggleFilter: (key, slug) =>
-      updateParams({ [key]: filters[key] === slug ? null : slug }),
-    onSetAvailability: (inStock) => updateParams({ in_stock: inStock ? "1" : "0" }),
-  };
-
-  /** Facet display name for an applied-filter tag. */
-  const facetName = (list, slug) => list?.find((item) => item.slug === slug)?.name ?? slug;
-
-  const appliedTags = [
-    filters.in_stock !== "" && {
-      label: `Availability: ${filters.in_stock === "1" ? "In Stock" : "Unavailable"}`,
-      clear: { in_stock: null },
-    },
-    // Goal leads the sidebar, so it needs a chip like every other slug filter.
-    // Without one, filtering by goal alone left the whole meta bar absent: no
-    // result count, no removable chip, no "Clear all filter".
-    filters.goal && {
-      label: `Health Goal: ${facetName(facets?.goals, filters.goal)}`,
-      clear: { goal: null },
-    },
-    filters.category && {
-      label: `Category: ${facetName(facets?.categories, filters.category)}`,
-      clear: { category: null },
-    },
-    filters.class && {
-      label: `Class: ${facetName(facets?.classes, filters.class)}`,
-      clear: { class: null },
-    },
-    filters.type && {
-      label: `Type: ${facetName(facets?.types, filters.type)}`,
-      clear: { type: null },
-    },
-    filters.form && {
-      label: `Form: ${facetName(facets?.forms, filters.form)}`,
-      clear: { form: null },
-    },
-    filters.ingredient && {
-      label: `Compound: ${facetName(facets?.ingredients, filters.ingredient)}`,
-      clear: { ingredient: null },
-    },
-    filters.tag && {
-      label: `Tag: ${facetName(facets?.tags, filters.tag)}`,
-      clear: { tag: null },
-    },
-    priceActive && {
-      label: `Price: $${price[0]} - $${price[1]}`,
-      clear: { price_min: null, price_max: null },
-    },
-  ].filter(Boolean);
-
-  const clearAll = () => {
-    const mutations = { in_stock: null, price_min: null, price_max: null };
-    for (const key of slugFilterKeys(kind)) {
-      mutations[key] = null;
-    }
-    updateParams(mutations);
-  };
-
-  /** Pagination href for a page number, preserving the current filters. */
-  const pageHref = (page) => {
-    const next = new URLSearchParams(searchParams.toString());
-    if (page > 1) {
-      next.set("page", String(page));
-    } else {
-      next.delete("page");
-    }
-    const query = next.toString();
-    return query ? `${pathname}?${query}` : pathname;
+    onPriceChange,
+    onPriceCommit,
+    onToggleFilter,
+    onSetAvailability,
   };
 
   const currentPage = meta?.current_page ?? 1;

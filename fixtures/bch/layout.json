@@ -1,0 +1,59 @@
+{
+  "data": {
+    "regions": {
+      "header": [
+        {
+          "kind": "menu",
+          "menu": {
+            "slug": "main",
+            "name": "Main",
+            "items": [
+              { "id": 1, "label": "Telehealth Care", "link": { "type": "page", "slug": "clinical-care" }, "children": [] },
+              { "id": 2, "label": "Shop", "link": { "type": "page", "slug": "shop" }, "children": [] },
+              { "id": 3, "label": "Membership", "link": { "type": "page", "slug": "membership" }, "children": [] },
+              { "id": 4, "label": "Health Map", "link": { "type": "page", "slug": "assessment" }, "children": [] },
+              { "id": 5, "label": "Learn", "link": { "type": "page", "slug": "midlife-health" }, "children": [] },
+              { "id": 6, "label": "About", "link": { "type": "page", "slug": "about" }, "children": [] },
+              { "id": 7, "label": "Start Here", "badge": "cta", "link": { "type": "url", "url": "/start-here" }, "children": [] }
+            ]
+          }
+        }
+      ],
+      "footer": [
+        {
+          "kind": "menu",
+          "menu": {
+            "slug": "footer-explore",
+            "name": "Explore",
+            "items": [
+              { "id": 11, "label": "Telehealth Care", "link": { "type": "page", "slug": "clinical-care" } },
+              { "id": 12, "label": "Shop", "link": { "type": "page", "slug": "shop" } },
+              { "id": 13, "label": "Membership", "link": { "type": "page", "slug": "membership" } },
+              { "id": 14, "label": "Health Map", "link": { "type": "page", "slug": "assessment" } },
+              { "id": 15, "label": "Learn", "link": { "type": "page", "slug": "midlife-health" } },
+              { "id": 17, "label": "Library", "link": { "type": "url", "url": "/blog" } },
+              { "id": 16, "label": "About", "link": { "type": "page", "slug": "about" } }
+            ]
+          }
+        },
+        {
+          "kind": "menu",
+          "menu": {
+            "slug": "footer-legal",
+            "name": "Legal",
+            "items": [
+              { "id": 21, "label": "Privacy", "link": { "type": "page", "slug": "legal/privacy-policy" } },
+              { "id": 22, "label": "Terms", "link": { "type": "page", "slug": "legal/terms-of-use" } },
+              { "id": 23, "label": "Medical Disclaimer", "link": { "type": "page", "slug": "legal/medical-disclaimer" } },
+              { "id": 24, "label": "Contact", "link": { "type": "page", "slug": "contact" } }
+            ]
+          }
+        }
+      ],
+      "pre_footer": [],
+      "sidebar": [],
+      "before_content": [],
+      "after_content": []
+    }
+  }
+}

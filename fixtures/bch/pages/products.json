@@ -1,0 +1,81 @@
+{
+  "data": {
+    "slug": "products",
+    "title": "All products",
+    "seo": {
+      "title": "Shop all wellness",
+      "description": "Non-prescription wellness products for midlife.",
+      "noindex": true
+    },
+    "title_banner": null,
+    "sections": [
+      {
+        "type": "hero",
+        "origin": "code",
+        "anchor": "top",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "layout": "split",
+          "size": "compact",
+          "eyebrow": "The BCH Wellness Shop",
+          "headline": "Shop",
+          "headline_emphasis": "all wellness.",
+          "subhead": "Non-prescription products for everyday midlife wellbeing. Filter by what you're noticing, or choose a bundle.",
+          "service": "shop"
+        }
+      },
+      {
+        "type": "catalog-listing",
+        "origin": "code",
+        "anchor": "products",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "kind": "product",
+          "layout": "grid",
+          "columns": 3,
+          "filter_style": "sidebar",
+          "filters": [
+            "goal",
+            "category",
+            "price",
+            "availability"
+          ],
+          "labels": {
+            "goal": "Concern"
+          },
+          "show_sort": true,
+          "show_count": true,
+          "show_search": true,
+          "per_page": 9,
+          "kind_tabs": [
+            {
+              "label": "All products",
+              "url": "/products"
+            },
+            {
+              "label": "Bundles + plans",
+              "url": "/stacks"
+            }
+          ]
+        }
+      },
+      {
+        "type": "cta-banner",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "eyebrow": "Prescription care",
+          "heading": "Looking for prescription care?",
+          "theme": "light",
+          "sub": "Clinical treatments require a separate licensed-provider evaluation and aren't purchased in this shop.",
+          "primary_cta_label": "Explore telehealth care",
+          "primary_cta_url": "/clinical-care"
+        }
+      }
+    ]
+  }
+}

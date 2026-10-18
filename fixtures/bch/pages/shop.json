@@ -1,0 +1,122 @@
+{
+  "data": {
+    "slug": "shop",
+    "title": "Shop",
+    "seo": {
+      "title": "The BCH Wellness Shop",
+      "description": "Thoughtfully chosen, non-prescription support for everyday midlife wellbeing.",
+      "noindex": true
+    },
+    "title_banner": null,
+    "sections": [
+      {
+        "type": "hero",
+        "origin": "code",
+        "anchor": "top",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "layout": "split",
+          "image_shape": "corner",
+          "eyebrow": "Bell Curve Health wellness",
+          "headline": "The BCH",
+          "headline_emphasis": "Wellness Shop",
+          "subhead": "Thoughtfully chosen support for how you want to feel next. Browse approved non-prescription products for everyday midlife wellbeing, with clear information about what each product is and how to use it.",
+          "service": "shop",
+          "background_image": {
+            "url": "/images/bch/shop-vanity.webp",
+            "alt": "A woman in her forties smiles at her reflection at a bright bathroom vanity."
+          }
+        }
+      },
+      {
+        "type": "bch-waitlist",
+        "origin": "flexible",
+        "anchor": "notify",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "eyebrow": "Opening soon",
+          "heading": "Be first to know",
+          "emphasis": "when the shop opens.",
+          "body": "We're finalising our first products with real labels and real photography. Leave your email and we'll let you know when they're available.",
+          "service": "shop",
+          "ask_state": false,
+          "consent_label": "Also send me Bell Curve Health news and education. (Optional)",
+          "submit_label": "Notify me",
+          "success_message": "Thank you. We'll email you when the shop opens.",
+          "privacy_note": "We use this only to tell you when the shop opens."
+        }
+      },
+      {
+        "type": "cta-banner",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "eyebrow": "Prescription care",
+          "heading": "Looking for prescription care?",
+          "theme": "light",
+          "sub": "Clinical treatments require a separate licensed-provider evaluation and aren't purchased in this shop.",
+          "primary_cta_label": "Explore telehealth care",
+          "primary_cta_url": "/clinical-care"
+        }
+      },
+      {
+        "type": "image-text-split",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "eyebrow": "Emerging science",
+          "heading": "Curious about",
+          "emphasis": "what's still being studied?",
+          "lead": "Some areas of midlife health are still developing. We cover them as education, with what's established, evolving or uncertain clearly marked. Nothing here is for sale.",
+          "image": {
+            "url": "/images/bch/shop-emerging-science.webp",
+            "alt": "A woman reads research notes at a sunlit table with a laptop and journals."
+          },
+          "image_right": true,
+          "image_shape": "arch",
+          "theme": "light",
+          "cta_label": "Read the research",
+          "cta_url": "/midlife-health"
+        }
+      },
+      {
+        "type": "features-grid",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "eyebrow": "Order help",
+          "columns": "3",
+          "theme": "ivory",
+          "features": [
+            {
+              "title": "Shipping",
+              "body": "Where we ship and how long it takes.",
+              "cta_label": "Shipping details",
+              "cta_url": "/legal/refund-cancellation-and-return-policy"
+            },
+            {
+              "title": "Returns",
+              "body": "How returns and refunds work.",
+              "cta_label": "Return policy",
+              "cta_url": "/legal/refund-cancellation-and-return-policy"
+            },
+            {
+              "title": "Support",
+              "body": "Questions about an order or a product.",
+              "cta_label": "Contact us",
+              "cta_url": "/contact"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

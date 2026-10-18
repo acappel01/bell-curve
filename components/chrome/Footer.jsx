@@ -1,108 +1,104 @@
-"use client";
 import Link from "next/link";
-import { useEffect } from "react";
 import { menuLinkHref } from "@/lib/routes";
 
+/** Tabler icon per /config contact.social key. Unknown keys are skipped. */
+const SOCIAL_ICONS = {
+  instagram: "ti-brand-instagram",
+  facebook: "ti-brand-facebook",
+  twitter: "ti-brand-x",
+  linkedin: "ti-brand-linkedin",
+  tiktok: "ti-brand-tiktok",
+  youtube: "ti-brand-youtube",
+};
+
+function MenuLinks({ menu }) {
+  return (
+    <ul>
+      {menu.items.map((item) => (
+        <li key={item.id}>
+          <Link href={menuLinkHref(item.link)} target={item.target || undefined}>
+            {item.label}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 /**
- * Site footer (port of theme Footer4): brand block + one column per menu
- * mounted in the backend's `footer` region, © line from brand name.
+ * Charcoal site footer. Every piece is API-driven:
  *
- * `sections` is ALREADY-RENDERED JSX, not data. Global blocks an operator
- * mounted in the footer region are rendered by SectionRenderer in the server
- * shell and handed down, because this component is a client boundary and
- * importing the section registry through it would drag every section
- * component to the browser. They sit above the copyright line, which is
- * where a site-wide legal disclaimer belongs — authored once as a global
- * block, shown on every page the template renders.
- * The mobile accordion (tap a column heading to expand) is the theme's
- * behavior, kept client-side; on desktop columns are always open via CSS.
+ * - the light logo variant from /config brand (`logo_light_url`, falling back
+ *   to `logo_url`), and the brand tagline;
+ * - the FIRST menu mounted in the footer region as the main link row, and any
+ *   further menus (legal, contact) as the small links on the bottom bar;
+ * - social links from /config contact.social, shown only when set;
+ * - `sections`: already-rendered global blocks an operator mounted in the
+ *   footer region. They arrive as JSX because rendering SectionRenderer in
+ *   here would pull every section component into this module.
+ *
+ * Kept deliberately restrained: the client asked for no long disclaimers in
+ * the footer. Full policies live in the legal pages the menus link to.
  */
-export default function Footer({ brand, menus, sections = null }) {
-  useEffect(() => {
-    const headings = document.querySelectorAll(".footer-heading-mobile");
-
-    const toggleOpen = (event) => {
-      const parent = event.target.closest(".footer-col-block");
-      const content = parent.querySelector(".tf-collapse-content");
-
-      if (parent.classList.contains("open")) {
-        parent.classList.remove("open");
-        content.style.height = "0px";
-      } else {
-        parent.classList.add("open");
-        content.style.height = content.scrollHeight + 10 + "px";
-      }
-    };
-
-    headings.forEach((heading) => heading.addEventListener("click", toggleOpen));
-
-    return () => {
-      headings.forEach((heading) => heading.removeEventListener("click", toggleOpen));
-    };
-  }, []);
+export default function Footer({ brand, menus, contact = null, sections = null }) {
+  const [primary, ...secondary] = menus ?? [];
+  const logo = brand?.logo_light_url || brand?.logo_url;
+  const social = Object.entries(contact?.social ?? {}).filter(
+    ([key, url]) => url && SOCIAL_ICONS[key]
+  );
 
   return (
-    <footer id="footer" className="footer-default xl-pb-70">
-      <div className="footer-body line-top">
-        <div className="container">
-          <div className="row-footer">
-            <div className="footer-col-block s1 border-0">
-              <div className="footer-logo mb_32">
-                <Link href="/">
-                  {brand?.logo_url ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img className="logo" alt={brand?.name || "logo"} src={brand.logo_url} height={33} />
-                  ) : (
-                    <strong className="logo">{brand?.name || ""}</strong>
-                  )}
-                </Link>
-              </div>
-              {brand?.tagline ? (
-                <div className="tf-collapse-content">
-                  <div className="footer-contact">
-                    <h5>{brand.tagline}</h5>
-                  </div>
-                </div>
-              ) : null}
+    <footer className="bch-footer">
+      <div className="bch-container bch-footer__main">
+        <Link href="/" className="bch-footer__logo">
+          {logo ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={logo} alt={brand?.name || "Home"} width={88} height={88} />
+          ) : (
+            <strong>{brand?.name}</strong>
+          )}
+        </Link>
+
+        <div>
+          {primary ? (
+            <nav className="bch-footer__nav" aria-label={primary.name}>
+              <MenuLinks menu={primary} />
+            </nav>
+          ) : null}
+          {social.length ? (
+            <div className="bch-footer__social">
+              {social.map(([key, url]) => (
+                <a key={key} href={url} target="_blank" rel="noopener noreferrer">
+                  <i className={`ti ${SOCIAL_ICONS[key]}`} aria-hidden="true" />
+                  <span className="bch-visually-hidden">{key}</span>
+                </a>
+              ))}
             </div>
-            {(menus ?? []).map((menu) => (
-              <div key={menu.slug} className="footer-inner-wrap s3 border-0 mb_20">
-                <div className="footer-col-block inner-col">
-                  <div className="footer-heading footer-heading-mobile text-xl fw-bold font-3">
-                    {menu.name}
-                  </div>
-                  <div className="tf-collapse-content">
-                    <ul className="footer-menu-list">
-                      {menu.items.map((item) => (
-                        <li key={item.id}>
-                          <Link href={menuLinkHref(item.link)} target={item.target || undefined}>
-                            {item.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          ) : null}
         </div>
+
+        {brand?.tagline ? (
+          <p className="bch-footer__tagline">
+            {brand.tagline}
+            <span className="bch-heart" aria-hidden="true">
+              ♥
+            </span>
+          </p>
+        ) : null}
       </div>
-      {sections ? <div className="footer-sections">{sections}</div> : null}
-      <div className="footer-bottom">
-        <div className="container">
-          <div className="footer-bottom-wrap">
-            <p className="text-dark">
-              Copyright © {new Date().getFullYear()}
-              {brand?.name ? (
-                <>
-                  {" by "}
-                  <span className="fw-medium">{brand.name}</span>
-                </>
-              ) : null}{" "}
-              All Rights Reserved.
-            </p>
-          </div>
+
+      {sections ? <div className="bch-footer__sections">{sections}</div> : null}
+
+      <div className="bch-footer__bottom">
+        <div className="bch-container">
+          <p>
+            © {new Date().getFullYear()} {brand?.name}. All rights reserved.
+          </p>
+          {secondary.map((menu) => (
+            <nav key={menu.slug} aria-label={menu.name}>
+              <MenuLinks menu={menu} />
+            </nav>
+          ))}
         </div>
       </div>
     </footer>

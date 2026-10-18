@@ -17,6 +17,13 @@
  * than carrying copies of them — so the envelope stays self-contained for
  * every other type and the payload is not duplicated.
  *
+ * `query` is the page's search params, for the few types whose content is a
+ * filtered listing (`catalog-listing`, `blog-listing`): filters live in the
+ * URL so a filtered view is a shareable, server-rendered page. Only the
+ * listing routes pass it (see CmsPageView's `cmsOverride`); null means "not a
+ * filterable page", and a listing then renders as a fixed collection. Every
+ * other type ignores it. Listings on one page share the query string.
+ *
  * The operator's presentation knobs live in lib/sectionKnobs.js, shared with
  * ChildBlockRenderer: a knob means the same thing on a typed sub-block as on
  * the section holding it, so the JS is one implementation. The CSS is not —
@@ -37,36 +44,53 @@ import PackageSliderSection from "@/components/sections/PackageSliderSection";
 import ProductSliderSection from "@/components/sections/ProductSliderSection";
 import QuizCtaSection from "@/components/sections/QuizCtaSection";
 import QuizSection from "@/components/sections/QuizSection";
-import HeroSection from "@/components/sections/HeroSection";
-import HowItWorksSection from "@/components/sections/HowItWorksSection";
-import TestimonialsSection from "@/components/sections/TestimonialsSection";
-import TextBlockSection from "@/components/sections/TextBlockSection";
 import TimelineSection from "@/components/sections/TimelineSection";
 import FaqCategoriesSection from "@/components/sections/FaqCategoriesSection";
-import FaqSection from "@/components/sections/FaqSection";
 import ItemFaqsSection from "@/components/sections/ItemFaqsSection";
 import ItemReviewsSection from "@/components/sections/ItemReviewsSection";
 import FinalCtaSection from "@/components/sections/FinalCtaSection";
-import ImageTextSplitSection from "@/components/sections/ImageTextSplitSection";
 import PhysiciansSection from "@/components/sections/PhysiciansSection";
 import ResultsStatsSection from "@/components/sections/ResultsStatsSection";
 import StatsMarqueeSection from "@/components/sections/StatsMarqueeSection";
 import StorySection from "@/components/sections/StorySection";
 import VideoEmbedSection from "@/components/sections/VideoEmbedSection";
 
+// Bell Curve Health template components.
+import ArticleRowSection from "@/components/bch/ArticleRowSection";
+import CardsSection from "@/components/bch/CardsSection";
+import FaqSection from "@/components/bch/FaqSection";
+import PricingSection from "@/components/bch/PricingSection";
+import ProseSection from "@/components/bch/ProseSection";
+import StepsSection from "@/components/bch/StepsSection";
+import TestimonialsSection from "@/components/bch/TestimonialsSection";
+import WaitlistSection from "@/components/bch/WaitlistSection";
+import FormSection from "@/components/bch/FormSection";
+import CatalogListingSection from "@/components/bch/catalog/CatalogListingSection";
+import BlogListingSection from "@/components/bch/blog/BlogListingSection";
+import CtaBannerSection from "@/components/bch/CtaBannerSection";
+import FounderSection from "@/components/bch/FounderSection";
+import HealthMapTeaserSection from "@/components/bch/HealthMapTeaserSection";
+import HeroSection from "@/components/bch/HeroSection";
+import PathsSection from "@/components/bch/PathsSection";
+import SplitSection from "@/components/bch/SplitSection";
+import StatementSection from "@/components/bch/StatementSection";
+import TrustStripSection from "@/components/bch/TrustStripSection";
+
 const SECTION_COMPONENTS = {
   hero: HeroSection,
-  "how-it-works": HowItWorksSection,
+  "how-it-works": StepsSection,
+  "features-grid": CardsSection,
+  "pricing-tiers": PricingSection,
   testimonials: TestimonialsSection,
-  "text-block": TextBlockSection,
+  "text-block": ProseSection,
   faq: FaqSection,
   "faq-categories": FaqCategoriesSection,
   "final-cta": FinalCtaSection,
   "quiz-cta": QuizCtaSection,
   quiz: QuizSection,
   "html-block": HtmlBlockSection,
-  "cta-banner": FinalCtaSection,
-  "image-text-split": ImageTextSplitSection,
+  "cta-banner": CtaBannerSection,
+  "image-text-split": SplitSection,
   physicians: PhysiciansSection,
   "stats-marquee": StatsMarqueeSection,
   "results-stats": ResultsStatsSection,
@@ -89,6 +113,19 @@ const SECTION_COMPONENTS = {
   // Flexible (admin-defined) types can also be registered here by slug for
   // exact theme markup; unregistered ones fall through to FlexibleSection.
   "comparison-table": ComparisonTableSection,
+  // BCH flexible types. Their schemas live in fixtures/bch and are what the
+  // backend seeder registers as Custom Section Types.
+  "bch-trust-strip": TrustStripSection,
+  "bch-health-map-teaser": HealthMapTeaserSection,
+  "bch-statement": StatementSection,
+  "bch-paths": PathsSection,
+  "bch-article-row": ArticleRowSection,
+  "bch-founder": FounderSection,
+  "bch-waitlist": WaitlistSection,
+  "bch-form": FormSection,
+  // Listings as sections (code blueprint proposals; see each component).
+  "catalog-listing": CatalogListingSection,
+  "blog-listing": BlogListingSection,
 };
 
 /**
@@ -145,17 +182,18 @@ function PlaceholderSection({ section }) {
  *
  * THE CHECK CANNOT LIVE INSIDE PlaceholderSection, which is where it was first
  * written. Returning null from the component still leaves the knob wrapper
- * below, and every one of the six unregistered types carries a LayoutDefaults
+ * below, and every unregistered type carries a LayoutDefaults
  * entry, so the wrapper always renders: an operator who set `style_padding_top: lg`
  * and a background colour would get a padded, painted, entirely empty band in
  * the middle of the page. Dropping the whole entry here — above `knobs()` — is
  * the only place "renders nothing" is true of the DOM and not just of the
  * component. Caught by fable-review-gate before this shipped.
  *
- * Latent rather than live: as of 2026-08-25 none of the six (`features-grid`,
- * `package-pricing-comparison`, `pricing-tiers`, `product-callout`,
- * `product-grid`, `transformed`) is placed on any row of page_sections,
- * catalog_item_sections or global_sections. Gated now because placing one is a
+ * Latent rather than live: as of 2026-08-25 none of the then-unregistered six
+ * (`features-grid`, `package-pricing-comparison`, `pricing-tiers`,
+ * `product-callout`, `product-grid`, `transformed`) was placed on any row of
+ * page_sections, catalog_item_sections or global_sections. The Bell Curve
+ * template has since registered `features-grid` and `pricing-tiers`. Gated now because placing one is a
  * single click in the admin and the failure would be silent to whoever clicked.
  *
  * The warn is a trace, not a per-request alarm: on a statically prerendered
@@ -175,7 +213,7 @@ function isDroppedInProduction(Component, section) {
   return true;
 }
 
-export default function SectionRenderer({ sections, item = null }) {
+export default function SectionRenderer({ sections, item = null, query = null }) {
   if (!sections?.length) {
     return null;
   }
@@ -214,11 +252,11 @@ export default function SectionRenderer({ sections, item = null }) {
     if (className) {
       return (
         <div key={key} className={className} style={style}>
-          <Component section={section} item={item} />
+          <Component section={section} item={item} query={query} />
         </div>
       );
     }
 
-    return <Component key={key} section={section} item={item} />;
+    return <Component key={key} section={section} item={item} query={query} />;
   });
 }

@@ -1,0 +1,230 @@
+{
+  "data": {
+    "slug": "home",
+    "title": "Home",
+    "seo": {
+      "title": "Bell Curve Health | Women's Midlife Telehealth + Wellness",
+      "description": "Licensed telehealth care, personalized midlife guidance and a curated wellness shop for women, together in one modern place.",
+      "noindex": true
+    },
+    "title_banner": null,
+    "sections": [
+      {
+        "type": "hero",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "layout": "banner",
+          "eyebrow": "Women's Midlife Telehealth + Wellness",
+          "headline": "Doing everything right\u2060—but still not feeling",
+          "headline_emphasis": "like yourself?",
+          "subhead": "Bell Curve Health brings licensed telehealth care, personalized midlife guidance, and a curated wellness shop together in one modern place.",
+          "primary_cta_label": "Explore Telehealth Care",
+          "primary_cta_url": "/clinical-care",
+          "secondary_cta_label": "Shop Wellness",
+          "secondary_cta_url": "/shop",
+          "trust_microcopy": "Not sure where to begin?",
+          "microcopy_link_label": "Start your free Health Map",
+          "microcopy_link_url": "/assessment",
+          "background_image": {
+            "url": "/images/bch/hero-coffee-2400.webp",
+            "alt": "A smiling woman in a white shirt pours coffee in a bright kitchen."
+          },
+          "background_image_mobile": {
+            "url": "/images/bch/hero-coffee-mobile.webp",
+            "alt": "A smiling woman in a white shirt pours coffee in a bright kitchen."
+          },
+          "background_video": null
+        }
+      },
+      {
+        "type": "bch-trust-strip",
+        "origin": "flexible",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "items": [
+            { "label": "Licensed Telehealth Care", "url": "/clinical-care" },
+            { "label": "Curated Wellness Shop", "url": "/shop" },
+            { "label": "Education + Personalized Guidance", "url": "/midlife-health" }
+          ]
+        }
+      },
+      {
+        "type": "image-text-split",
+        "origin": "code",
+        "anchor": "recognition",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "heading": "Your body didn't stop responding.",
+          "emphasis": "The rules changed.",
+          "lead": "Hormones, metabolism, sleep and stress can shift in midlife. Understanding what changed is the first step forward.",
+          "cta_label": "See what may be changing",
+          "cta_url": "/midlife-health",
+          "image": { "url": "/images/bch/cellular-detail.webp", "alt": "" },
+          "image_alt": "",
+          "image_right": true,
+          "image_shape": "organic",
+          "side_note": "Real science.\nClearer answers."
+        }
+      },
+      {
+        "type": "bch-health-map-teaser",
+        "origin": "flexible",
+        "anchor": "health-map",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "heading": "Your symptoms tell a story.",
+          "emphasis": "Let's connect the dots.",
+          "body": "Take a few minutes to explore your symptoms and goals. Your BCH Health Map helps you see the bigger picture and identifies a more useful place to begin.",
+          "cta_label": "Start my Health Map",
+          "cta_url": "/assessment",
+          "image": {
+            "url": "/images/bch/health-map-writing.webp",
+            "alt": "A hand writes in a notebook beside a cup of coffee and reading glasses."
+          },
+          "side_note": "Insights\nlead to\nprogress.",
+          "card_title": "Your BCH Health Map",
+          "card_caption": "Nine short questions. Six educational pathways. No scores, no diagnosis.",
+          "categories": [
+            { "label": "Hormonal Shifts" },
+            { "label": "Metabolic Health" },
+            { "label": "Energy + Resilience" },
+            { "label": "Advocacy + Understanding" },
+            { "label": "Labs + Your Data" },
+            { "label": "Growing Well + Longevity" }
+          ]
+        }
+      },
+      {
+        "type": "bch-statement",
+        "origin": "flexible",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "heading": "Midlife isn't the end of",
+          "emphasis": "feeling like yourself.",
+          "side_note": "More knowledge.\nA brighter tomorrow."
+        }
+      },
+      {
+        "type": "bch-paths",
+        "origin": "flexible",
+        "anchor": "paths",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "heading": "Choose the next step that fits you.",
+          "items": [
+            {
+              "label": "Care",
+              "body": "Explore licensed telehealth options for eligible midlife needs.",
+              "url": "/clinical-care",
+              "image": {
+                "url": "/images/bch/care-two-women.webp",
+                "alt": "Two women laugh together on a sofa with coffee."
+              }
+            },
+            {
+              "label": "Shop",
+              "body": "Shop curated wellness essentials or explore care options that require a licensed-provider review.",
+              "url": "/shop",
+              "image": {
+                "url": "/images/bch/shop-vanity.webp",
+                "alt": "A woman smiles at her reflection at a bright bathroom vanity."
+              }
+            },
+            {
+              "label": "Guidance",
+              "body": "Use the Health Map and education to find a clearer next step.",
+              "url": "/assessment",
+              "image": {
+                "url": "/images/bch/guidance-telehealth.webp",
+                "alt": "A woman at home talks with someone on a laptop video call."
+              }
+            }
+          ],
+          "cta_label": "Explore my options",
+          "cta_url": "/how-it-works"
+        }
+      },
+      {
+        "type": "cta-banner",
+        "origin": "code",
+        "anchor": "membership",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "theme": "light",
+          "eyebrow": "BCH Membership",
+          "heading": "Looking for ongoing support?",
+          "sub": "BCH Membership adds personalized education, quarterly check-ins and eligible member pricing. It is optional and does not include clinical care, prescriptions, labs or retail purchases.",
+          "primary_cta_label": "Explore Membership",
+          "primary_cta_url": "/membership",
+          "secondary_cta_label": null,
+          "secondary_cta_url": null,
+          "background_image": null
+        }
+      },
+      {
+        "type": "bch-article-row",
+        "origin": "flexible",
+        "anchor": "articles",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "heading": "What women are asking now",
+          "link_label": "Explore the BCH Library",
+          "link_url": "/midlife-health",
+          "posts": [
+            {
+              "title": "Why Your Body Feels Different in Midlife",
+              "url": "/blog/why-your-body-feels-different",
+              "published": false,
+              "image": {
+                "url": "/images/bch/article-water-bottle.webp",
+                "alt": "A woman in activewear smiles while stretching on a mat at home."
+              }
+            },
+            {
+              "title": "Sleep Changed. Now What?",
+              "url": "/blog/sleep-changed",
+              "published": false,
+              "image": null
+            },
+            {
+              "title": "Is It Hormones, Metabolism—or Both?",
+              "url": "/blog/hormones-or-metabolism",
+              "published": false,
+              "image": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "bch-founder",
+        "origin": "flexible",
+        "anchor": "founder",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "heading": "A Letter From Amy",
+          "body": "I created Bell Curve Health because women deserve a clearer way to understand what is changing—and a more confident way to decide what comes next.",
+          "image": {
+            "url": "/images/bch/amy-desk.webp",
+            "alt": "Amy Bell, founder of Bell Curve Health, smiling at her desk with a laptop and coffee."
+          },
+          "side_note": "Real women.\nBrighter tomorrows.",
+          "cta_label": "Read Amy's letter",
+          "cta_url": "/about"
+        }
+      }
+    ]
+  }
+}

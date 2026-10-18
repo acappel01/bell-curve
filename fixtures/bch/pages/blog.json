@@ -1,0 +1,66 @@
+{
+  "data": {
+    "slug": "blog",
+    "title": "The BCH Library",
+    "seo": {
+      "title": "The BCH Library",
+      "description": "Plain-language articles on midlife health.",
+      "noindex": true
+    },
+    "title_banner": null,
+    "sections": [
+      {
+        "type": "hero",
+        "origin": "code",
+        "anchor": "top",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "layout": "split",
+          "size": "compact",
+          "eyebrow": "The BCH Library",
+          "headline": "Clear answers for",
+          "headline_emphasis": "the questions midlife raises.",
+          "subhead": "Plain-language articles on what changes and why, written to help you ask better questions and make informed choices."
+        }
+      },
+      {
+        "type": "blog-listing",
+        "origin": "code",
+        "anchor": "articles",
+        "global": null,
+        "has_content": true,
+        "data": {
+          "layout": "magazine",
+          "columns": 2,
+          "filter_style": "sidebar",
+          "sidebar_blocks": [
+            "search",
+            "categories",
+            "featured",
+            "cta"
+          ],
+          "sidebar_cta_heading": "Not sure where to start?",
+          "sidebar_cta_body": "Your free Health Map organizes what you're noticing into clear pathways.",
+          "sidebar_cta_label": "Start my Health Map",
+          "sidebar_cta_url": "/assessment",
+          "per_page": 7
+        }
+      },
+      {
+        "type": "text-block",
+        "origin": "code",
+        "anchor": null,
+        "global": null,
+        "has_content": true,
+        "data": {
+          "body": "<p>Articles are educational and are not a substitute for care from a licensed clinician.</p>",
+          "alignment": "center",
+          "theme": "light",
+          "link_label": "How telehealth works",
+          "link_url": "/clinical-care"
+        }
+      }
+    ]
+  }
+}
